@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0e3a5f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Official Admin Login - JanaSeva</title>
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" type="image/png" href="../icons/icon-192.png">
+  <link rel="apple-touch-icon" href="../icons/icon-192.png">
+  <link rel="stylesheet" href="../portal.css">
+  <link rel="stylesheet" href="../admin-console.css">
+</head>
+<body class="portal-body admin-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">Official scrutiny and application verification console</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="../user/login.html">ನಾಗರಿಕ ಲಾಗಿನ್ | Citizen Login</a>
+      <a href="../user/help.html">ಸಹಾಯ | Help</a>
+      <a href="./admin-register.html">ಅಧಿಕಾರಿ ನೋಂದಣಿ | Admin Register</a>
+    </nav>
+  </header>
+
+  <main class="admin-login-wrap">
+    <section class="admin-login-card">
+      <div class="admin-login-side">
+        <span class="admin-kicker">Official Access</span>
+        <h1>ಅಧಿಕೃತ ಅರ್ಜಿ ಪರಿಶೀಲನಾ ಡೆಸ್ಕ್ | Citizen application scrutiny and approval desk</h1>
+        <p>ಅರ್ಜಿಗಳನ್ನು ಪರಿಶೀಲಿಸುವ, ದಾಖಲೆಗಳನ್ನು ದೃಢೀಕರಿಸುವ, ಮತ್ತು ಅಂತಿಮ ನಿರ್ಧಾರಗಳನ್ನು ದಾಖಲಿಸುವ ಅಧಿಕಾರಿಗಳಿಗಾಗಿ ಈ ಕಾರ್ಯಕ್ಷೇತ್ರ ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ | This workspace is intended for authorized verification officers handling document review, application scrutiny, and final disposition recording.</p>
+        <ul>
+          <li>ಆಧಾರ್, PAN, ಪಾಸ್‌ಪೋರ್ಟ್, ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ, ಜನನ ಪ್ರಮಾಣಪತ್ರ, ಚಾಲನಾ ಪರವಾನಗಿ, ರೇಷನ್ ಕಾರ್ಡ್, ಮತ್ತು ಜಾತಿ/ಆದಾಯ ಸೇವೆಗಳ ಅರ್ಜಿಗಳನ್ನು ಪರಿಶೀಲಿಸಿ | Review submissions across all citizen services.</li>
+          <li>ಪ್ರತಿ ನಿರ್ಧಾರಕ್ಕೂ ಪರಿಶೀಲನಾ ಟಿಪ್ಪಣಿಗಳು ಮತ್ತು ಅಧಿಕೃತ ಕಾಮೆಂಟ್‌ಗಳನ್ನು ದಾಖಲಿಸಿ | Record checklist-based observations and formal officer remarks.</li>
+          <li>ಮುಖ ದೃಢೀಕರಣ ಸಹಿತ ಸುರಕ್ಷಿತ ಅಧಿಕಾರಿ ಲಾಗಿನ್ ಬಳಸಿ | Use secure officer login with face verification.</li>
+        </ul>
+      </div>
+
+      <div class="admin-login-form">
+        <h2 style="margin:0 0 8px; color:#16324f;">ಅಧಿಕಾರಿ ಲಾಗಿನ್ | Officer Login</h2>
+        <p class="admin-muted" style="margin:0 0 18px;">ಬಳಕೆದಾರ ಹೆಸರು, ಪಾಸ್‌ವರ್ಡ್ ಮತ್ತು ಮುಖ ದೃಢೀಕರಣದೊಂದಿಗೆ ಮಾತ್ರ ಪ್ರವೇಶ | Access is granted only after username, password, and face verification.</p>
+
+        <form id="adminLoginForm">
+          <div class="admin-field">
+            <label for="username">ಅಧಿಕೃತ ಬಳಕೆದಾರ ಹೆಸರು | Official Username</label>
+            <input class="admin-input" type="text" id="username" name="username" autocomplete="username" placeholder="ಅಧಿಕೃತ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ನಮೂದಿಸಿ | Enter official username" required>
+          </div>
+
+          <div class="admin-field" style="margin-top:14px;">
+            <label for="password">ಪಾಸ್‌ವರ್ಡ್ | Password</label>
+            <input class="admin-input" type="password" id="password" name="password" autocomplete="current-password" placeholder="ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ | Enter password" required>
+          </div>
+
+          <div class="face-login-section" style="margin-top: 16px; padding: 14px; border: 1px solid #d7dee6; border-radius: 12px; background: #f7fafc;">
+            <label style="display:block; margin-bottom:8px; font-weight:700; color:#16324f;">ಮುಖ ದೃಢೀಕರಣ | Face Verification</label>
+            <div id="face-camera-container" style="display:none; margin-bottom: 10px; text-align:center;">
+              <video id="face-video" width="220" height="165" autoplay style="border: 2px solid #007bff; border-radius: 6px;"></video>
+              <canvas id="face-canvas" style="display:none;"></canvas>
+            </div>
+            <p style="margin:0 0 10px; color:#5b6472; font-size:0.9rem;">ಕ್ಯಾಮರಾ ತೆರೆಯಿರಿ, ನಂತರ ಮುಖ ಪರಿಶೀಲನೆ ಮಾಡಿ | Start the camera and verify your face before login.</p>
+            <button type="button" id="start-face-verification" class="admin-btn admin-btn-secondary">ಮುಖ ದೃಢೀಕರಿಸಿ | Verify Face</button>
+            <div id="face-verification-status" style="margin-top:10px; font-weight:700; color:#16324f;"></div>
+          </div>
+
+          <div id="loginMessage" class="admin-alert" style="display:none;"></div>
+
+          <div class="admin-toolbar">
+            <button class="admin-btn admin-btn-primary" type="submit">ಆಡ್ಮಿನ್ ಕಾನ್ಸೋಲ್‌ಗೆ ಲಾಗಿನ್ | Sign In to Admin Console</button>
+            <a class="admin-btn admin-btn-secondary" href="./admin-register.html">ಅಧಿಕಾರಿ ಖಾತೆ ರಚಿಸಿ | Create Admin Account</a>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="portal-footer">
+    &copy; 2026 JanaSeva Service Platform. ಅಧಿಕೃತ ಬಳಕೆಗೆ ಮಾತ್ರ | Authorized official use only.
+  </footer>
+
+  <script>
+    var faceVerifier = null;
+    var faceVerified = false;
+    var liveFaceBurstCount = 8;
+
+    function showMessage(message, isError) {
+      const box = document.getElementById('loginMessage');
+      box.style.display = 'block';
+      box.className = isError ? 'admin-alert error' : 'admin-alert';
+      box.textContent = message;
+    }
+
+    function storeAdminSession(payload) {
+      localStorage.setItem('adminToken', payload.token);
+      localStorage.setItem('adminProfile', JSON.stringify(payload.admin || {}));
+      localStorage.setItem('userRole', 'admin');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      faceVerifier = new FaceVerification('face-video', 'face-canvas');
+
+      if (localStorage.getItem('adminToken')) {
+        window.location.href = './admin-dashboard.html';
+        return;
+      }
+
+      document.getElementById('username').addEventListener('input', function () {
+        faceVerified = false;
+        if (faceVerifier) faceVerifier.stopCamera();
+        document.getElementById('face-camera-container').style.display = 'none';
+        document.getElementById('start-face-verification').textContent = 'ಮುಖ ದೃಢೀಕರಿಸಿ | Verify Face';
+        document.getElementById('face-verification-status').textContent = '';
+      });
+
+      document.getElementById('start-face-verification').addEventListener('click', async function () {
+        const username = document.getElementById('username').value.trim();
+        const status = document.getElementById('face-verification-status');
+        if (!username) {
+          showMessage('ದಯವಿಟ್ಟು ಮೊದಲು ಬಳಕೆದಾರ ಹೆಸರನ್ನು ನಮೂದಿಸಿ | Please enter official username first', true);
+          return;
+        }
+
+        const cameraVisible = document.getElementById('face-camera-container').style.display !== 'none';
+        if (!cameraVisible) {
+          status.textContent = 'ಕ್ಯಾಮರಾ ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತಿದೆ... | Starting camera...';
+          const started = await faceVerifier.startCamera();
+          if (!started) {
+            status.textContent = 'ಕ್ಯಾಮರಾ ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಗಿದೆ | Camera access denied';
+            status.style.color = 'red';
+            return;
+          }
+          document.getElementById('face-camera-container').style.display = 'block';
+          document.getElementById('start-face-verification').textContent = 'ಈಗ ಮುಖ ದೃಢೀಕರಿಸಿ | Verify Face Now';
+          status.textContent = 'ನಿಮ್ಮ ಮುಖವನ್ನು ಕ್ಯಾಮರಾದ ಮುಂದೆ ಇಡಿ ಮತ್ತು ಮತ್ತೆ ಬಟನ್ ಒತ್ತಿ | Position your face and press again';
+          status.style.color = '#16324f';
+          return;
+        }
+
+        status.textContent = 'ಮುಖ ಹೋಲಿಕೆ ನಡೆಯುತ್ತಿದೆ... | Face verification is in progress...';
+        try {
+          const samples = await faceVerifier.captureFaceBurst(liveFaceBurstCount, 120, 'admin-login-live');
+          const formData = new FormData();
+          formData.append('username', username);
+          formData.append('faceProfile', JSON.stringify(faceVerifier.buildFaceProfile(samples)));
+          samples.forEach(function (sample, index) {
+            formData.append('photos', sample.blob, 'admin-live-' + (index + 1) + '.jpg');
+            formData.append('faceSignatures', JSON.stringify(sample.embedding));
+          });
+
+          const response = await fetch('/api/admin/verify-face', {
+            method: 'POST',
+            body: formData
+          });
+          const result = await response.json();
+          if (result.verified) {
+            faceVerified = true;
+            faceVerifier.stopCamera();
+            document.getElementById('face-camera-container').style.display = 'none';
+            document.getElementById('start-face-verification').textContent = 'ಮತ್ತೆ ಪರಿಶೀಲಿಸಿ | Verify Again';
+            status.textContent = 'ಮುಖ ದೃಢೀಕರಣ ಯಶಸ್ವಿಯಾಗಿದೆ | Face verification successful (' + Number(result.confidence || 0).toFixed(1) + '%)';
+            status.style.color = 'green';
+          } else {
+            faceVerified = false;
+            status.textContent = (result.message || 'Face verification failed') + ' | ಮುಖ ದೃಢೀಕರಣ ವಿಫಲವಾಗಿದೆ';
+            status.style.color = 'red';
+          }
+        } catch (error) {
+          faceVerified = false;
+          status.textContent = 'ಮುಖ ದೃಢೀಕರಣ ದೋಷ | Face verification error';
+          status.style.color = 'red';
+        }
+      });
+
+      document.getElementById('adminLoginForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        if (!faceVerified) {
+          showMessage('ಲಾಗಿನ್ ಮಾಡುವ ಮೊದಲು ಮುಖ ದೃಢೀಕರಣ ಅಗತ್ಯ | Face verification is required before login', true);
+          return;
+        }
+
+        fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: username, password: password })
+        })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            if (!res.ok) throw new Error(data.message || 'Admin login failed');
+            return data;
+          });
+        })
+        .then(function (data) {
+          storeAdminSession(data);
+          showMessage('Login successful. Redirecting to verification console...', false);
+          window.setTimeout(function () {
+            window.location.href = './admin-dashboard.html';
+          }, 450);
+        })
+        .catch(function (error) {
+          showMessage(error.message || 'Admin login failed', true);
+        });
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619/face_mesh.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@1.0.6/dist/face-landmarks-detection.min.js"></script>
+  <script src="../pwa-init.js"></script>
+  <script src="../face-verification.js"></script>
+</body>
+</html>
+

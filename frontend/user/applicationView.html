@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application PDF View - JanaSeva</title>
+  <link rel="stylesheet" href="../sw.css" />
+  <style>
+    :root {
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --line: #d1d5db;
+      --accent: #1e3a5f;
+      --paper: #ffffff;
+      --bg: #eef2f7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .page-wrap {
+      padding: 24px;
+    }
+
+    .toolbar {
+      max-width: 900px;
+      margin: 0 auto 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar button,
+    .toolbar a {
+      border: 0;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .sheet {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .header p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .meta-item {
+      border: 1px solid var(--line);
+      padding: 10px;
+      border-radius: 6px;
+      background: #f9fafb;
+    }
+
+    .meta-item b {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      margin: 18px 0 10px;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      text-align: left;
+      padding: 9px;
+      vertical-align: top;
+    }
+
+    th {
+      width: 35%;
+      color: #111827;
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .error {
+      color: #b91c1c;
+      font-weight: 600;
+      margin-top: 12px;
+    }
+
+    .pdf-footer {
+      margin-top: 36px;
+    }
+
+    @media (max-width: 700px) {
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .toolbar {
+        display: none;
+      }
+
+      .navbar,
+      .pdf-footer {
+        display: none;
+      }
+
+      .page-wrap {
+        padding: 0;
+      }
+
+      .sheet {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="../image/emblem.png" alt="Logo" />
+      <b>JanaSeva</b>
+    </div>
+    <div class="navcont">
+      <a href="./home.html">ಮುಖಪುಟ | Home</a>
+      <a href="./history.html">ಇತಿಹಾಸ | History</a>
+      <a href="#" id="logout-link">ಲಾಗ್‌ಔಟ್ | Logout</a>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+    <div class="toolbar">
+      <a href="./history.html">Back to History</a>
+      <button type="button" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <div class="sheet">
+      <div class="header">
+        <h1>Application Details</h1>
+        <p>JanaSeva Service Platform</p>
+      </div>
+
+      <div id="content">
+        <p class="muted">Loading application details...</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="ogd-footer pdf-footer">
+    <div class="footer-bottom">
+      © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    function prettyLabel(key) {
+      return String(key || '')
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, m => m.toUpperCase());
+    }
+
+    function esc(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function render(application, details) {
+      const content = document.getElementById('content');
+      const metaHtml = `
+        <div class="meta-grid">
+          <div class="meta-item"><b>Application Number</b>${esc(application.application_number || '-')}</div>
+          <div class="meta-item"><b>Applicant Name</b>${esc(application.applicant_name || '-')}</div>
+          <div class="meta-item"><b>Application Type</b>${esc(application.application_type || '-')}</div>
+          <div class="meta-item"><b>Status</b>${esc(application.status || '-')}</div>
+          <div class="meta-item"><b>Application Date</b>${esc(application.application_date || '-')}</div>
+        </div>
+      `;
+
+      const rows = [];
+      if (details && typeof details === 'object') {
+        Object.keys(details).forEach(key => {
+          if (['id', 'application_number', 'created_at'].includes(key)) return;
+          const value = details[key];
+          if (value === null || value === undefined || value === '') return;
+          rows.push(`<tr><th>${esc(prettyLabel(key))}</th><td>${esc(value)}</td></tr>`);
+        });
+      }
+
+      const detailsHtml = rows.length
+        ? `<h2 class="section-title">Submitted Details</h2><table><tbody>${rows.join('')}</tbody></table>`
+        : `<p class="muted">No additional detail fields were found for this application.</p>`;
+
+      content.innerHTML = metaHtml + detailsHtml;
+    }
+
+    function showError(message) {
+      const content = document.getElementById('content');
+      content.innerHTML = `<p class="error">${esc(message)}</p>`;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!localStorage.getItem('username')) {
+        window.location.href = './login.html';
+        return;
+      }
+
+      const logoutLink = document.getElementById('logout-link');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          const confirmLogout = confirm('ನೀವು ಲಾಗ್‌ಔಟ್ ಮಾಡಲು ಖಚಿತವೇ? | Are you sure you want to logout?');
+          if (confirmLogout) {
+            localStorage.removeItem('username');
+            alert('ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಲಾಗ್‌ಔಟ್ ಆಗಿದ್ದೀರಿ | You have successfully logged out!');
+            window.location.href = './login.html';
+          }
+        });
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const appNo = params.get('applicationNumber');
+      const type = params.get('type');
+
+      if (!appNo) {
+        showError('Missing application number.');
+        return;
+      }
+
+      const query = type ? `?type=${encodeURIComponent(type)}` : '';
+      fetch(`/api/applications/${encodeURIComponent(appNo)}${query}`)
+        .then(res => res.json().then(data => ({ ok: res.ok, data })))
+        .then(({ ok, data }) => {
+          if (!ok || !data.success) {
+            throw new Error(data.message || 'Unable to load application details.');
+          }
+          render(data.application, data.details);
+        })
+        .catch(err => {
+          showError(err.message || 'Unable to load application details.');
+        });
+    });
+  </script>
+</body>
+</html>
+
+
+
+

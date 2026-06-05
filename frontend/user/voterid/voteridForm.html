@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voter ID Registration (Form 6) - JanaSeva | ಭಾರತದ ರಾಷ್ಟ್ರೀಯ ಪೋರ್ಟಲ್ | National Portal of India</title>
+  <link rel="stylesheet" href="../../portal.css">
+</head>
+<body class="portal-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="../home.html">ಮುಖಪುಟ | Home</a>
+      <a href="../history.html">ಇತಿಹಾಸ | History</a>
+      <a href="voteridAbout.html">About Voter ID</a>
+    </nav>
+  </header>
+
+  <main class="portal-main">
+    <div class="portal-card">
+      <h1 class="portal-title">ಅರ್ಜಿಸಿ | Apply for Voter ID Card (Form 6)</h1>
+      <p class="portal-subtitle">ಹೊಸ ಮತದಾರರ ನೋಂದಣಿ. * ಗುರುತು ಇರುವ ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳು ಕಡ್ಡಾಯ | New voter registration. All fields marked * are mandatory.</p>
+
+      <form id="voteridForm" class="portal-form" onsubmit="submitForm(event)">
+        <div class="portal-section">
+          <h3>ವೈಯಕ್ತಿಕ ವಿವರಗಳು | Personal Details</h3>
+          <label>ಪೂರ್ಣ ಹೆಸರು (ದಾಖಲೆಯಂತೆ) * | Full Name (as in proof) *</label>
+          <input type="text" id="fullName" name="full_name" required placeholder="ಪೂರ್ಣ ಹೆಸರು | Full name">
+
+          <label>ತಂದೆಯ ಹೆಸರು / ಗಂಡನ ಹೆಸರು * | Father's Name / Husband's Name *</label>
+          <input type="text" name="father_or_husband_name" required placeholder="ತಂದೆ/ಗಂಡನ ಹೆಸರು | Father's or husband's name">
+
+          <label>ಜನ್ಮ ದಿನಾಂಕ * | Date of Birth *</label>
+          <input type="date" name="dob" required>
+
+          <label>ಲಿಂಗ * | Gender *</label>
+          <select name="gender" required>
+            <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+            <option>ಪುರುಷ | Male</option>
+            <option>ಮಹಿಳೆ | Female</option>
+            <option>ಇತರೆ | Other</option>
+          </select>
+
+          <label>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ * | Mobile Number *</label>
+          <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" placeholder="10 ಅಂಕಿಯ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ | 10-digit mobile">
+
+          <div class="portal-otp-section" style="margin:10px 0; padding:12px; border:1px solid #cfcfcf; border-radius:8px; background:#f7f8fa;">
+            <label style="display:block; font-weight:700; margin-bottom:6px;">OTP Verification</label>
+            <button type="button" id="sendOtpButton" class="portal-btn portal-btn-secondary" style="width:100%; margin-bottom:8px;">Send Demo OTP</button>
+            <div id="otpStatus" style="font-size:0.95rem; color:#333; margin-bottom:8px;"></div>
+            <div id="otpRow" style="display:none;">
+              <label for="otpInput">Enter 4-digit OTP *</label>
+              <input type="text" id="otpInput" name="otp" inputmode="numeric" maxlength="4" placeholder="Enter 4-digit OTP" style="width:100%; padding:10px; margin-top:8px; border-radius:5px; border:1px solid #ccc;">
+            </div>
+          </div>
+
+          <label>ಇಮೇಲ್ ವಿಳಾಸ * | Email Address *</label>
+          <input type="email" name="email" required placeholder="ಇಮೇಲ್ | Email">
+        </div>
+
+        <div class="portal-section">
+          <h3>ನೋಂದಣಿಗಾಗಿ ವಿಳಾಸ | Address for Registration</h3>
+          <label>ಮನೆ ಸಂಖ್ಯೆ / ಕಟ್ಟಡ / ರಸ್ತೆ * | House No. / Building / Street *</label>
+          <input type="text" name="address_line1" required placeholder="ವಿಳಾಸ ಸಾಲು 1 | Address line 1">
+
+          <label>ಪ್ರದೇಶ / ಗ್ರಾಮ / ಪಟ್ಟಣ * | Locality / Village / Town *</label>
+          <input type="text" name="locality" required placeholder="ಪ್ರದೇಶ | Locality">
+
+          <label>ಜಿಲ್ಲೆ * | District *</label>
+          <input type="text" name="district" required placeholder="ಜಿಲ್ಲೆ | District">
+
+          <label>ರಾಜ್ಯ * | State *</label>
+          <input type="text" name="state" required placeholder="ರಾಜ್ಯ | State">
+
+          <label>ಪಿನ್ ಕೋಡ್ * | PIN Code *</label>
+          <input type="text" name="pin_code" required pattern="[0-9]{6}" placeholder="6 ಅಂಕಿಯ ಪಿನ್ ಕೋಡ್ | 6-digit PIN">
+        </div>
+
+        <div class="portal-section">
+          <h3>1. ಗುರುತಿನ ಪುರಾವೆ (ಯಾವುದಾದರೂ ಒಂದು) * | Proof of Identity (Any One) *</h3>
+          <select name="identity_proof" required>
+            <option value="">ಗುರುತಿನ ಪುರಾವೆ ಆಯ್ಕೆಮಾಡಿ | Select Identity Proof</option>
+            <option>ಆಧಾರ್ ಕಾರ್ಡ್ | Aadhaar Card</option>
+            <option>ಪ್ಯಾನ್ ಕಾರ್ಡ್ | PAN Card</option>
+            <option>ಪಾಸ್‌ಪೋರ್ಟ್ | Passport</option>
+            <option>ಚಾಲನಾ ಪರವಾನಗಿ | Driving Licence</option>
+            <option>ಸರ್ಕಾರಿ ಐಡಿ / ಫೋಟೋ ಹೊಂದಿರುವ ಬ್ಯಾಂಕ್ ಪಾಸ್‌ಬುಕ್ | Government ID / Bank Passbook with Photo</option>
+          </select>
+          <label>ಗುರುತಿನ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ * | Upload Identity Proof *</label>
+          <input type="file" name="identity_proof" required accept="image/*,.pdf">
+        </div>
+
+        <div class="portal-section">
+          <h3>2. ವಯಸ್ಸು / ಜನ್ಮ ದಿನಾಂಕದ ಪುರಾವೆ * | Proof of Age / Date of Birth *</h3>
+          <select name="age_proof" required>
+            <option value="">ವಯಸ್ಸಿನ ಪುರಾವೆ ಆಯ್ಕೆಮಾಡಿ | Select Age Proof</option>
+            <option>ಜನನ ಪ್ರಮಾಣಪತ್ರ | Birth Certificate</option>
+            <option>10 / 12ನೇ ತರಗತಿ ಅಂಕಪಟ್ಟಿ | Class 10 / 12 Marks Card</option>
+            <option>ಪಾಸ್‌ಪೋರ್ಟ್ | Passport</option>
+            <option>ಪ್ಯಾನ್ ಕಾರ್ಡ್ | PAN Card</option>
+            <option>ಆಧಾರ್ ಕಾರ್ಡ್ | Aadhaar Card</option>
+          </select>
+          <label>ವಯಸ್ಸು / DOB ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ * | Upload Age / DOB Proof *</label>
+          <input type="file" name="age_proof" required accept="image/*,.pdf">
+        </div>
+
+        <div class="portal-section">
+          <h3>3. ವಿಳಾಸದ ಪುರಾವೆ * | Proof of Address *</h3>
+          <select name="address_proof" required>
+            <option value="">ವಿಳಾಸದ ಪುರಾವೆ ಆಯ್ಕೆಮಾಡಿ | Select Address Proof</option>
+            <option>ಆಧಾರ್ ಕಾರ್ಡ್ | Aadhaar Card</option>
+            <option>ವಿದ್ಯುತ್ / ನೀರು / ಅನಿಲ ಬಿಲ್ | Electricity / Water / Gas Bill</option>
+            <option>ಬ್ಯಾಂಕ್ ಪಾಸ್‌ಬುಕ್ / ಸ್ಟೇಟ್ಮೆಂಟ್ | Bank Passbook / Statement</option>
+            <option>ಪಾಸ್‌ಪೋರ್ಟ್ | Passport</option>
+            <option>ರೇಷನ್ ಕಾರ್ಡ್ | Ration Card</option>
+            <option>ಬಾಡಿಗೆ ಒಪ್ಪಂದ / ಆಸ್ತಿ ದಾಖಲೆಗಳು | Rent Agreement / Property Documents</option>
+          </select>
+          <label>ವಿಳಾಸದ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ * | Upload Address Proof *</label>
+          <input type="file" name="address_proof" required accept="image/*,.pdf">
+        </div>
+
+        <div class="portal-section">
+          <h3>4. ಪಾಸ್‌ಪೋರ್ಟ್ ಗಾತ್ರದ ಫೋಟೋ * | Passport Size Photograph *</h3>
+          <label>ಇತ್ತೀಚಿನ ಪಾಸ್‌ಪೋರ್ಟ್ ಗಾತ್ರದ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ * | Upload recent passport size photo *</label>
+          <input type="file" name="photo_path" required accept="image/*">
+        </div>
+
+        <div class="portal-btn-row">
+          <button type="submit" class="portal-btn portal-btn-primary">ಅರ್ಜಿಯನ್ನು ಸಲ್ಲಿಸಿ | Submit Application</button>
+          <button type="button" onclick="document.getElementById('voteridForm').reset()" class="portal-btn portal-btn-secondary">ತೆರವುಗೊಳಿಸಿ | Clear</button>
+          <button type="button" onclick="history.back()" class="portal-btn portal-btn-secondary">ಹಿಂದಕ್ಕೆ | Back</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+  </footer>
+
+  <script src="../../application-form-helper.js"></script>
+  <script>
+    async function serializeForm(form) {
+      return window.serializeApplicationForm(form);
+    }
+
+    async function submitForm(event) {
+      event.preventDefault();
+      if (!validateDemoOtp('voteridForm')) return;
+      const form = document.getElementById('voteridForm');
+      const payload = await serializeForm(form);
+      fetch('/api/apply/voterid', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(err => Promise.reject(err));
+        }
+        return res.json();
+      })
+      .then(resp => {
+        if (resp.success) {
+          alert('Application submitted. Reference #' + resp.application_number);
+          localStorage.setItem('voteridApplicationNumber', resp.application_number);
+          window.location.href = 'voteridSuccess.html';
+        } else {
+          const errorMsg = resp.message || (typeof resp.error === 'string' ? resp.error : JSON.stringify(resp.error)) || 'Unknown error';
+          alert('Error: ' + errorMsg);
+        }
+      })
+      .catch(err => {
+        console.error('Submission error:', err);
+        const errorMsg = err.message || (typeof err === 'string' ? err : (err.error?.message || JSON.stringify(err))) || 'Unable to contact server. Please check if MySQL database is set up.';
+        alert('Submission failed: ' + errorMsg);
+      });
+    }
+  </script>
+  <script src="../../otp-demo.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initDemoOtp('voteridForm', 'mobile');
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

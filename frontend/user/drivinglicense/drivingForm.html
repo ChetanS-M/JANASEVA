@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driving Licence Application - JanaSeva | ಭಾರತದ ರಾಷ್ಟ್ರೀಯ ಪೋರ್ಟಲ್ | National Portal of India</title>
+  <link rel="stylesheet" href="../../portal.css">
+</head>
+<body class="portal-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="../home.html">ಮುಖಪುಟ | Home</a>
+      <a href="../history.html">ಇತಿಹಾಸ | History</a>
+      <a href="drivinglicenseAbout.html">About Driving Licence</a>
+    </nav>
+  </header>
+
+  <main class="portal-main">
+    <div class="portal-card">
+      <h1 class="portal-title">ಚಾಲನಾ ಪರವಾನಗಿ ಅರ್ಜಿ | Driving Licence Application</h1>
+      <p class="portal-subtitle">ವೈಯಕ್ತಿಕ ವಿವರಗಳು, ಪರವಾನಗಿ ಪ್ರಕಾರ ಮತ್ತು ದಾಖಲೆ ಅಪ್‌ಲೋಡ್. * ಗುರುತು ಇರುವ ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳು ಕಡ್ಡಾಯ | Personal details, licence type, and document uploads. All fields marked * are mandatory.</p>
+
+      <form id="drivingForm" class="portal-form" onsubmit="submitForm(event)">
+        <div class="portal-section">
+          <h3>ವೈಯಕ್ತಿಕ ವಿವರಗಳು | Personal Details</h3>
+          <label>ಪೂರ್ಣ ಹೆಸರು * | Full Name *</label>
+          <input type="text" id="fullName" name="full_name" required placeholder="ಪೂರ್ಣ ಹೆಸರು | Full name">
+
+          <label>ತಂದೆಯ ಹೆಸರು * | Father's Name *</label>
+          <input type="text" name="father_name" required placeholder="ತಂದೆಯ ಪೂರ್ಣ ಹೆಸರು | Father's full name">
+
+          <label>ಜನ್ಮ ದಿನಾಂಕ * | Date of Birth *</label>
+          <input type="date" name="dob" required>
+
+          <label>ಲಿಂಗ * | Gender *</label>
+          <select name="gender" required>
+            <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+            <option>ಪುರುಷ | Male</option>
+            <option>ಮಹಿಳೆ | Female</option>
+            <option>ಇತರೆ | Other</option>
+          </select>
+
+          <label>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ * | Mobile Number *</label>
+          <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" placeholder="10 ಅಂಕಿಯ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ | 10-digit mobile">
+
+          <div class="portal-otp-section" style="margin:10px 0; padding:12px; border:1px solid #cfcfcf; border-radius:8px; background:#f7f8fa;">
+            <label style="display:block; font-weight:700; margin-bottom:6px;">OTP Verification</label>
+            <button type="button" id="sendOtpButton" class="portal-btn portal-btn-secondary" style="width:100%; margin-bottom:8px;">Send Demo OTP</button>
+            <div id="otpStatus" style="font-size:0.95rem; color:#333; margin-bottom:8px;"></div>
+            <div id="otpRow" style="display:none;">
+              <label for="otpInput">Enter 4-digit OTP *</label>
+              <input type="text" id="otpInput" name="otp" inputmode="numeric" maxlength="4" placeholder="Enter 4-digit OTP" style="width:100%; padding:10px; margin-top:8px; border-radius:5px; border:1px solid #ccc;">
+            </div>
+          </div>
+
+          <label>ಇಮೇಲ್ ಐಡಿ * | Email ID *</label>
+          <input type="email" name="email" required placeholder="ಇಮೇಲ್ ವಿಳಾಸ | Email address">
+
+          <label>ವಿಳಾಸ * | Address *</label>
+          <textarea name="address" required rows="3" placeholder="ಪೂರ್ಣ ವಿಳಾಸ | Full address"></textarea>
+        </div>
+
+        <div class="portal-section">
+          <h3>ಪರವಾನಗಿ ಪ್ರಕಾರ | Licence Type</h3>
+          <select name="licence_type" required>
+            <option value="">ಪರವಾನಗಿ ಪ್ರಕಾರ ಆಯ್ಕೆಮಾಡಿ | Select Licence Type</option>
+            <option>ಗಿಯರ್‌ರಹಿತ ದ್ವಿಚಕ್ರ ವಾಹನ (16+ ವರ್ಷ) | Gearless Two Wheeler (16+ years)</option>
+            <option>ಗಿಯರ್ ಇರುವ ಮೋಟಾರ್ ಸೈಕಲ್ (18+ ವರ್ಷ) | Motorcycle with Gear (18+ years)</option>
+            <option>ಕಾರ್ (18+ ವರ್ಷ) | Car (18+ years)</option>
+            <option>ವಾಣಿಜ್ಯ ವಾಹನ (20+ ವರ್ಷ) | Commercial Vehicle (20+ years)</option>
+          </select>
+        </div>
+
+        <div class="portal-section">
+          <h3>ಲರ್ನರ್ ಪರವಾನಗಿ ವಿವರಗಳು | Learner's Licence Details</h3>
+          <label>ಲರ್ನರ್ ಪರವಾನಗಿ ಸಂಖ್ಯೆ (ಅನ್ವಯಿಸಿದರೆ) | Learner's Licence Number (if applicable)</label>
+          <input type="text" name="ll_number" placeholder="LL ಸಂಖ್ಯೆ | LL number">
+
+          <label>ಜಾರಿಯಾದ ದಿನಾಂಕ (LL) * | Date of Issue (LL) *</label>
+          <input type="date" name="ll_issue_date" required>
+        </div>
+
+        <div class="portal-section">
+          <h3>ಅಗತ್ಯ ದಾಖಲೆಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ * | Upload Required Documents *</h3>
+          <label>ಗುರುತಿನ ಪುರಾವೆ * | Identity Proof *</label>
+          <input type="file" name="identity_proof_path" required accept="image/*,.pdf">
+
+          <label>ವಿಳಾಸ ಪುರಾವೆ * | Address Proof *</label>
+          <input type="file" name="address_proof_path" required accept="image/*,.pdf">
+
+          <label>ವಯಸ್ಸಿನ ಪುರಾವೆ * | Age Proof *</label>
+          <input type="file" name="age_proof_path" required accept="image/*,.pdf">
+
+          <label>ಪಾಸ್‌ಪೋರ್ಟ್ ಗಾತ್ರದ ಫೋಟೋ * | Passport Size Photograph *</label>
+          <input type="file" name="photo_path" required accept="image/*">
+
+          <label>ವೈದ್ಯಕೀಯ ಪ್ರಮಾಣಪತ್ರ (Form 1A - ಅನ್ವಯಿಸಿದರೆ) | Medical Certificate (Form 1A - if applicable)</label>
+          <input type="file" name="medical_certificate_path" accept="image/*,.pdf">
+        </div>
+
+        <div class="portal-btn-row">
+          <button type="submit" class="portal-btn portal-btn-primary">ಅರ್ಜಿಯನ್ನು ಸಲ್ಲಿಸಿ | Submit Application</button>
+          <button type="button" onclick="document.getElementById('drivingForm').reset()" class="portal-btn portal-btn-secondary">ತೆರವುಗೊಳಿಸಿ | Clear</button>
+          <button type="button" onclick="history.back()" class="portal-btn portal-btn-secondary">ಹಿಂದಕ್ಕೆ | Back</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+  </footer>
+
+  <script src="../../application-form-helper.js"></script>
+  <script>
+    async function serializeForm(form) {
+      return window.serializeApplicationForm(form);
+    }
+
+    async function submitForm(event) {
+      event.preventDefault();
+      if (!validateDemoOtp('drivingForm')) return;
+      const form = document.getElementById('drivingForm');
+      const payload = await serializeForm(form);
+      fetch('/api/apply/driving', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(err => Promise.reject(err));
+        }
+        return res.json();
+      })
+      .then(resp => {
+        if (resp.success) {
+          alert('Application submitted. Reference #' + resp.application_number);
+          localStorage.setItem('drivinglicenseApplicationNumber', resp.application_number);
+          window.location.href = 'drivinglicenseSuccess.html';
+        } else {
+          const errorMsg = resp.message || (typeof resp.error === 'string' ? resp.error : JSON.stringify(resp.error)) || 'Unknown error';
+          alert('Error: ' + errorMsg);
+        }
+      })
+      .catch(err => {
+        console.error('Submission error:', err);
+        const errorMsg = err.message || (typeof err === 'string' ? err : (err.error?.message || JSON.stringify(err))) || 'Unable to contact server. Please check if MySQL database is set up.';
+        alert('Submission failed: ' + errorMsg);
+      });
+    }
+  </script>
+  <script src="../../otp-demo.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initDemoOtp('drivingForm', 'mobile');
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ಕರ್ನಾಟಕ ಸರ್ಕಾರದ ಸುದ್ದಿ | Karnataka Govt News - JanaSeva</title>
+  <link rel="stylesheet" href="../sw.css" />
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="../image/emblem.png" alt="Logo" />
+      <div class="logo-text">
+        <b>JanaSeva</b>
+        <span class="tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <div class="navcont">
+      <a href="./home.html">ಮುಖಪುಟ | Home</a>
+      <a href="./history.html">ಇತಿಹಾಸ | History</a>
+      <a href="./help.html">ಸಹಾಯ | Help</a>
+      <a href="#" id="logout-link">ಲಾಗ್‌ಔಟ್ | Logout</a>
+    </div>
+  </div>
+
+  <section class="knews-hero">
+    <div class="section-container">
+      <div>
+        <h1>ಕರ್ನಾಟಕ ಸರ್ಕಾರದ ಸುದ್ದಿ | Karnataka Government News</h1>
+        <p>ಸರ್ಕಾರದ ವಿಷಯಗಳು, ಹೊಸ ನಿಯಮಗಳು ಮತ್ತು ಯೋಜನೆಗಳ ಇತ್ತೀಚಿನ ಮಾಹಿತಿ | Latest updates on government issues, new rules and schemes.</p>
+      </div>
+      <button class="knews-refresh-btn" id="refresh-news-btn" type="button">ಸುದ್ದಿ ರಿಫ್ರೆಶ್ ಮಾಡಿ | Refresh News</button>
+    </div>
+  </section>
+
+  <main class="knews-main">
+    <div class="section-container">
+      <p id="news-meta" class="knews-meta">ಇತ್ತೀಚಿನ ಸುದ್ದಿಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ... | Loading latest news...</p>
+      <section id="featured-news" class="knews-featured" style="display: none;"></section>
+      <section id="news-grid" class="knews-grid"></section>
+      <div id="news-empty" class="knews-empty" style="display: none;"></div>
+    </div>
+  </main>
+
+  <footer class="ogd-footer">
+    <div class="footer-bottom">
+      © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const NEWS_API = '/api/karnataka-news';
+      const metaEl = document.getElementById('news-meta');
+      const featuredEl = document.getElementById('featured-news');
+      const gridEl = document.getElementById('news-grid');
+      const emptyEl = document.getElementById('news-empty');
+      const refreshBtn = document.getElementById('refresh-news-btn');
+
+      if (!localStorage.getItem('username')) {
+        window.location.href = './login.html';
+        return;
+      }
+
+      document.getElementById('logout-link').addEventListener('click', function (e) {
+        e.preventDefault();
+        if (confirm('ನೀವು ಲಾಗ್‌ಔಟ್ ಮಾಡಲು ಖಚಿತವೇ? | Are you sure you want to logout?')) {
+          localStorage.removeItem('username');
+          window.location.href = './login.html';
+        }
+      });
+
+      refreshBtn.addEventListener('click', function () {
+        loadNews(true);
+      });
+
+      function getCategory(title) {
+        const t = (title || '').toLowerCase();
+        if (t.indexOf('scheme') >= 0 || t.indexOf('yojana') >= 0 || t.indexOf('grant') >= 0) return 'ಯೋಜನೆ | Scheme';
+        if (t.indexOf('rule') >= 0 || t.indexOf('act') >= 0 || t.indexOf('law') >= 0 || t.indexOf('order') >= 0) return 'ನಿಯಮ | Rule';
+        if (t.indexOf('budget') >= 0 || t.indexOf('tax') >= 0 || t.indexOf('fare') >= 0) return 'ಆರ್ಥಿಕತೆ | Economy';
+        if (t.indexOf('education') >= 0 || t.indexOf('school') >= 0 || t.indexOf('health') >= 0) return 'ಸಾರ್ವಜನಿಕ ಸೇವೆ | Public Service';
+        return 'ಸರ್ಕಾರಿ ಅಪ್‌ಡೇಟ್ | Government Update';
+      }
+
+      function fallbackImageFor(category) {
+        if (category.indexOf('Scheme') >= 0) return 'image/aadharslide.jpg';
+        if (category.indexOf('Rule') >= 0) return 'image/panslide.jpg';
+        if (category.indexOf('Economy') >= 0) return 'image/log.jpg';
+        if (category.indexOf('Public Service') >= 0) return 'image/voteslide.jpg';
+        return 'image/emblem.png';
+      }
+
+      function cleanText(rawHtml) {
+        if (!rawHtml) return '';
+        return rawHtml
+          .replace(/<[^>]*>/g, ' ')
+          .replace(/&nbsp;/gi, ' ')
+          .replace(/&amp;/gi, '&')
+          .replace(/&#39;/g, "'")
+          .replace(/&quot;/gi, '"')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+
+      function extractImage(rawHtml, category) {
+        const match = (rawHtml || '').match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (match && match[1]) return match[1];
+        return fallbackImageFor(category);
+      }
+
+      function formatDate(dateString) {
+        const d = new Date(dateString);
+        if (isNaN(d.getTime())) return 'ಇತ್ತೀಚಿನದು | Recent';
+        return d.toLocaleString('en-IN', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      }
+
+      function sourceLabel(link, sourceTag) {
+        if (sourceTag) return sourceTag;
+        try {
+          const host = new URL(link).hostname;
+          return host.replace(/^www\./, '');
+        } catch (e) {
+          return 'ಸುದ್ದಿ ಮೂಲ | News Source';
+        }
+      }
+
+      function safeLink(url) {
+        const value = (url || '').trim();
+        if (/^https?:\/\//i.test(value)) return value;
+        return '#';
+      }
+
+      function safeMediaUrl(url) {
+        const value = (url || '').trim();
+        if (/^https?:\/\//i.test(value)) {
+          const clean = value.replace(/["'\\]/g, '');
+          return '/api/news-image?url=' + encodeURIComponent(clean);
+        }
+        if (/^image\//i.test(value)) return value.replace(/["'()\\]/g, '');
+        return 'image/emblem.png';
+      }
+
+      function normalizeNews(item) {
+        const title = (item && item.title ? item.title : 'ಶೀರ್ಷಿಕೆ ಲಭ್ಯವಿಲ್ಲ | Untitled').trim();
+        const link = item && item.link ? item.link : '#';
+        const pubDate = item && item.pubDate ? item.pubDate : '';
+        const source = sourceLabel(link, item && item.source ? item.source : '');
+        const category = item && item.category ? item.category : getCategory(title);
+        const summaryRaw = item && item.summary ? item.summary : 'ಪೂರ್ಣ ಮಾಹಿತಿಗಾಗಿ ಲೇಖನವನ್ನು ತೆರೆಯಿರಿ | Open the article to read the complete update.';
+        const summary = cleanText(summaryRaw).slice(0, 230) || 'ಪೂರ್ಣ ಮಾಹಿತಿಗಾಗಿ ಲೇಖನವನ್ನು ತೆರೆಯಿರಿ | Open the article to read the complete update.';
+        const image = item && item.image ? item.image : extractImage('', category);
+        return { title, link, pubDate, source, category, summary, image };
+      }
+
+      function renderNews(news) {
+        gridEl.innerHTML = '';
+        featuredEl.innerHTML = '';
+
+        if (!news.length) {
+          featuredEl.style.display = 'none';
+          emptyEl.style.display = 'block';
+          emptyEl.textContent = 'ಈಗ ಸುದ್ದಿ ಲಭ್ಯವಿಲ್ಲ. ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ರಿಫ್ರೆಶ್ ಮಾಡಿ. | No news is available right now. Please try refresh after some time.';
+          return;
+        }
+
+        emptyEl.style.display = 'none';
+        const featured = news[0];
+        const featuredLink = safeLink(featured.link);
+        const featuredImage = safeMediaUrl(featured.image);
+        featuredEl.style.display = 'block';
+        featuredEl.innerHTML =
+          '<div class="knews-featured-media" style="background-image:url(\'' + featuredImage + '\')"></div>' +
+          '<div class="knews-featured-body">' +
+          '<span class="knews-badge">' + featured.category + '</span>' +
+          '<h2>' + escapeHtml(featured.title) + '</h2>' +
+          '<p>' + escapeHtml(featured.summary) + '</p>' +
+          '<div class="knews-source">' +
+          '<span>' + escapeHtml(featured.source) + ' | ' + escapeHtml(formatDate(featured.pubDate)) + '</span>' +
+          '<a href="' + featuredLink + '" target="_blank" rel="noopener noreferrer">ಪೂರ್ಣ ಸುದ್ದಿ ಓದಿ | Read full story</a>' +
+          '</div>' +
+          '</div>';
+
+        news.slice(1).forEach(function (item) {
+          const itemLink = safeLink(item.link);
+          const itemImage = safeMediaUrl(item.image);
+          const card = document.createElement('article');
+          card.className = 'knews-card';
+          card.innerHTML =
+            '<div class="knews-card-media" style="background-image:url(\'' + itemImage + '\')"></div>' +
+            '<div class="knews-card-body">' +
+            '<span class="knews-badge">' + item.category + '</span>' +
+            '<h3>' + escapeHtml(item.title) + '</h3>' +
+            '<p>' + escapeHtml(item.summary) + '</p>' +
+            '<div class="knews-source">' +
+            '<span>' + escapeHtml(item.source) + ' | ' + escapeHtml(formatDate(item.pubDate)) + '</span>' +
+            '<a href="' + itemLink + '" target="_blank" rel="noopener noreferrer">ತೆರೆಯಿರಿ | Open</a>' +
+            '</div>' +
+            '</div>';
+          gridEl.appendChild(card);
+        });
+      }
+
+      function escapeHtml(str) {
+        return (str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      async function loadNews(isManualRefresh) {
+        metaEl.textContent = isManualRefresh
+          ? 'ಇತ್ತೀಚಿನ ಸುದ್ದಿಗಳನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಲಾಗುತ್ತಿದೆ... | Refreshing latest news...'
+          : 'ಇತ್ತೀಚಿನ ಸುದ್ದಿಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ... | Loading latest news...';
+        refreshBtn.disabled = true;
+
+        try {
+          const response = await fetch(NEWS_API);
+          const data = await response.json();
+          if (!response.ok || !data.success) {
+            throw new Error(data.message || 'ಸುದ್ದಿ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ | Failed to load news');
+          }
+
+          const parsedNews = Array.isArray(data.news) ? data.news.map(normalizeNews) : [];
+          renderNews(parsedNews);
+          const sourceInfo = data.source ? 'ಮೂಲ | Source: ' + data.source + ' | ' : '';
+          metaEl.textContent = sourceInfo + 'ಕೊನೆಯ ರಿಫ್ರೆಶ್ | Last refreshed: ' + formatDate(data.fetched_at || new Date().toISOString());
+        } catch (error) {
+          console.error('Failed to fetch news:', error);
+          renderNews([]);
+          metaEl.textContent = 'ಈಗ ಮೂಲದಿಂದ ಲೈವ್ ಫೀಡ್ ಲೋಡ್ ಆಗಲಿಲ್ಲ. | Could not load live feed from source right now.';
+          emptyEl.style.display = 'block';
+          emptyEl.textContent = 'ಈ ಕ್ಷಣ ಸುದ್ದಿ ಫೀಡ್ ಲಭ್ಯವಿಲ್ಲ. ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ರಿಫ್ರೆಶ್ ಮಾಡಿ. | News feed is unavailable at the moment. Please click Refresh News after some time.';
+        } finally {
+          refreshBtn.disabled = false;
+        }
+      }
+
+      loadNews(false);
+    })();
+  </script>
+</body>
+</html>
+
+
+
+

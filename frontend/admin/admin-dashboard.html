@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - JanaSeva</title>
+  <link rel="stylesheet" href="../portal.css">
+  <link rel="stylesheet" href="../admin-console.css">
+</head>
+<body class="portal-body admin-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">Officer verification dashboard and scrutiny queue</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="./admin-dashboard.html">ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ | Dashboard</a>
+      <a href="../user/login.html">ನಾಗರಿಕ ಪೋರ್ಟಲ್ | Citizen Portal</a>
+      <a href="#" id="logoutLink">ಲಾಗ್‌ಔಟ್ | Logout</a>
+    </nav>
+  </header>
+
+  <main class="admin-shell">
+    <section class="admin-hero">
+      <div>
+        <span class="admin-kicker">Verification Console</span>
+        <h1>ಆಡಳಿತಾತ್ಮಕ ಅರ್ಜಿ ಪರಿಶೀಲನೆ ಮತ್ತು ಅನುಮೋದನೆ ನಿಯಂತ್ರಣ ಕೊಠಡಿ | Administrative application review and approval control room</h1>
+        <p>ಬರುವ ಅರ್ಜಿಗಳನ್ನು ಪರಿಶೀಲಿಸಿ, ಬಾಕಿ ಇರುವ ಪರಿಶೀಲನೆಗೆ ಆದ್ಯತೆ ನೀಡಿ, ಮತ್ತು ನಾಗರಿಕ ಸೇವಾ ವಿನಂತಿಗಳಿಗಾಗಿ ಹೊಣೆಗಾರ ಅಧಿಕಾರಿ ನಿರ್ಧಾರಗಳನ್ನು ದಾಖಲಿಸಿ | Monitor incoming submissions, prioritize pending scrutiny, and record accountable verification decisions for citizen service requests.</p>
+      </div>
+      <div class="admin-panel" style="padding:18px;">
+        <h3>ಅಧಿಕಾರಿ ಡೆಸ್ಕ್ | Officer Desk</h3>
+        <ul class="admin-meta-list" id="officerMeta">
+          <li>Loading officer profile...</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="admin-grid four" id="statGrid">
+      <article class="admin-stat"><span class="label">Total Applications</span><span class="value" id="statTotal">0</span></article>
+      <article class="admin-stat"><span class="label">Pending Verification</span><span class="value" id="statPending">0</span></article>
+      <article class="admin-stat"><span class="label">Approved</span><span class="value" id="statApproved">0</span></article>
+      <article class="admin-stat"><span class="label">Rejected</span><span class="value" id="statRejected">0</span></article>
+    </section>
+
+    <section class="admin-grid two" style="margin-top:18px;">
+      <article class="admin-panel">
+        <h2>ಅರ್ಜಿಗಳ ಸಾಲು | Application Queue</h2>
+        <p class="admin-muted" style="margin:8px 0 0;">ಸ್ಥಿತಿ, ಸೇವೆ ಪ್ರಕಾರ, ಅಥವಾ ಉಲ್ಲೇಖ ವಿವರಗಳ ಆಧಾರದಲ್ಲಿ ದಾಖಲೆಗಳನ್ನು ಫಿಲ್ಟರ್ ಮಾಡಿ ಮತ್ತು ಪರಿಶೀಲನಾ ಬಾಕಿಯನ್ನು ವೇಗವಾಗಿ ನಿರ್ವಹಿಸಿ | Filter records by status, service type, or reference details to move quickly through the verification backlog.</p>
+
+        <div class="admin-filter-grid">
+          <div class="admin-field">
+            <label for="searchInput">ಹುಡುಕಿ | Search</label>
+            <input class="admin-input" id="searchInput" type="text" placeholder="ಅರ್ಜಿ ಸಂಖ್ಯೆ, ಹೆಸರು, ಅಥವಾ ಸೇವೆ | Application no., name, or service">
+          </div>
+          <div class="admin-field">
+            <label for="statusFilter">ಸ್ಥಿತಿ | Status</label>
+            <select class="admin-select" id="statusFilter">
+              <option value="">All statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+          <div class="admin-field">
+            <label for="typeFilter">ಸೇವೆಯ ಪ್ರಕಾರ | Service Type</label>
+            <select class="admin-select" id="typeFilter">
+              <option value="">All services</option>
+              <option value="aadhaar">Aadhaar</option>
+              <option value="pan">PAN</option>
+              <option value="passport">Passport</option>
+              <option value="voterid">Voter ID</option>
+              <option value="birthcertificate">Birth Certificate</option>
+              <option value="driving">Driving Licence</option>
+              <option value="ration">Ration Card</option>
+              <option value="casteincome">Caste & Income</option>
+            </select>
+          </div>
+          <div class="admin-field">
+            <label>&nbsp;</label>
+            <button class="admin-btn admin-btn-primary" id="refreshButton" type="button">ಸಾಲನ್ನು ಮರುಲೋಡ್ ಮಾಡಿ | Refresh Queue</button>
+          </div>
+        </div>
+
+        <div id="queueMessage" class="admin-alert" style="display:none;"></div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Application No.</th>
+                <th>Citizen Name</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Reviewed By</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="queueBody">
+              <tr><td colspan="7" class="admin-muted">Loading applications...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <aside class="admin-panel">
+        <h2>ಪರಿಶೀಲನಾ ಮಾರ್ಗದರ್ಶನ | Verification Guidance</h2>
+        <p class="admin-muted" style="margin:8px 0 14px;">ಈ ಸಾಲನ್ನು ಅಧಿಕೃತ ಕಚೇರಿ ಪ್ರಕ್ರಿಯೆಯ ಪ್ರಕಾರ ದಾಖಲೆ ಪರಿಶೀಲನೆ ಪೂರ್ಣಗೊಳಿಸಲು ಬಳಸಿ | Use this queue to complete document scrutiny in line with formal office practice.</p>
+        <div class="admin-info-card">
+          <span>Recommended Review Order</span>
+          <strong>1. Pending cases received today<br>2. Legacy pending backlog<br>3. Approved and rejected cases for audit reference</strong>
+        </div>
+        <div class="admin-info-card" style="margin-top:12px;">
+          <span>Checklist Reminder</span>
+          <strong>Confirm applicant identity details, service-specific document fields, completeness, and any discrepancies before recording remarks.</strong>
+        </div>
+        <div class="admin-info-card" style="margin-top:12px;">
+          <span>Disposition Standards</span>
+          <strong>Use `Pending` for incomplete scrutiny, `Approved` after successful verification, and `Rejected` only with a clear written reason.</strong>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="portal-footer">
+    &copy; 2026 JanaSeva Service Platform. ಅಧಿಕೃತ ಆಡಳಿತಾತ್ಮಕ ಅಧಿಕಾರಿಗಳ ಪರಿಶೀಲನಾ ಕಾನ್ಸೋಲ್ | Verification console for authorized administrative officers.
+  </footer>
+
+  <script>
+    function getAdminToken() {
+      return localStorage.getItem('adminToken') || '';
+    }
+
+    function getAdminProfile() {
+      try {
+        return JSON.parse(localStorage.getItem('adminProfile') || '{}');
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function clearAdminSession() {
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('adminProfile');
+      localStorage.removeItem('userRole');
+    }
+
+    function authHeaders() {
+      return { 'x-admin-token': getAdminToken() };
+    }
+
+    function showQueueMessage(message, isError) {
+      const box = document.getElementById('queueMessage');
+      box.style.display = 'block';
+      box.className = isError ? 'admin-alert error' : 'admin-alert';
+      box.textContent = message;
+    }
+
+    function hideQueueMessage() {
+      document.getElementById('queueMessage').style.display = 'none';
+    }
+
+    function esc(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function statusBadge(status) {
+      const key = String(status || 'Pending').toLowerCase();
+      return '<span class="admin-badge ' + key + '">' + esc(status || 'Pending') + '</span>';
+    }
+
+    function formatOfficerMeta(admin) {
+      const box = document.getElementById('officerMeta');
+      box.innerHTML = [
+        '<li><strong>Officer:</strong> ' + esc(admin.full_name || '-') + '</li>',
+        '<li><strong>Designation:</strong> ' + esc(admin.designation || '-') + '</li>',
+        '<li><strong>Department:</strong> ' + esc(admin.department || '-') + '</li>',
+        '<li><strong>Office:</strong> ' + esc(admin.office_name || '-') + '</li>'
+      ].join('');
+    }
+
+    function populateSummary(summary) {
+      document.getElementById('statTotal').textContent = summary.total || 0;
+      document.getElementById('statPending').textContent = summary.pending_count || 0;
+      document.getElementById('statApproved').textContent = summary.approved_count || 0;
+      document.getElementById('statRejected').textContent = summary.rejected_count || 0;
+    }
+
+    function renderApplications(applications) {
+      const body = document.getElementById('queueBody');
+      if (!applications.length) {
+        body.innerHTML = '<tr><td colspan="7" class="admin-muted">No applications matched the selected filter criteria.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = applications.map(function (app) {
+        const reviewer = app.reviewer_name
+          ? esc(app.reviewer_name + (app.reviewer_designation ? ' (' + app.reviewer_designation + ')' : ''))
+          : '<span class="admin-muted">Not reviewed</span>';
+        const link = './admin-application.html?applicationNumber=' + encodeURIComponent(app.application_number) + '&type=' + encodeURIComponent(app.application_type || '');
+        return [
+          '<tr>',
+          '<td><strong>' + esc(app.application_number) + '</strong></td>',
+          '<td>' + esc(app.applicant_name || '-') + '</td>',
+          '<td>' + esc(app.application_type || '-') + '</td>',
+          '<td>' + esc(app.application_date || '-') + '</td>',
+          '<td>' + statusBadge(app.status) + '</td>',
+          '<td>' + reviewer + '</td>',
+          '<td class="admin-action-cell"><a class="admin-btn admin-btn-secondary admin-review-link" href="' + link + '">Review</a></td>',
+          '</tr>'
+        ].join('');
+      }).join('');
+    }
+
+    function loadSummary() {
+      return fetch('/api/admin/dashboard/summary', { headers: authHeaders() })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            if (res.status === 401) {
+              clearAdminSession();
+              window.location.href = './admin-login.html';
+              return Promise.reject(new Error('Session expired'));
+            }
+            if (!res.ok) throw new Error(data.message || 'Unable to load dashboard summary');
+            return data;
+          });
+        })
+        .then(function (data) {
+          populateSummary(data.summary || {});
+          formatOfficerMeta(data.admin || getAdminProfile());
+        });
+    }
+
+    function loadApplications() {
+      const search = document.getElementById('searchInput').value.trim();
+      const status = document.getElementById('statusFilter').value;
+      const type = document.getElementById('typeFilter').value;
+      const query = new URLSearchParams();
+      if (search) query.set('search', search);
+      if (status) query.set('status', status);
+      if (type) query.set('type', type);
+
+      hideQueueMessage();
+      document.getElementById('queueBody').innerHTML = '<tr><td colspan="7" class="admin-muted">Loading applications...</td></tr>';
+
+      return fetch('/api/admin/applications?' + query.toString(), { headers: authHeaders() })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            if (res.status === 401) {
+              clearAdminSession();
+              window.location.href = './admin-login.html';
+              return Promise.reject(new Error('Session expired'));
+            }
+            if (!res.ok) throw new Error(data.message || 'Unable to load applications');
+            return data;
+          });
+        })
+        .then(function (data) {
+          renderApplications(data.applications || []);
+        })
+        .catch(function (error) {
+          document.getElementById('queueBody').innerHTML = '<tr><td colspan="7" class="admin-muted">Unable to load applications.</td></tr>';
+          showQueueMessage(error.message || 'Unable to load applications', true);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!getAdminToken()) {
+        window.location.href = './admin-login.html';
+        return;
+      }
+
+      formatOfficerMeta(getAdminProfile());
+      loadSummary();
+      loadApplications();
+
+      document.getElementById('refreshButton').addEventListener('click', function () {
+        loadSummary();
+        loadApplications();
+      });
+
+      document.getElementById('searchInput').addEventListener('input', function () {
+        loadApplications();
+      });
+      document.getElementById('statusFilter').addEventListener('change', loadApplications);
+      document.getElementById('typeFilter').addEventListener('change', loadApplications);
+
+      document.getElementById('logoutLink').addEventListener('click', function (event) {
+        event.preventDefault();
+        clearAdminSession();
+        window.location.href = './admin-login.html';
+      });
+    });
+  </script>
+</body>
+</html>
+

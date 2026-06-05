@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passport Application - JanaSeva | ಭಾರತದ ರಾಷ್ಟ್ರೀಯ ಪೋರ್ಟಲ್ | National Portal of India</title>
+  <link rel="stylesheet" href="../../portal.css">
+</head>
+<body class="portal-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="../home.html">ಮುಖಪುಟ | Home</a>
+      <a href="../history.html">ಇತಿಹಾಸ | History</a>
+      <a href="passportAbout.html">About Passport</a>
+    </nav>
+  </header>
+
+  <main class="portal-main">
+    <div class="portal-card">
+      <h1 class="portal-title">ಪಾಸ್‌ಪೋರ್ಟ್ ಅರ್ಜಿ ಫಾರ್ಮ್ | Passport Application Form</h1>
+      <p class="portal-subtitle">ವೈಯಕ್ತಿಕ ವಿವರಗಳು, ವಿಳಾಸ ಮತ್ತು ದಾಖಲೆ ಅಪ್‌ಲೋಡ್. * ಗುರುತು ಇರುವ ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳು ಕಡ್ಡಾಯ | Personal details, address, and document uploads. All fields marked * are mandatory.</p>
+
+      <form id="passportForm" class="portal-form" onsubmit="submitForm(event)">
+        <div class="portal-section">
+          <h3>ವೈಯಕ್ತಿಕ ವಿವರಗಳು | Personal Details</h3>
+          <label>ಪೂರ್ಣ ಹೆಸರು * | Full Name *</label>
+          <input type="text" id="fullName" name="full_name" required placeholder="ಗುರುತಿನ ದಾಖಲೆಯಂತೆ | As in proof of identity">
+
+          <label>ಜನ್ಮ ದಿನಾಂಕ * | Date of Birth *</label>
+          <input type="date" name="dob" required>
+
+          <label>ಲಿಂಗ * | Gender *</label>
+          <select name="gender" required>
+            <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+            <option>ಪುರುಷ | Male</option>
+            <option>ಮಹಿಳೆ | Female</option>
+            <option>ತ್ರಿತೀಯ ಲಿಂಗ | Transgender</option>
+          </select>
+
+          <label>ಜನ್ಮ ಸ್ಥಳ * | Place of Birth *</label>
+          <input type="text" name="place_of_birth" required placeholder="ನಗರ / ಪಟ್ಟಣ | City / Town">
+
+          <label>ತಂದೆಯ ಹೆಸರು * | Father's Name *</label>
+          <input type="text" name="father_name" required placeholder="ಪೂರ್ಣ ಹೆಸರು | Full name">
+
+          <label>ತಾಯಿಯ ಹೆಸರು * | Mother's Name *</label>
+          <input type="text" name="mother_name" required placeholder="ಪೂರ್ಣ ಹೆಸರು | Full name">
+
+          <label>ವೈವಾಹಿಕ ಸ್ಥಿತಿ * | Marital Status *</label>
+          <select name="marital_status" required>
+            <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+            <option>ಅವಿವಾಹಿತ | Single</option>
+            <option>ವಿವಾಹಿತ | Married</option>
+            <option>ವಿಚ್ಛೇದಿತ | Divorced</option>
+            <option>ವಿಧವೆ / ವಿಧುರ | Widow / Widower</option>
+          </select>
+
+          <label>ಪತಿಯ/ಪತ್ನಿಯ ಹೆಸರು (ವಿವಾಹಿತರಾದರೆ) | Spouse Name (if married)</label>
+          <input type="text" name="spouse_name" placeholder="ಅನ್ವಯಿಸದಿದ್ದರೆ ಖಾಲಿ ಬಿಡಿ | Leave blank if not applicable">
+
+          <label>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ * | Mobile Number *</label>
+          <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" placeholder="10 ಅಂಕಿಯ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ | 10-digit mobile">
+
+          <div class="portal-otp-section" style="margin:10px 0; padding:12px; border:1px solid #cfcfcf; border-radius:8px; background:#f7f8fa;">
+            <label style="display:block; font-weight:700; margin-bottom:6px;">OTP Verification</label>
+            <button type="button" id="sendOtpButton" class="portal-btn portal-btn-secondary" style="width:100%; margin-bottom:8px;">Send Demo OTP</button>
+            <div id="otpStatus" style="font-size:0.95rem; color:#333; margin-bottom:8px;"></div>
+            <div id="otpRow" style="display:none;">
+              <label for="otpInput">Enter 4-digit OTP *</label>
+              <input type="text" id="otpInput" name="otp" inputmode="numeric" maxlength="4" placeholder="Enter 4-digit OTP" style="width:100%; padding:10px; margin-top:8px; border-radius:5px; border:1px solid #ccc;">
+            </div>
+          </div>
+
+          <label>ಇಮೇಲ್ ಐಡಿ * | Email ID *</label>
+          <input type="email" name="email" required placeholder="ಇಮೇಲ್ ವಿಳಾಸ | Email address">
+        </div>
+
+        <div class="portal-section">
+          <h3>ವಿಳಾಸದ ವಿವರಗಳು | Address Details</h3>
+          <label>ಪ್ರಸ್ತುತ ವಿಳಾಸ * | Present Address *</label>
+          <textarea name="present_address" required rows="3" placeholder="ಪೂರ್ಣ ವಿಳಾಸ | Full address"></textarea>
+
+          <label>ಶಾಶ್ವತ ವಿಳಾಸ * | Permanent Address *</label>
+          <textarea name="permanent_address" required rows="3" placeholder="ಪೂರ್ಣ ವಿಳಾಸ | Full address"></textarea>
+
+          <label>ವಿಳಾಸದ ಪುರಾವೆ (ದಾಖಲೆ ಪ್ರಕಾರ) * | Proof of Address (document type) *</label>
+          <select name="address_proof_type" required>
+            <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+            <option>ಆಧಾರ್ ಕಾರ್ಡ್ | Aadhaar Card</option>
+            <option>ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ | Voter ID</option>
+            <option>ವಿದ್ಯುತ್ ಬಿಲ್ | Electricity Bill</option>
+            <option>ಬ್ಯಾಂಕ್ ಪಾಸ್‌ಬುಕ್ | Bank Passbook</option>
+            <option>ಬಾಡಿಗೆ ಒಪ್ಪಂದ | Rent Agreement</option>
+          </select>
+          <label>ವಿಳಾಸದ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ * | Upload Address Proof *</label>
+          <input type="file" name="address_proof_type" required accept="image/*,.pdf">
+        </div>
+
+        <div class="portal-section">
+          <h3>ಅಗತ್ಯ ದಾಖಲೆಗಳು - ಅಪ್‌ಲೋಡ್‌ಗಳು | Required Documents - Uploads</h3>
+          <label>ಗುರುತಿನ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ (ಆಧಾರ್ / ಮತದಾರರ ಚೀಟಿ / PAN) * | Upload Proof of Identity (Aadhaar / Voter ID / PAN) *</label>
+          <input type="file" name="identity_proof_path" required accept="image/*,.pdf">
+
+          <label>ಜನ್ಮ ದಿನಾಂಕದ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ * | Upload Proof of Date of Birth *</label>
+          <input type="file" name="dob_proof_path" required accept="image/*,.pdf">
+
+          <label>ಪಾಸ್‌ಪೋರ್ಟ್ ಗಾತ್ರದ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ (ನಿರ್ಧಿಷ್ಟ ಪ್ರಮಾಣದಂತೆ) * | Upload Passport Size Photographs (as per specs) *</label>
+          <input type="file" name="photo_path" required accept="image/*">
+
+          <label>ಸಹಿ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ (ಬಿಳಿ ಕಾಗದದಲ್ಲಿ) * | Upload Signature (on white paper) *</label>
+          <input type="file" name="signature_path" required accept="image/*,.pdf">
+        </div>
+
+        <div class="portal-btn-row">
+          <button type="submit" class="portal-btn portal-btn-primary">ಅರ್ಜಿಯನ್ನು ಸಲ್ಲಿಸಿ | Submit Application</button>
+          <button type="button" onclick="document.getElementById('passportForm').reset()" class="portal-btn portal-btn-secondary">ತೆರವುಗೊಳಿಸಿ | Clear</button>
+          <button type="button" onclick="history.back()" class="portal-btn portal-btn-secondary">ಹಿಂದಕ್ಕೆ | Back</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+  </footer>
+
+  <script src="../../application-form-helper.js"></script>
+  <script>
+    async function serializeForm(form) {
+      return window.serializeApplicationForm(form);
+    }
+
+    async function submitForm(event) {
+      event.preventDefault();
+      if (!validateDemoOtp('passportForm')) return;
+      const form = document.getElementById('passportForm');
+      const payload = await serializeForm(form);
+      fetch('/api/apply/passport', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(err => Promise.reject(err));
+        }
+        return res.json();
+      })
+      .then(resp => {
+        if (resp.success) {
+          alert('Application submitted. Reference #' + resp.application_number);
+          localStorage.setItem('passportApplicationNumber', resp.application_number);
+          window.location.href = 'passportSuccess.html';
+        } else {
+          const errorMsg = resp.message || (typeof resp.error === 'string' ? resp.error : JSON.stringify(resp.error)) || 'Unknown error';
+          alert('Error: ' + errorMsg);
+        }
+      })
+      .catch(err => {
+        console.error('Submission error:', err);
+        const errorMsg = err.message || (typeof err === 'string' ? err : (err.error?.message || JSON.stringify(err))) || 'Unable to contact server. Please check if MySQL database is set up.';
+        alert('Submission failed: ' + errorMsg);
+      });
+    }
+  </script>
+  <script src="../../otp-demo.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initDemoOtp('passportForm', 'mobile');
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

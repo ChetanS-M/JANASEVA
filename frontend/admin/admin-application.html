@@ -1,0 +1,519 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Review - JanaSeva</title>
+  <link rel="stylesheet" href="../portal.css">
+  <link rel="stylesheet" href="../admin-console.css">
+</head>
+<body class="portal-body admin-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">Detailed officer review and disposition recording</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="./admin-dashboard.html">ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ | Dashboard</a>
+      <a href="../user/login.html">ನಾಗರಿಕ ಪೋರ್ಟಲ್ | Citizen Portal</a>
+      <a href="#" id="logoutLink">ಲಾಗ್‌ಔಟ್ | Logout</a>
+    </nav>
+  </header>
+
+  <main class="admin-shell">
+    <section class="admin-hero">
+      <div>
+        <span class="admin-kicker">Application Scrutiny</span>
+        <h1 id="pageTitle">ವಿವರವಾದ ನಾಗರಿಕ ಅರ್ಜಿ ಪರಿಶೀಲನೆ | Detailed citizen application review</h1>
+        <p>ಸಲ್ಲಿಸಿದ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ, ಸೇವೆ-ನಿರ್ದಿಷ್ಟ ದಾಖಲೆಗಳನ್ನು ದೃಢೀಕರಿಸಿ, ಮತ್ತು ಪ್ರಕರಣ ದಾಖಲೆಗೆ ಅಧಿಕೃತ ನಿರ್ಧಾರ ಗುರುತು ದಾಖಲಿಸಿ | Examine the submitted particulars, verify service-specific records, and record a formal decision trace for the case file.</p>
+      </div>
+      <div class="admin-panel" style="padding:18px;">
+        <h3>ನಿಯೋಜಿತ ಅಧಿಕಾರಿ | Assigned Officer</h3>
+        <ul class="admin-meta-list" id="officerMeta">
+          <li>Loading officer details...</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="admin-grid two">
+      <article class="admin-panel">
+        <div class="admin-toolbar" style="margin-top:0; justify-content:space-between;">
+          <div>
+            <h2>ಅರ್ಜಿಯ ಸಾರಾಂಶ | Application Summary</h2>
+            <p class="admin-muted" style="margin:8px 0 0;">ದಾಖಲೆ ಪರಿಶೀಲನೆ ಮತ್ತು ಸೇವಾ ಅನುಮೋದನೆ ವಿಮರ್ಶೆಗೆ ಅಧಿಕೃತ ಪ್ರಕರಣ ಚೀಟಿ | Official case sheet for document verification and service approval review.</p>
+          </div>
+          <a class="admin-btn admin-btn-secondary" href="./admin-dashboard.html">ಸಾಲಿಗೆ ಹಿಂತಿರುಗಿ | Back to Queue</a>
+        </div>
+
+        <div id="summaryGrid" class="admin-detail-grid" style="margin-top:18px;"></div>
+
+        <h3 class="admin-section-title" style="margin-top:22px;">Submitted Particulars</h3>
+        <div id="detailGrid" class="admin-detail-grid"></div>
+
+        <h3 class="admin-section-title" style="margin-top:22px;">Uploaded Documents</h3>
+        <div id="documentGrid"></div>
+      </article>
+
+      <aside class="admin-panel">
+        <h2>ಪರಿಶೀಲನಾ ನಿರ್ಧಾರ | Verification Decision</h2>
+        <p class="admin-muted" style="margin:8px 0 16px;">ಅರ್ಜಿಯ ಸ್ಥಿತಿ ಬದಲಾಯಿಸುವ ಮೊದಲು ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯನ್ನು ಪೂರ್ಣಗೊಳಿಸಿ ಮತ್ತು ಅಧಿಕೃತ ಟಿಪ್ಪಣಿ ದಾಖಲಿಸಿ | Complete the checklist and record a formal remark before changing application status.</p>
+
+        <div class="admin-info-card">
+          <span>Current Status</span>
+          <strong id="currentStatus">Pending</strong>
+        </div>
+
+        <div class="admin-info-card" style="margin-top:12px;">
+          <span>Previous Review</span>
+          <strong id="previousReview">No earlier officer action recorded.</strong>
+        </div>
+
+        <div style="margin-top:18px;">
+          <span class="admin-section-title">Verification Checklist</span>
+          <div id="checklistGrid" class="admin-check-grid"></div>
+        </div>
+
+        <div class="admin-field" style="margin-top:16px;">
+          <label for="statusSelect">Decision</label>
+          <select class="admin-select" id="statusSelect">
+            <option value="Pending">Keep Pending</option>
+            <option value="Approved">Approve</option>
+            <option value="Rejected">Reject</option>
+          </select>
+        </div>
+
+        <div class="admin-field" style="margin-top:16px;">
+          <label for="reviewNotes">Officer Remarks</label>
+          <textarea class="admin-textarea" id="reviewNotes" placeholder="Enter formal scrutiny remarks, deficiencies, or approval observations"></textarea>
+        </div>
+
+        <div id="actionMessage" class="admin-alert" style="display:none;"></div>
+
+        <div class="admin-toolbar">
+          <button class="admin-btn admin-btn-primary" id="savePendingBtn" type="button">Save Selected Decision</button>
+          <button class="admin-btn admin-btn-success" id="approveBtn" type="button">Approve Application</button>
+          <button class="admin-btn admin-btn-danger" id="rejectBtn" type="button">Reject Application</button>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="portal-footer">
+    &copy; 2026 JanaSeva Service Platform. ಅಧಿಕೃತ ಪರಿಶೀಲನಾ ದಾಖಲೆ ಕಾನ್ಸೋಲ್ | Official verification record console.
+  </footer>
+
+  <script>
+    const defaultChecklistByType = {
+      aadhaar: [
+        'Applicant name and date of birth checked',
+        'Address proof reviewed',
+        'Identity proof reviewed',
+        'Photograph availability confirmed'
+      ],
+      pan: [
+        'Aadhaar number and demographic fields checked',
+        'Identity proof reviewed',
+        'Address proof reviewed',
+        'Signature and photo reviewed'
+      ],
+      passport: [
+        'Birth and identity particulars matched',
+        'Present and permanent addresses checked',
+        'Photo and signature reviewed',
+        'Supporting proofs verified'
+      ],
+      voterid: [
+        'Applicant age eligibility checked',
+        'Address proof verified',
+        'Identity and age proof reviewed',
+        'Photograph reviewed'
+      ],
+      birthcertificate: [
+        'Child details checked',
+        'Parent identity proof reviewed',
+        'Birth proof verified',
+        'Parent contact details checked'
+      ],
+      driving: [
+        'Learner licence particulars checked',
+        'Identity, age, and address proofs verified',
+        'Medical certificate reviewed',
+        'Photo checked'
+      ],
+      ration: [
+        'Household head details verified',
+        'Member count and Aadhaar numbers checked',
+        'Income and address documents reviewed',
+        'Supporting certificates reviewed'
+      ],
+      casteincome: [
+        'Applicant demographic details checked',
+        'Income proof reviewed',
+        'Caste proof reviewed',
+        'Address and identity proof reviewed'
+      ]
+    };
+
+    let activeApplication = null;
+    let currentChecklistItems = [];
+
+    function getAdminToken() {
+      return localStorage.getItem('adminToken') || '';
+    }
+
+    function getAdminProfile() {
+      try {
+        return JSON.parse(localStorage.getItem('adminProfile') || '{}');
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function clearAdminSession() {
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('adminProfile');
+      localStorage.removeItem('userRole');
+    }
+
+    function authHeaders() {
+      return {
+        'Content-Type': 'application/json',
+        'x-admin-token': getAdminToken()
+      };
+    }
+
+    function esc(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function showActionMessage(message, isError) {
+      const box = document.getElementById('actionMessage');
+      box.style.display = 'block';
+      box.className = isError ? 'admin-alert error' : 'admin-alert';
+      box.textContent = message;
+    }
+
+    function renderOfficerMeta(admin) {
+      const box = document.getElementById('officerMeta');
+      box.innerHTML = [
+        '<li><strong>Officer:</strong> ' + esc(admin.full_name || '-') + '</li>',
+        '<li><strong>Designation:</strong> ' + esc(admin.designation || '-') + '</li>',
+        '<li><strong>Department:</strong> ' + esc(admin.department || '-') + '</li>',
+        '<li><strong>Office:</strong> ' + esc(admin.office_name || '-') + '</li>'
+      ].join('');
+    }
+
+    function prettyLabel(key) {
+      return String(key || '')
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, function (match) { return match.toUpperCase(); });
+    }
+
+    function renderInfoCards(targetId, entries) {
+      const target = document.getElementById(targetId);
+      target.innerHTML = entries.map(function (entry) {
+        return [
+          '<div class="admin-info-card">',
+          '<span>' + esc(entry.label) + '</span>',
+          '<strong>' + esc(entry.value || '-') + '</strong>',
+          '</div>'
+        ].join('');
+      }).join('');
+    }
+
+    function isDocumentField(key) {
+      return /(proof|photo|signature|certificate|passbook|document)/i.test(String(key || ''));
+    }
+
+    function isImageSource(value) {
+      return /^data:image\//i.test(String(value || '')) || /\.(png|jpe?g|gif|bmp|webp|svg)$/i.test(String(value || ''));
+    }
+
+    function isLinkLike(value) {
+      return /^(data:|https?:\/\/|\/)/i.test(String(value || ''));
+    }
+
+    function parseDocumentValue(value) {
+      if (!value) return null;
+      if (typeof value === 'string' && /^data:/i.test(value)) {
+        return { files: [{ name: 'Uploaded file', data_url: value, type: value.slice(5, value.indexOf(';')) || '' }] };
+      }
+      if (typeof value !== 'string') return null;
+
+      try {
+        const parsed = JSON.parse(value);
+        if (parsed && typeof parsed === 'object' && Array.isArray(parsed.files) && parsed.files.length) {
+          return parsed;
+        }
+      } catch (error) {
+        return null;
+      }
+
+      return null;
+    }
+
+    function renderDocuments(details) {
+      const box = document.getElementById('documentGrid');
+      const entries = [];
+
+      Object.keys(details || {}).forEach(function (key) {
+        const value = details[key];
+        if (value === null || value === undefined || value === '') return;
+
+        const parsed = parseDocumentValue(value);
+        if (parsed && parsed.files && parsed.files.length) {
+          parsed.files.forEach(function (file, fileIndex) {
+            entries.push({
+              label: prettyLabel(key) + (parsed.files.length > 1 ? ' ' + (fileIndex + 1) : ''),
+              helper: parsed.label || file.name || 'Uploaded document',
+              url: file.data_url || '',
+              name: file.name || 'Uploaded file'
+            });
+          });
+          return;
+        }
+
+        if (isDocumentField(key)) {
+          entries.push({
+            label: prettyLabel(key),
+            helper: 'Legacy saved value - this record contains only the old file name, not the uploaded image data',
+            url: isLinkLike(value) ? value : '',
+            name: String(value)
+          });
+        }
+      });
+
+      if (!entries.length) {
+        box.innerHTML = '<div class="admin-empty">No uploaded document previews are available for this application. Older records may contain only file names.</div>';
+        return;
+      }
+
+      box.innerHTML = '<div class="admin-document-grid">' + entries.map(function (entry) {
+        const preview = entry.url && isImageSource(entry.url)
+          ? '<img class="admin-document-preview" src="' + esc(entry.url) + '" alt="' + esc(entry.label) + '">'
+          : '<div class="admin-empty" style="margin-top:0;">Preview unavailable for this file type.</div>';
+        const link = entry.url
+          ? '<a class="admin-document-link" href="' + esc(entry.url) + '" target="_blank" rel="noopener">Open ' + esc(entry.name) + '</a>'
+          : '<p style="margin:10px 0 0; color:#334155;">' + esc(entry.name) + '</p>';
+
+        return [
+          '<div class="admin-document-card">',
+          '<h4>' + esc(entry.label) + '</h4>',
+          '<p>' + esc(entry.helper) + '</p>',
+          preview,
+          link,
+          '</div>'
+        ].join('');
+      }).join('') + '</div>';
+    }
+
+    function normalizeChecklist(application, existingChecklist) {
+      if (existingChecklist && existingChecklist.length) {
+        return existingChecklist.map(function (item) {
+          return { label: item.label, checked: !!item.checked };
+        });
+      }
+      const type = String(application.application_type || '').toLowerCase();
+      const items = defaultChecklistByType[type] || [
+        'Identity particulars checked',
+        'Submitted information reviewed',
+        'Supporting records examined',
+        'Decision remarks recorded'
+      ];
+      return items.map(function (label) {
+        return { label: label, checked: false };
+      });
+    }
+
+    function renderChecklist(items) {
+      const grid = document.getElementById('checklistGrid');
+      grid.innerHTML = items.map(function (item, index) {
+        return [
+          '<div class="admin-check-card">',
+          '<label>',
+          '<input type="checkbox" data-check-index="' + index + '" ' + (item.checked ? 'checked' : '') + '>',
+          '<span>' + esc(item.label) + '</span>',
+          '</label>',
+          '</div>'
+        ].join('');
+      }).join('');
+    }
+
+    function renderApplication(record) {
+      activeApplication = record;
+      const application = record.application || {};
+      const details = record.details || {};
+
+      document.getElementById('pageTitle').textContent = 'Review Application ' + (application.application_number || '');
+      document.getElementById('currentStatus').innerHTML = '<span class="admin-badge ' + String(application.status || 'Pending').toLowerCase() + '">' + esc(application.status || 'Pending') + '</span>';
+
+      const previousReviewText = application.reviewer_name
+        ? application.reviewer_name + (application.reviewer_designation ? ' - ' + application.reviewer_designation : '') + (application.reviewed_at ? ' on ' + application.reviewed_at : '')
+        : 'No earlier officer action recorded.';
+      document.getElementById('previousReview').textContent = previousReviewText;
+
+      renderInfoCards('summaryGrid', [
+        { label: 'Application Number', value: application.application_number },
+        { label: 'Citizen Name', value: application.applicant_name },
+        { label: 'Service Type', value: application.application_type },
+        { label: 'Application Date', value: application.application_date },
+        { label: 'Reviewed By', value: application.reviewer_name || 'Not yet assigned' },
+        { label: 'Officer Designation', value: application.reviewer_designation || 'Not yet assigned' }
+      ]);
+
+      const detailEntries = [];
+      Object.keys(details).forEach(function (key) {
+        if (['id', 'application_number', 'created_at'].indexOf(key) !== -1) return;
+        if (isDocumentField(key)) return;
+        const value = details[key];
+        if (value === null || value === undefined || value === '') return;
+        detailEntries.push({ label: prettyLabel(key), value: value });
+      });
+
+      if (!detailEntries.length) {
+        document.getElementById('detailGrid').innerHTML = '<div class="admin-empty">No additional service-specific fields were found for this application record.</div>';
+      } else {
+        renderInfoCards('detailGrid', detailEntries);
+      }
+
+      renderDocuments(details);
+
+      const checklist = normalizeChecklist(application, application.review_checklist || []);
+      currentChecklistItems = checklist;
+      activeApplication.application.review_checklist = checklist;
+      renderChecklist(checklist);
+      document.getElementById('statusSelect').value = application.status || 'Pending';
+      document.getElementById('reviewNotes').value = application.review_notes || '';
+    }
+
+    function collectChecklist() {
+      return Array.prototype.slice.call(document.querySelectorAll('[data-check-index]')).map(function (input, index) {
+        const label = currentChecklistItems[index];
+        return {
+          label: label ? label.label : ('Checklist item ' + (index + 1)),
+          checked: input.checked
+        };
+      });
+    }
+
+    function loadApplication() {
+      const params = new URLSearchParams(window.location.search);
+      const applicationNumber = params.get('applicationNumber');
+      const type = params.get('type') || '';
+
+      if (!applicationNumber) {
+        showActionMessage('Application number is missing from the review link.', true);
+        return;
+      }
+
+      const query = new URLSearchParams();
+      if (type) query.set('type', type);
+
+      fetch('/api/admin/applications/' + encodeURIComponent(applicationNumber) + '?' + query.toString(), {
+        headers: { 'x-admin-token': getAdminToken() }
+      })
+      .then(function (res) {
+        return res.json().then(function (data) {
+          if (res.status === 401) {
+            clearAdminSession();
+              window.location.href = './admin-login.html';
+            return Promise.reject(new Error('Session expired'));
+          }
+          if (!res.ok) throw new Error(data.message || 'Unable to load application');
+          return data;
+        });
+      })
+      .then(function (data) {
+        renderApplication(data);
+      })
+      .catch(function (error) {
+        showActionMessage(error.message || 'Unable to load application', true);
+      });
+    }
+
+    function submitDecision(status) {
+      if (!activeApplication || !activeApplication.application) {
+        showActionMessage('Application data is not loaded yet.', true);
+        return;
+      }
+
+      const reviewNotes = document.getElementById('reviewNotes').value.trim();
+      if (!reviewNotes) {
+        showActionMessage('Officer remarks are required before saving a decision.', true);
+        return;
+      }
+
+      const payload = {
+        status: status,
+        review_notes: reviewNotes,
+        review_checklist: collectChecklist()
+      };
+
+      fetch('/api/admin/applications/' + encodeURIComponent(activeApplication.application.application_number) + '/review', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify(payload)
+      })
+      .then(function (res) {
+        return res.json().then(function (data) {
+          if (res.status === 401) {
+            clearAdminSession();
+            window.location.href = './admin-login.html';
+            return Promise.reject(new Error('Session expired'));
+          }
+          if (!res.ok) throw new Error(data.message || 'Unable to save review decision');
+          return data;
+        });
+      })
+      .then(function (data) {
+        showActionMessage(data.message || 'Review saved successfully', false);
+        loadApplication();
+      })
+      .catch(function (error) {
+        showActionMessage(error.message || 'Unable to save review decision', true);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!getAdminToken()) {
+        window.location.href = './admin-login.html';
+        return;
+      }
+
+      renderOfficerMeta(getAdminProfile());
+      loadApplication();
+
+      document.getElementById('savePendingBtn').addEventListener('click', function () {
+        submitDecision(document.getElementById('statusSelect').value);
+      });
+      document.getElementById('approveBtn').addEventListener('click', function () {
+        document.getElementById('statusSelect').value = 'Approved';
+        submitDecision('Approved');
+      });
+      document.getElementById('rejectBtn').addEventListener('click', function () {
+        document.getElementById('statusSelect').value = 'Rejected';
+        submitDecision('Rejected');
+      });
+      document.getElementById('statusSelect').addEventListener('change', function (event) {
+        if (event.target.value === 'Pending') {
+          document.getElementById('savePendingBtn').focus();
+        }
+      });
+      document.getElementById('logoutLink').addEventListener('click', function (event) {
+        event.preventDefault();
+        clearAdminSession();
+        window.location.href = './admin-login.html';
+      });
+    });
+  </script>
+</body>
+</html>
+

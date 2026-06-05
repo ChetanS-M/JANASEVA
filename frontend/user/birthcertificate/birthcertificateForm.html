@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birth Certificate Registration - JanaSeva | ಭಾರತದ ರಾಷ್ಟ್ರೀಯ ಪೋರ್ಟಲ್ | National Portal of India</title>
+  <link rel="stylesheet" href="../../portal.css">
+</head>
+<body class="portal-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="../home.html">ಮುಖಪುಟ | Home</a>
+      <a href="../history.html">ಇತಿಹಾಸ | History</a>
+      <a href="birthAbout.html">About Birth Certificate</a>
+    </nav>
+  </header>
+
+  <main class="portal-main">
+    <div class="portal-card">
+      <h1 class="portal-title">ಜನನ ಪ್ರಮಾಣಪತ್ರ ನೋಂದಣಿ ಫಾರ್ಮ್ | Birth Certificate Registration Form</h1>
+      <p class="portal-subtitle">ಮಗುವಿನ ವಿವರಗಳು ಮತ್ತು ಬೆಂಬಲ ದಾಖಲೆಗಳು. * ಗುರುತು ಇರುವ ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳು ಕಡ್ಡಾಯ | Child details and supporting documents. All fields marked * are mandatory.</p>
+
+      <form id="birthcertificateForm" class="portal-form" onsubmit="submitForm(event)">
+        <div class="portal-section">
+          <h3>ಮಗುವಿನ ವಿವರಗಳು | Child Details</h3>
+          <label>ಮಗುವಿನ ಪೂರ್ಣ ಹೆಸರು * | Full Name of Child *</label>
+          <input type="text" id="childName" name="child_name" required placeholder="ಮಗುವಿನ ಹೆಸರು | Name of child">
+
+          <label>ಜನ್ಮ ದಿನಾಂಕ * | Date of Birth *</label>
+          <input type="date" name="dob" required>
+
+          <label>ಲಿಂಗ * | Gender *</label>
+          <select name="gender" required>
+            <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+            <option>ಪುರುಷ | Male</option>
+            <option>ಮಹಿಳೆ | Female</option>
+            <option>ಇತರೆ | Other</option>
+          </select>
+
+          <label>ಜನ್ಮ ಸ್ಥಳ * | Place of Birth *</label>
+          <select name="place_of_birth" required>
+            <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+            <option>ಆಸ್ಪತ್ರೆ | Hospital</option>
+            <option>ಮನೆ | Home</option>
+          </select>
+
+          <label>ಆಸ್ಪತ್ರೆ / ಸಂಸ್ಥೆಯ ಹೆಸರು (ಆಸ್ಪತ್ರೆ ಜನನವಾದರೆ) | Name of Hospital / Institution (if hospital birth)</label>
+          <input type="text" name="hospital_name" placeholder="ಮನೆ ಜನನವಾದರೆ ಖಾಲಿ ಬಿಡಿ | Leave blank if home birth">
+
+          <label>ತಂದೆಯ ಹೆಸರು * | Father's Name *</label>
+          <input type="text" name="father_name" required placeholder="ಪೂರ್ಣ ಹೆಸರು | Full name">
+
+          <label>ತಾಯಿಯ ಹೆಸರು * | Mother's Name *</label>
+          <input type="text" name="mother_name" required placeholder="ಪೂರ್ಣ ಹೆಸರು | Full name">
+
+          <label>ಅರ್ಜಿದಾರ (ಪೋಷಕ) ಮೊಬೈಲ್ ಸಂಖ್ಯೆ * | Applicant (Parent) Mobile Number *</label>
+          <input type="tel" id="mobile" name="parent_mobile" required pattern="[0-9]{10}" placeholder="10 ಅಂಕಿಯ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ | 10-digit mobile">
+
+          <div class="portal-otp-section" style="margin:10px 0; padding:12px; border:1px solid #cfcfcf; border-radius:8px; background:#f7f8fa;">
+            <label style="display:block; font-weight:700; margin-bottom:6px;">OTP Verification</label>
+            <button type="button" id="sendOtpButton" class="portal-btn portal-btn-secondary" style="width:100%; margin-bottom:8px;">Send Demo OTP</button>
+            <div id="otpStatus" style="font-size:0.95rem; color:#333; margin-bottom:8px;"></div>
+            <div id="otpRow" style="display:none;">
+              <label for="otpInput">Enter 4-digit OTP *</label>
+              <input type="text" id="otpInput" name="otp" inputmode="numeric" maxlength="4" placeholder="Enter 4-digit OTP" style="width:100%; padding:10px; margin-top:8px; border-radius:5px; border:1px solid #ccc;">
+            </div>
+          </div>
+
+          <label>ಅರ್ಜಿದಾರ (ಪೋಷಕ) ಇಮೇಲ್ * | Applicant (Parent) Email *</label>
+          <input type="email" name="parent_email" required placeholder="ಇಮೇಲ್ ವಿಳಾಸ | Email address">
+        </div>
+
+        <div class="portal-section">
+          <h3>ಜನನದ ಪುರಾವೆ (ಯಾವುದಾದರೂ ಒಂದು) * | Proof of Birth (Any One) *</h3>
+          <select name="birth_proof" required onchange="document.getElementById('birthProofUpload').style.display='block'">
+            <option value="">ಜನನದ ಪುರಾವೆ ಆಯ್ಕೆಮಾಡಿ | Select Proof</option>
+            <option>ಆಸ್ಪತ್ರೆ ಜನನ ದಾಖಲೆ / ಡಿಸ್ಚಾರ್ಜ್ ಸಾರಾಂಶ | Hospital Birth Record / Discharge Summary</option>
+            <option>ಆಸ್ಪತ್ರೆ ಪ್ರಮಾಣಪತ್ರ | Hospital Certificate</option>
+            <option>ವೈದ್ಯ / ದಾಯಮ್ಮರಿಂದ ಪತ್ರ | Letter from Doctor / Midwife</option>
+          </select>
+          <div id="birthProofUpload" style="display:none;">
+            <label>ಜನನದ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ * | Upload Proof of Birth *</label>
+            <input type="file" name="birth_proof" required accept="image/*,.pdf">
+          </div>
+        </div>
+
+        <div class="portal-section">
+          <h3>ಪೋಷಕರ ಗುರುತಿನ ಪುರಾವೆ (ಯಾವುದಾದರೂ ಒಂದು) * | Parents' Identity Proof (Any One) *</h3>
+          <select name="parent_id_proof" required onchange="document.getElementById('parentIdUpload').style.display='block'">
+            <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+            <option>ಆಧಾರ್ ಕಾರ್ಡ್ | Aadhaar Card</option>
+            <option>ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ | Voter ID</option>
+            <option>ಪ್ಯಾನ್ ಕಾರ್ಡ್ | PAN Card</option>
+            <option>ಪಾಸ್‌ಪೋರ್ಟ್ | Passport</option>
+            <option>ಚಾಲನಾ ಪರವಾನಗಿ | Driving License</option>
+          </select>
+          <div id="parentIdUpload" style="display:none;">
+          <label>ಪೋಷಕರ ಗುರುತಿನ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ * | Upload Parents' Identity Proof *</label>
+            <input type="file" name="parent_id_proof" required accept="image/*,.pdf">
+          </div>
+        </div>
+
+        <div class="portal-section">
+          <h3>ಪೋಷಕರ ವಿಳಾಸ ಪುರಾವೆ (ಯಾವುದಾದರೂ ಒಂದು) * | Address Proof of Parents (Any One) *</h3>
+          <select name="parent_address_proof" required onchange="document.getElementById('addressProofUpload').style.display='block'">
+            <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+            <option>ಆಧಾರ್ ಕಾರ್ಡ್ | Aadhaar Card</option>
+            <option>ರೇಷನ್ ಕಾರ್ಡ್ | Ration Card</option>
+            <option>ವಿದ್ಯುತ್ / ನೀರಿನ ಬಿಲ್ | Electricity / Water Bill</option>
+            <option>ಬ್ಯಾಂಕ್ ಪಾಸ್‌ಬುಕ್ | Bank Passbook</option>
+            <option>ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ | Voter ID</option>
+          </select>
+          <div id="addressProofUpload" style="display:none;">
+            <label>ವಿಳಾಸ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ * | Upload Address Proof *</label>
+            <input type="file" name="parent_address_proof" required accept="image/*,.pdf">
+          </div>
+        </div>
+
+        <div class="portal-section">
+          <h3>ಮದುವೆ ಪ್ರಮಾಣಪತ್ರ (ಲಭ್ಯವಿದ್ದರೆ) | Marriage Certificate (If Available)</h3>
+          <select name="" onchange="var u=document.getElementById('marriageUpload'); u.style.display=this.value==='Available'?'block':'none';">
+            <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+            <option>ಲಭ್ಯವಿದೆ | Available</option>
+            <option>ಲಭ್ಯವಿಲ್ಲ | Not Available</option>
+          </select>
+          <div id="marriageUpload" style="display:none;">
+            <label>ಮದುವೆ ಪ್ರಮಾಣಪತ್ರ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ | Upload Marriage Certificate</label>
+            <input type="file" name="marriage_certificate_path" accept="image/*,.pdf">
+          </div>
+        </div>
+
+        <div class="portal-btn-row">
+          <button type="submit" class="portal-btn portal-btn-primary">ಅರ್ಜಿಯನ್ನು ಸಲ್ಲಿಸಿ | Submit Application</button>
+          <button type="button" onclick="document.getElementById('birthcertificateForm').reset()" class="portal-btn portal-btn-secondary">ತೆರವುಗೊಳಿಸಿ | Clear</button>
+          <button type="button" onclick="history.back()" class="portal-btn portal-btn-secondary">ಹಿಂದಕ್ಕೆ | Back</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+  </footer>
+
+  <script src="../../application-form-helper.js"></script>
+  <script>
+    async function serializeForm(form) {
+      return window.serializeApplicationForm(form);
+    }
+
+    async function submitForm(event) {
+      event.preventDefault();
+      if (!validateDemoOtp('birthcertificateForm')) return;
+      const form = document.getElementById('birthcertificateForm');
+      const payload = await serializeForm(form);
+      fetch('/api/apply/birthcertificate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(err => Promise.reject(err));
+        }
+        return res.json();
+      })
+      .then(resp => {
+        if (resp.success) {
+          alert('Application submitted. Reference #' + resp.application_number);
+          localStorage.setItem('birthcertificateApplicationNumber', resp.application_number);
+          window.location.href = 'birthcertificateSuccess.html';
+        } else {
+          const errorMsg = resp.message || (typeof resp.error === 'string' ? resp.error : JSON.stringify(resp.error)) || 'Unknown error';
+          alert('Error: ' + errorMsg);
+        }
+      })
+      .catch(err => {
+        console.error('Submission error:', err);
+        const errorMsg = err.message || (typeof err === 'string' ? err : (err.error?.message || JSON.stringify(err))) || 'Unable to contact server. Please check if MySQL database is set up.';
+        alert('Submission failed: ' + errorMsg);
+      });
+    }
+  </script>
+  <script src="../../otp-demo.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initDemoOtp('birthcertificateForm', 'mobile');
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

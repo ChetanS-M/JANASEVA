@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0e3a5f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>ಲಾಗಿನ್ | Login - JanaSeva</title>
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" type="image/png" href="../icons/icon-192.png">
+  <link rel="apple-touch-icon" href="../icons/icon-192.png">
+  <link rel="stylesheet" href="../portal.css">
+  <style>
+    .login-wrap {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f0f4f8;
+      position: relative;
+      padding: 100px 20px 40px;
+    }
+    .login-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .login-container:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    }
+    .login-container h2 {
+      margin: 0 0 25px;
+      color: #003366;
+      font-size: 1.5rem;
+      transition: color 200ms ease, transform 200ms ease;
+    }
+    .login-container h2:hover {
+      color: #001f4d;
+      transform: translateY(-3px);
+      cursor: default;
+    }
+    .login-container label {
+      display: block;
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #333;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      font-size: 15px;
+      box-sizing: border-box;
+      transition: box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .login-container input:hover,
+    .login-container input:focus {
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+      border-color: #003366;
+      outline: none;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #003366;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+    .login-container button:hover {
+      background-color: #001f4d;
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    .login-container a {
+      display: block;
+      margin-top: 18px;
+      text-decoration: none;
+      color: #003366;
+      font-weight: 500;
+    }
+    .login-container a:hover {
+      text-decoration: underline;
+      color: #001f4d;
+    }
+    .login-selector {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .login-role-card {
+      display: block;
+      border: 1px solid #d8e0e8;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: left;
+      background: linear-gradient(180deg, #f8fbfd, #eef4f8);
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+      cursor: pointer;
+    }
+    .login-role-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0, 31, 77, 0.12);
+      border-color: #003366;
+    }
+    .login-role-card.active {
+      border-color: #003366;
+      box-shadow: inset 0 0 0 1px #003366;
+    }
+    .login-role-card b {
+      display: block;
+      color: #003366;
+      margin-bottom: 4px;
+      font-size: 0.98rem;
+    }
+    .login-role-card span {
+      display: block;
+      color: #4b5563;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+    .login-helper {
+      margin: -4px 0 18px;
+      color: #4b5563;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+    @media (max-width: 520px) {
+      .login-selector {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="portal-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="./register.html">ನೋಂದಣಿ | Register</a>
+    </nav>
+  </header>
+
+  <div class="login-wrap">
+    <div class="login-container">
+      <h2>ನಾಗರಿಕ ಲಾಗಿನ್ | Citizen Login</h2>
+      <div class="login-selector">
+        <a class="login-role-card active" href="./login.html">
+          <b>Citizen Access</b>
+          <span>For residents applying for services, checking status, and viewing their application history.</span>
+        </a>
+        <a class="login-role-card" href="../admin/admin-login.html">
+          <b>Official Access</b>
+          <span>For authorized officers reviewing submitted applications and recording verification decisions.</span>
+        </a>
+      </div>
+      <p class="login-helper">Click the relevant access card to move between citizen and official workflows.</p>
+      <form id="loginForm" onsubmit="return handleLogin(event)">
+        <label for="username">ಬಳಕೆದಾರ ಹೆಸರು | Username</label>
+        <input type="text" id="username" name="username" required placeholder="ಬಳಕೆದಾರ ಹೆಸರನ್ನು ನಮೂದಿಸಿ | Enter username">
+
+        <label for="password">ಪಾಸ್‌ವರ್ಡ್ | Password</label>
+        <input type="password" id="password" name="password" required placeholder="ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ | Enter password">
+
+        <div class="face-login-section" style="margin-top: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; background: #f9f9f9;">
+          <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">
+            ಮುಖ ದೃಢೀಕರಣ ಕಡ್ಡಾಯ | Face Verification Required
+          </label>
+          
+          <div id="face-login-container">
+            <div id="face-camera-container" style="display: none; margin-bottom: 10px; text-align: center;">
+              <video id="face-video" width="200" height="150" autoplay style="border: 2px solid #007bff; border-radius: 4px;"></video>
+              <canvas id="face-canvas" style="display: none;"></canvas>
+            </div>
+            <div style="margin-bottom: 8px; font-size: 0.88rem; color: #555;">
+              Please verify your face before login. A live capture will be checked with your saved face record.
+            </div>
+            <button type="button" id="start-face-verification" class="portal-btn portal-btn-secondary" style="width: 100%; margin-bottom: 8px;">ಮುಖ ದೃಢೀಕರಿಸಿ | Verify Face</button>
+            <div id="face-verification-status" style="font-weight: bold; text-align: center; font-size: 0.9rem;"></div>
+          </div>
+        </div>
+
+        <button id="login-action-btn" type="submit">ಲಾಗಿನ್ | Login</button>
+      </form>
+      <a href="./register.html">ಹೊಸ ಬಳಕೆದಾರರಾ? ಇಲ್ಲಿ ನೋಂದಣಿ ಮಾಡಿ | New user? Register here</a>
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+  </footer>
+
+  <script>
+    var faceVerifier = null;
+    var faceVerified = false;
+    var liveFaceBurstCount = 8;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      faceVerifier = new FaceVerification('face-video', 'face-canvas');
+
+      document.getElementById('username').addEventListener('input', () => {
+        faceVerified = false;
+        if (faceVerifier) faceVerifier.stopCamera();
+        document.getElementById('face-camera-container').style.display = 'none';
+        document.getElementById('start-face-verification').textContent = 'ಮುಖ ದೃಢೀಕರಿಸಿ | Verify Face';
+        document.getElementById('face-verification-status').textContent = '';
+      });
+
+      document.getElementById('face-login-container').style.display = 'block';
+
+      // Handle face verification button
+      document.getElementById('start-face-verification').addEventListener('click', async () => {
+        const username = document.getElementById('username').value.trim();
+        if (!username) {
+          alert('ದಯವಿಟ್ಟು ಮೊದಲು ಬಳಕೆದಾರ ಹೆಸರನ್ನು ನಮೂದಿಸಿ | Please enter username first');
+          return;
+        }
+
+        const status = document.getElementById('face-verification-status');
+        const cameraVisible = document.getElementById('face-camera-container').style.display !== 'none';
+
+        if (cameraVisible) {
+          await verifyFaceForLogin(username);
+          return;
+        }
+
+        status.innerHTML = 'ಕ್ಯಾಮರಾ ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತಿದೆ... | Starting camera...';
+        status.style.color = 'black';
+
+        const started = await faceVerifier.startCamera();
+        if (started) {
+          document.getElementById('face-camera-container').style.display = 'block';
+          document.getElementById('start-face-verification').textContent = 'ಈಗ ಮುಖ ದೃಢೀಕರಿಸಿ | Verify Face Now';
+          status.innerHTML = 'ನಿಮ್ಮ ಮುಖವನ್ನು ಕ್ಯಾಮರಾದ ಮುಂದೆ ಇಡಿ ಮತ್ತು ಮತ್ತೆ ಬಟನ್ ಒತ್ತಿ | Position your face in front of the camera and press the button again';
+        } else {
+          status.innerHTML = 'ಕ್ಯಾಮರಾ ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಗಿದೆ | Camera access denied';
+          status.style.color = 'red';
+        }
+      });
+    });
+
+    async function verifyFaceForLogin(username) {
+      const status = document.getElementById('face-verification-status');
+      status.innerHTML = `Live capture started (${liveFaceBurstCount} frames)... | Live capture started (${liveFaceBurstCount} frames)...`;
+
+      try {
+        const formData = new FormData();
+        formData.append('username', username);
+        const samples = await faceVerifier.captureFaceBurst(liveFaceBurstCount, 120, 'login-live');
+        formData.append('faceProfile', JSON.stringify(faceVerifier.buildFaceProfile(samples)));
+        samples.forEach(function(sample, index) {
+          formData.append('photos', sample.blob, 'live-' + (index + 1) + '.jpg');
+          formData.append('faceSignatures', JSON.stringify(sample.embedding));
+        });
+        status.innerHTML = 'ಮುಖ ಹೋಲಿಕೆ ನಡೆಯುತ್ತಿದೆ... | Face verification is in progress...';
+
+        const response = await fetch('/api/login/verify-face', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.verified) {
+          faceVerified = true;
+          faceVerifier.stopCamera();
+          document.getElementById('face-camera-container').style.display = 'none';
+          document.getElementById('start-face-verification').textContent = 'ಮತ್ತೆ ಪರಿಶೀಲಿಸಿ | Verify Again';
+          status.innerHTML = `✅ ಮುಖ ದೃಢೀಕರಿಸಲಾಗಿದೆ (${result.confidence.toFixed(1)}%)${result.matched_angle ? ` - matched ${result.matched_angle}` : ''}${result.mode ? ` - ${result.mode}` : ''} | Face verified (${result.confidence.toFixed(1)}%)`;
+          status.style.color = 'green';
+        } else {
+          faceVerified = false;
+          status.innerHTML = `❌ ಮುಖ ದೃಢೀಕರಣ ವಿಫಲವಾಗಿದೆ${result.confidence ? ` (${result.confidence.toFixed(1)}%)` : ''} | Face verification failed`;
+          status.style.color = 'red';
+        }
+      } catch (error) {
+        faceVerified = false;
+        status.innerHTML = `❌ ದೃಢೀಕರಣ ದೋಷ | Verification error`;
+        status.style.color = 'red';
+      }
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      var username = document.getElementById('username').value.trim();
+      var password = document.getElementById('password').value;
+
+      if (!faceVerified) {
+        alert('ದಯವಿಟ್ಟು ಮೊದಲು ಮುಖ ದೃಢೀಕರಿಸಿ | Please verify your face first');
+        return false;
+      }
+
+      fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: username, password: password })
+      })
+      .then(function(res) {
+        return res.json().then(function(data) {
+          if (!res.ok) throw new Error(data.message || 'Invalid username or password');
+          return data;
+        });
+      })
+      .then(function(data) {
+        localStorage.setItem('username', data.user.username);
+        alert('ಲಾಗಿನ್ ಯಶಸ್ವಿಯಾಗಿದೆ | Login successful!');
+        window.location.href = './home.html';
+      })
+      .catch(function(err) {
+        alert(err.message || 'Invalid username or password');
+      });
+
+      return false;
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619/face_mesh.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@1.0.6/dist/face-landmarks-detection.min.js"></script>
+  <script src="../pwa-init.js"></script>
+  <script src="../face-verification.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

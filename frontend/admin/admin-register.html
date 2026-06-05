@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Registration - JanaSeva</title>
+  <link rel="stylesheet" href="../portal.css">
+  <link rel="stylesheet" href="../admin-console.css">
+</head>
+<body class="portal-body admin-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">ಅಧಿಕಾರಿ ಖಾತೆ ನೋಂದಣಿ | Admin account enrollment</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="./admin-login.html">ಅಧಿಕಾರಿ ಲಾಗಿನ್ | Admin Login</a>
+      <a href="../user/login.html">ನಾಗರಿಕ ಲಾಗಿನ್ | Citizen Login</a>
+    </nav>
+  </header>
+
+  <main class="portal-main">
+    <section class="portal-card" style="max-width: 980px; margin: 0 auto;">
+      <h1 class="portal-title">ಅಧಿಕಾರಿ ನೋಂದಣಿ | Admin Registration</h1>
+      <p class="portal-subtitle">ಅಧಿಕೃತ ಆಡ್ಮಿನ್ ಖಾತೆ ರಚಿಸಿ ಮತ್ತು ಮುಖ ದೃಢೀಕರಣ ದಾಖಲಿಸಿ | Create an official admin account and enroll face verification</p>
+
+      <form id="adminRegisterForm" class="portal-form">
+        <div class="admin-form-grid">
+          <div>
+            <label for="employee_id">Employee ID *</label>
+            <input type="text" id="employee_id" required maxlength="12" pattern="JSKAR2026(0[1-9]|10)" >
+          </div>
+          <div>
+            <label for="full_name">Full Name *</label>
+            <input type="text" id="full_name" required placeholder="Enter full name">
+          </div>
+          <div>
+            <label for="username">Username *</label>
+            <input type="text" id="username" required placeholder="Auto-generated from Employee ID" readonly>
+          </div>
+          <div>
+            <label for="email">Email *</label>
+            <input type="email" id="email" required placeholder="Enter official email">
+          </div>
+          <div>
+            <label for="designation">Designation *</label>
+            <input type="text" id="designation" required placeholder="Enter designation">
+          </div>
+          <div>
+            <label for="department">Department *</label>
+            <input type="text" id="department" required placeholder="Enter department name">
+          </div>
+          <div>
+            <label for="office_name">Office Name *</label>
+            <input type="text" id="office_name" required placeholder="Enter office name">
+          </div>
+        </div>
+
+        <div class="portal-section">
+          <label for="password">Password *</label>
+          <input type="password" id="password" required placeholder="Create password">
+
+          <label for="confirm_password">Confirm Password *</label>
+          <input type="password" id="confirm_password" required placeholder="Re-enter password">
+        </div>
+
+        <div class="face-capture-section" style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9;">
+          <h4 style="margin: 0 0 10px 0; color: #1e3a5f;">Face Verification Enrollment *</h4>
+          <p style="margin: 0 0 15px 0; font-size: 0.9rem; color: #666;">Face enrollment is mandatory for admin accounts. Open the camera and hold capture to collect images from multiple angles.</p>
+
+          <div id="face-angle-guide" style="margin-bottom: 12px; font-size: 0.92rem; color: #1e3a5f; font-weight: 600;"></div>
+
+          <div id="face-camera-container" style="display: none; margin-bottom: 10px;">
+            <video id="face-video" width="240" height="180" autoplay style="border: 2px solid #007bff; border-radius: 4px; display: block; margin: 0 auto;"></video>
+            <canvas id="face-canvas" style="display: none;"></canvas>
+          </div>
+
+          <div id="face-preview-container" style="display: none; margin-bottom: 10px; text-align: center;">
+            <div id="face-preview-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px;"></div>
+            <div class="portal-btn-row" style="display: flex; gap: 10px;">
+              <button type="button" id="retake-face-photo" class="portal-btn portal-btn-secondary" style="flex: 1;">Retake</button>
+              <button type="button" id="confirm-face-photo" class="portal-btn portal-btn-primary" style="flex: 1;">Confirm</button>
+            </div>
+          </div>
+
+          <div id="face-angle-progress" style="margin-bottom: 10px; font-size: 0.9rem; color: #555;"></div>
+
+          <button type="button" id="start-face-capture" class="portal-btn portal-btn-secondary" style="width: 100%; margin-bottom: 10px;">Open Camera</button>
+          <button type="button" id="hold-face-capture" class="portal-btn portal-btn-primary" style="display: none; width: 100%; margin-bottom: 10px;">Press And Hold To Capture</button>
+          <div id="face-capture-status" style="font-weight: bold; text-align: center;"></div>
+        </div>
+
+        <div id="registerMessage" class="admin-alert" style="display:none;"></div>
+
+        <div class="portal-btn-row">
+          <button type="submit" class="portal-btn portal-btn-primary">ಅಧಿಕಾರಿ ಖಾತೆ ರಚಿಸಿ | Create Admin Account</button>
+          <a class="portal-btn portal-btn-secondary" style="text-decoration:none; text-align:center;" href="./admin-login.html">ಲಾಗಿನ್‌ಗೆ ಹಿಂತಿರುಗಿ | Back to Login</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="portal-footer">
+    &copy; 2026 JanaSeva Service Platform. ಅಧಿಕೃತ ಆಡ್ಮಿನ್ ಖಾತೆ ನೋಂದಣಿ | Official admin account enrollment.
+  </footer>
+
+  <script>
+    var faceVerifier = null;
+    var pendingFaceBurst = [];
+    var capturedFaceSamples = [];
+    var faceCaptureStarted = false;
+    var pendingPreviewUrls = [];
+    var captureSequence = 0;
+    var holdCaptureActive = false;
+    var holdCaptureLoopRunning = false;
+    var holdCaptureDelayMs = 140;
+    var minTrainingSamples = 12;
+    var previewLimit = 15;
+
+    function showRegisterMessage(message, isError) {
+      const box = document.getElementById('registerMessage');
+      box.style.display = 'block';
+      box.className = isError ? 'admin-alert error' : 'admin-alert';
+      box.textContent = message;
+    }
+
+    function syncUsernameFromEmployeeId() {
+      const employeeIdInput = document.getElementById('employee_id');
+      const usernameInput = document.getElementById('username');
+      const normalizedEmployeeId = employeeIdInput.value.trim().toUpperCase();
+      employeeIdInput.value = normalizedEmployeeId;
+      usernameInput.value = normalizedEmployeeId;
+    }
+
+    function setFaceStatus(message, color) {
+      const status = document.getElementById('face-capture-status');
+      status.innerHTML = message;
+      status.style.color = color || 'black';
+    }
+
+    function updateFaceGuide() {
+      const guide = document.getElementById('face-angle-guide');
+      const progress = document.getElementById('face-angle-progress');
+
+      if (!faceCaptureStarted) {
+        guide.textContent = 'Minimum required photos: ' + minTrainingSamples;
+        progress.textContent = capturedFaceSamples.length ? ('Captured ' + capturedFaceSamples.length + ' photos') : '';
+        return;
+      }
+      if (holdCaptureActive) {
+        guide.textContent = 'Capture in progress. Slowly rotate your face to cover multiple angles.';
+        progress.textContent = 'Current set: ' + pendingFaceBurst.length + ' photos. Confirmed: ' + capturedFaceSamples.length;
+        return;
+      }
+      if (pendingFaceBurst.length) {
+        guide.textContent = 'Review the current batch and confirm if the photos are clear.';
+        progress.textContent = 'Current set: ' + pendingFaceBurst.length + ' photos. Confirmed: ' + capturedFaceSamples.length;
+        return;
+      }
+      guide.textContent = 'Camera ready. Press and hold capture, then slowly move your face.';
+      progress.textContent = 'Confirmed photos: ' + capturedFaceSamples.length;
+    }
+
+    function resetPendingPreview() {
+      pendingFaceBurst = [];
+      pendingPreviewUrls.forEach(function(url) { URL.revokeObjectURL(url); });
+      pendingPreviewUrls = [];
+      document.getElementById('face-preview-grid').innerHTML = '';
+      document.getElementById('face-preview-container').style.display = 'none';
+    }
+
+    async function ensureCameraForAngleCapture() {
+      const started = await faceVerifier.startCamera();
+      if (!started) {
+        setFaceStatus('Camera access denied', 'red');
+        return false;
+      }
+      document.getElementById('face-camera-container').style.display = 'block';
+      document.getElementById('hold-face-capture').style.display = 'block';
+      document.getElementById('start-face-capture').textContent = capturedFaceSamples.length ? 'Add More Photos' : 'Camera Ready';
+      updateFaceGuide();
+      setFaceStatus('Press and hold while moving your face to different angles.', 'black');
+      return true;
+    }
+
+    function stopHoldCapture() {
+      holdCaptureActive = false;
+      document.getElementById('hold-face-capture').textContent = 'Press And Hold To Capture';
+    }
+
+    async function finishHeldCapture() {
+      holdCaptureLoopRunning = false;
+      faceVerifier.stopCamera();
+      document.getElementById('face-camera-container').style.display = 'none';
+      document.getElementById('hold-face-capture').style.display = 'none';
+
+      if (!pendingFaceBurst.length) {
+        setFaceStatus('No usable frames were captured', 'red');
+        updateFaceGuide();
+        return;
+      }
+
+      const grid = document.getElementById('face-preview-grid');
+      grid.innerHTML = '';
+      pendingPreviewUrls.forEach(function(url) { URL.revokeObjectURL(url); });
+      pendingPreviewUrls = [];
+
+      pendingFaceBurst.slice(0, previewLimit).forEach(function(sample, index) {
+        const url = URL.createObjectURL(sample.blob);
+        pendingPreviewUrls.push(url);
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = 'Batch preview ' + (index + 1);
+        img.style.width = '100%';
+        img.style.border = '2px solid #2d6a4f';
+        img.style.borderRadius = '6px';
+        grid.appendChild(img);
+      });
+
+      document.getElementById('face-preview-container').style.display = 'block';
+      document.getElementById('start-face-capture').textContent = 'Open Camera Again';
+      setFaceStatus('Photos captured. Review and confirm.', '#1e3a5f');
+      updateFaceGuide();
+    }
+
+    async function startHoldCaptureLoop() {
+      if (holdCaptureLoopRunning) return;
+      holdCaptureLoopRunning = true;
+      pendingFaceBurst = [];
+      updateFaceGuide();
+
+      while (holdCaptureActive) {
+        try {
+          const sample = await faceVerifier.captureFaceSample();
+          captureSequence += 1;
+          sample.pose = 'freeform';
+          sample.sequence = captureSequence;
+          pendingFaceBurst.push(sample);
+          setFaceStatus('Capturing photos... ' + pendingFaceBurst.length, '#1e3a5f');
+          updateFaceGuide();
+        } catch (error) {}
+
+        if (holdCaptureActive) {
+          await new Promise(resolve => setTimeout(resolve, holdCaptureDelayMs));
+        }
+      }
+
+      await finishHeldCapture();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      faceVerifier = new FaceVerification('face-video', 'face-canvas');
+      updateFaceGuide();
+      document.getElementById('employee_id').addEventListener('input', syncUsernameFromEmployeeId);
+
+      document.getElementById('start-face-capture').addEventListener('click', async function () {
+        if (document.getElementById('face-preview-container').style.display !== 'none') {
+          resetPendingPreview();
+        }
+        faceCaptureStarted = true;
+        setFaceStatus('Starting camera...', 'black');
+        await ensureCameraForAngleCapture();
+      });
+
+      document.getElementById('retake-face-photo').addEventListener('click', async function () {
+        resetPendingPreview();
+        await ensureCameraForAngleCapture();
+      });
+
+      document.getElementById('confirm-face-photo').addEventListener('click', function () {
+        if (!pendingFaceBurst.length) return;
+        pendingFaceBurst.forEach(function(sample) { capturedFaceSamples.push(sample); });
+        resetPendingPreview();
+        updateFaceGuide();
+        document.getElementById('start-face-capture').textContent = 'Add More Photos';
+        setFaceStatus('Photos confirmed. Total saved: ' + capturedFaceSamples.length, 'green');
+      });
+
+      const holdBtn = document.getElementById('hold-face-capture');
+      const startHolding = function (event) {
+        if (event) event.preventDefault();
+        if (holdCaptureActive || holdCaptureLoopRunning) return;
+        holdCaptureActive = true;
+        holdBtn.textContent = 'Release To Stop Capture';
+        startHoldCaptureLoop();
+      };
+      const stopHoldingByEvent = function (event) {
+        if (event) event.preventDefault();
+        stopHoldCapture();
+      };
+      holdBtn.addEventListener('pointerdown', startHolding);
+      holdBtn.addEventListener('pointerup', stopHoldingByEvent);
+      holdBtn.addEventListener('pointerleave', stopHoldingByEvent);
+      holdBtn.addEventListener('pointercancel', stopHoldingByEvent);
+
+      document.getElementById('adminRegisterForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const employeeId = document.getElementById('employee_id').value.trim().toUpperCase();
+        document.getElementById('username').value = employeeId;
+        const fullName = document.getElementById('full_name').value.trim();
+        const username = employeeId;
+        const email = document.getElementById('email').value.trim();
+        const designation = document.getElementById('designation').value.trim();
+        const department = document.getElementById('department').value.trim();
+        const officeName = document.getElementById('office_name').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+
+        if (!/^JSKAR2026(0[1-9]|10)$/.test(employeeId)) {
+          showRegisterMessage('Only Employee IDs from JSKAR202601 to JSKAR202610 are allowed for admin registration', true);
+          return;
+        }
+        if (password !== confirmPassword) {
+          showRegisterMessage('Password and confirm password do not match', true);
+          return;
+        }
+        if (capturedFaceSamples.length < minTrainingSamples) {
+          showRegisterMessage('At least 12 confirmed face photos are required', true);
+          return;
+        }
+        if (faceCaptureStarted && (holdCaptureActive || holdCaptureLoopRunning || pendingFaceBurst.length)) {
+          showRegisterMessage('Confirm or retake the current batch before submitting', true);
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append('employee_id', employeeId);
+        formData.append('full_name', fullName);
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('designation', designation);
+        formData.append('department', department);
+        formData.append('office_name', officeName);
+        formData.append('password', password);
+        formData.append('faceProfile', JSON.stringify(faceVerifier.buildFaceProfile(capturedFaceSamples)));
+        capturedFaceSamples.forEach(function(sample) {
+          formData.append('facePhotos', sample.blob, sample.pose + '-' + sample.sequence + '.jpg');
+          formData.append('faceAngles', sample.pose);
+          formData.append('faceSignatures', JSON.stringify(sample.embedding));
+        });
+
+        fetch('/api/admin/register', {
+          method: 'POST',
+          body: formData
+        })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            if (!res.ok) throw new Error(data.message || 'Unable to create admin account');
+            return data;
+          });
+        })
+        .then(function () {
+          showRegisterMessage('Admin account created successfully. Please login now.', false);
+          window.setTimeout(function () {
+            window.location.href = './admin-login.html';
+          }, 700);
+        })
+        .catch(function (error) {
+          showRegisterMessage(error.message || 'Unable to create admin account', true);
+        });
+      });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619/face_mesh.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@1.0.6/dist/face-landmarks-detection.min.js"></script>
+  <script src="../face-verification.js"></script>
+</body>
+</html>

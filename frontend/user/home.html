@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#0e3a5f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>JanaSeva</title>
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <link rel="icon" type="image/png" href="../icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="../icons/icon-192.png" />
+  <link rel="stylesheet" href="../sw.css" />
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="../image/emblem.png" alt="Logo" />
+      <div class="logo-text">
+        <b>JanaSeva</b>
+        <span class="tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <div class="navcont">
+      <a href="#logout" id="logout-link">ಲಾಗ್‌ಔಟ್ | Logout</a>
+    </div>
+  </div>
+
+  <div class="search-section">
+    <div class="search-container">
+      <h2>ಸೇವೆಗಳು ಮತ್ತು ಮಾಹಿತಿಯನ್ನು ಹುಡುಕಿ | Search Services & Information</h2>
+      <div class="search-wrapper">
+        <input type="text" id="main-search" class="main-search-input" placeholder="ಸೇವೆಗಳು, ದಾಖಲೆಗಳು ಅಥವಾ ಮಾಹಿತಿಗಾಗಿ ಹುಡುಕಿ... | Search for services, documents, or information...">
+        <button class="search-btn" onclick="performSearch()">ಹುಡುಕಿ | Search</button>
+      </div>
+      <div class="trending-searches">
+        <span class="trending-label">ಟ್ರೆಂಡಿಂಗ್ ಹುಡುಕಾಟಗಳು | Trending Searches:</span>
+        <a href="#" class="trending-link" onclick="searchTrending('Aadhaar')">ಆಧಾರ್ ಅರ್ಜಿ | Apply Aadhaar</a>
+        <a href="#" class="trending-link" onclick="searchTrending('PAN')">ಪಾನ್ ಕಾರ್ಡ್ | PAN Card</a>
+        <a href="#" class="trending-link" onclick="searchTrending('Passport')">ಪಾಸ್‌ಪೋರ್ಟ್ | Passport</a>
+        <a href="#" class="trending-link" onclick="searchTrending('Voter ID')">ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ | Voter ID</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="slideshow-container">
+
+    <div class="slide fade">
+      <img src="../image/log.jpg" style="width:100%">
+    </div>
+  
+    <div class="slide fade">
+      <img src="../image/panslide.jpg" style="width:100%">
+    </div>
+  
+    <div class="slide fade">
+      <img src="../image/aadharslide.jpg" style="width:100%">
+    </div>
+
+    <div class="slide fade">
+      <img src="../image/voteslide.jpg" style="width:100%">
+    </div>
+  
+  </div>
+
+  <div class="quick-links-section">
+    <div class="section-container">
+      <h2 class="section-title">ತ್ವರಿತ ಪ್ರವೇಶ | Quick Access</h2>
+      <div class="quick-links-grid">
+        <a href="history.html" class="quick-link-card">
+          <div class="quick-link-icon">&#128203;</div>
+          <h3>ಅರ್ಜಿಗಳ ಇತಿಹಾಸ | Application History</h3>
+          <p>ನೀವು ಸಲ್ಲಿಸಿದ ಎಲ್ಲಾ ಅರ್ಜಿಗಳನ್ನು ನೋಡಿ | View all your submitted applications</p>
+        </a>
+        <a href="karnatakaNews.html" class="quick-link-card">
+          <div class="quick-link-icon">&#128240;</div>
+          <h3>ಕರ್ನಾಟಕ ಸರ್ಕಾರದ ಸುದ್ದಿ | Karnataka Govt News</h3>
+          <p>ಹೊಸ ನಿಯಮಗಳು, ಯೋಜನೆಗಳು ಮತ್ತು ಸರ್ಕಾರಿ ಅಪ್‌ಡೇಟ್‌ಗಳು | Latest rules, schemes and government updates</p>
+        </a>
+        <a href="#service" class="quick-link-card">
+          <div class="quick-link-icon">&#128196;</div>
+          <h3>ಎಲ್ಲಾ ಸೇವೆಗಳು | All Services</h3>
+          <p>ಲಭ್ಯವಿರುವ ಎಲ್ಲಾ ಸರ್ಕಾರಿ ಸೇವೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ | Browse all available government services</p>
+        </a>
+        <a href="help.html" class="quick-link-card">
+          <div class="quick-link-icon">&#10067;</div>
+          <h3>ಸಹಾಯ ಮತ್ತು ಬೆಂಬಲ | Help & Support</h3>
+          <p>ಎಲ್ಲಾ ಸೇವೆಗಳಿಗಾಗಿ FAQ ಮತ್ತು ಬಳಕೆದಾರ ಮಾರ್ಗದರ್ಶಿ | FAQ and User Guide for all services</p>
+        </a>
+        <a href="#official-websites" class="quick-link-card">
+          <div class="quick-link-icon">&#127963;&#65039;</div>
+          <h3>ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್‌ಗಳು | Official Websites</h3>
+          <p>ವಿಶ್ವಾಸಾರ್ಹ ಸರ್ಕಾರಿ ಪೋರ್ಟಲ್‌ಗಳಿಗೆ ಭೇಟಿ ನೀಡಿ | Visit trusted government portals</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="service" class="service">
+    <div class="section-container">
+      <h2 class="section-title">ಸರ್ಕಾರಿ ಸೇವೆಗಳು | Government Services</h2>
+      <p class="section-subtitle">ಆನ್‌ಲೈನ್ ಸೇವೆಗಳನ್ನು ಪಡೆದು ಸಮಯ ಉಳಿಸಿ | Avail online Services & Save time</p>
+      <div class="service-items">
+      <div class="service-card">
+        <h3>ಆಧಾರ್ ಕಾರ್ಡ್ | Aadhar Card</h3>
+        <p>ಅಧಿಕೃತ ಗುರುತಿನ ದಾಖಲೆ | Official identity document</p>
+        <p>ಆಧಾರ್ ಕಾರ್ಡ್ ಭಾರತದಲ್ಲಿ ಅನನ್ಯ ಗುರುತಿನ ದಾಖಲೆ ಆಗಿದ್ದು, ಗುರುತು ಪರಿಶೀಲನೆ, ಸರ್ಕಾರಿ ಸಬ್ಸಿಡಿ, ಬ್ಯಾಂಕ್ ಖಾತೆ, ಸಿಮ್ ಮತ್ತು ತೆರಿಗೆ ಸೇವೆಗಳಿಗೆ ಬಳಸಲಾಗುತ್ತದೆ | Aadhaar is a unique identity document in India used for identity verification, government benefits, banking, SIM activation, and tax services.</p>
+        <button onclick="window.location.href='aadhar/aadharAbout.html'">ತೆರೆಯಿರಿ | Open</button>
+      </div>
+
+      <div class="service-card">
+        <h3>ಪಾನ್ ಕಾರ್ಡ್ | PAN Card</h3>
+        <p>ತೆರಿಗೆ ಗುರುತಿನ ದಾಖಲೆ | Tax identity document</p>
+        <p>PAN ಒಂದು 10 ಅಕ್ಷರ/ಅಂಕಿಯ ಹಣಕಾಸು ಗುರುತು ಸಂಖ್ಯೆ; ತೆರಿಗೆ ಸಲ್ಲಿಕೆ, ಬ್ಯಾಂಕ್ ಖಾತೆ, ಹೂಡಿಕೆ ಮತ್ತು ಹೆಚ್ಚಿನ ಮೌಲ್ಯದ ವ್ಯವಹಾರಗಳಿಗೆ ಅಗತ್ಯ | PAN is a 10-character financial identifier required for tax filing, bank accounts, investments, and high-value transactions.</p>
+        <button onclick="window.location.href='pan/panAbout.html'">ತೆರೆಯಿರಿ | Open</button>
+      </div>
+
+      <div class="service-card">
+        <h3>ಪಾಸ್‌ಪೋರ್ಟ್ | Passport</h3>
+        <p>ಅಂತಾರಾಷ್ಟ್ರೀಯ ಪ್ರಯಾಣದ ದಾಖಲೆ | International travel document</p>
+        <p>ಪಾಸ್‌ಪೋರ್ಟ್ ಅಂತರರಾಷ್ಟ್ರೀಯ ಪ್ರಯಾಣಕ್ಕೆ ಸರ್ಕಾರ ನೀಡುವ ಅಧಿಕೃತ ದಾಖಲೆ; ಇದು ಗುರುತು ಮತ್ತು ರಾಷ್ಟ್ರೀಯತೆಯ ಪುರಾವೆ ನೀಡುತ್ತದೆ | Passport is an official government document for international travel that proves identity and nationality.</p>
+        <button onclick="window.location.href='passport/passportAbout.html'">ತೆರೆಯಿರಿ | Open</button>
+      </div>
+
+      <div class="service-card">
+        <h3>ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ | VoterID Card</h3>
+        <p>ಚುನಾವಣಾ ಗುರುತಿನ ದಾಖಲೆ | Election identity document</p>
+        <p>ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ (EPIC) 18+ ನಾಗರಿಕರಿಗೆ ನೀಡಲಾಗುತ್ತದೆ; ಮತದಾನ ಮತ್ತು ಇತರೆ ಅಧಿಕೃತ ಕಾರ್ಯಗಳಲ್ಲಿ ಗುರುತು ಪುರಾವೆ ಆಗಿ ಬಳಸಲಾಗುತ್ತದೆ | Voter ID (EPIC) is issued to citizens aged 18+ and is used as identity proof for voting and other official purposes.</p>
+        <button onclick="window.location.href='voterid/voteridAbout.html'">ತೆರೆಯಿರಿ | Open</button>
+      </div>
+
+      <div class="service-card">
+        <h3>ಜನನ ಪ್ರಮಾಣಪತ್ರ | Birth Certificate</h3>
+        <p>ಜನನದ ಪುರಾವೆ | Proof of birth</p>
+        <p>ಜನನ ಪ್ರಮಾಣಪತ್ರವು ವ್ಯಕ್ತಿಯ ಜನನದ ಅಧಿಕೃತ ದಾಖಲೆ; ದಿನಾಂಕ, ಸ್ಥಳ ಮತ್ತು ಪೋಷಕರ ವಿವರಗಳನ್ನು ದೃಢೀಕರಿಸುತ್ತದೆ | Birth certificate is the official record of a person's birth, confirming date, place, and parent details.</p>
+        <button onclick="window.location.href='birthcertificate/birthAbout.html'">ತೆರೆಯಿರಿ | Open</button>
+      </div>
+
+      <div class="service-card">
+        <h3>ಚಾಲನಾ ಪರವಾನಗಿ | Driving License</h3>
+        <p>ವಾಹನ ಚಾಲನೆಗೆ ಅನುಮತಿ | Permit to drive</p>
+        <p>ಚಾಲನಾ ಪರವಾನಗಿ ಸಾರ್ವಜನಿಕ ರಸ್ತೆಯಲ್ಲಿ ವಾಹನ ಚಲಾಯಿಸಲು ಕಾನೂನುಬದ್ಧ ಅನುಮತಿ ನೀಡುವ ಅಧಿಕೃತ ದಾಖಲೆ | Driving licence is an official legal authorization to drive specified vehicles on public roads.</p>
+        <button onclick="window.location.href='drivinglicense/drivinglicenseAbout.html'">ತೆರೆಯಿರಿ | Open</button>
+      </div>
+
+      <div class="service-card">
+        <h3>ರೇಷನ್ ಕಾರ್ಡ್ | Ration Card</h3>
+        <p>ಸಬ್ಸಿಡಿ ಮತ್ತು ಕುಟುಂಬದ ದಾಖಲೆ | Subsidy and household record</p>
+        <p>ರೇಷನ್ ಕಾರ್ಡ್ NFSA/PDS ಅಡಿಯಲ್ಲಿ ಸಬ್ಸಿಡಿ ಧಾನ್ಯ ಪಡೆಯಲು ಅರ್ಹ ಕುಟುಂಬಗಳಿಗೆ ನೀಡುವ ಅಧಿಕೃತ ದಾಖಲೆ | Ration card is an official document for eligible households to access subsidized food grains under NFSA/PDS.</p>
+        <button onclick="window.location.href='ration/rationcardAbout.html'">ತೆರೆಯಿರಿ | Open</button>
+      </div>
+
+      <div class="service-card">
+        <h3>ಜಾತಿ ಮತ್ತು ಆದಾಯ ಪ್ರಮಾಣಪತ್ರ | Caste & Income Certificate</h3>
+        <p>ಅಧಿಕೃತ ಜಾತಿ ಮತ್ತು ಆದಾಯ ಪ್ರಮಾಣೀಕರಣ | Official caste and income certification</p>
+        <p>ಜಾತಿ ಪ್ರಮಾಣಪತ್ರವು SC/ST/OBC ಮುಂತಾದ ವರ್ಗದ ಪುರಾವೆ ನೀಡುತ್ತದೆ; ಆದಾಯ ಪ್ರಮಾಣಪತ್ರವು ಕುಟುಂಬದ ವಾರ್ಷಿಕ ಆದಾಯ ದೃಢೀಕರಿಸುತ್ತದೆ | Caste certificate confirms caste category and income certificate confirms annual family income for schemes and concessions.</p>
+        <button onclick="window.location.href='casteincome/casteincomeAbout.html'">ತೆರೆಯಿರಿ | Open</button>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div id="official-websites" class="official-websites-section">
+    <div class="section-container">
+      <h2 class="section-title">ಅಧಿಕೃತ ಸರ್ಕಾರಿ ವೆಬ್‌ಸೈಟ್‌ಗಳು | Official Government Websites</h2>
+      <p class="section-subtitle">ಮುಖ್ಯ ಸರ್ಕಾರಿ ಸೇವೆಗಳಿಗಾಗಿ ಪರಿಶೀಲಿತ ಪೋರ್ಟಲ್‌ಗಳನ್ನು ಬಳಸಿ | Access verified portals for key government services</p>
+      <div class="official-websites-grid">
+        <a href="https://uidai.gov.in/" target="_blank" class="official-card">
+          <h3>ಆಧಾರ್ (UIDAI) | Aadhaar (UIDAI)</h3>
+          <p>ಆಧಾರ್ ನೋಂದಣಿ, ನವೀಕರಣ ಮತ್ತು ಸೇವೆಗಳ ಅಧಿಕೃತ ಪೋರ್ಟಲ್ | Official portal for Aadhaar enrolment, update, and services.</p>
+        </a>
+        <a href="https://www.incometax.gov.in/" target="_blank" class="official-card">
+          <h3>ಪಾನ್ ಸೇವೆಗಳು | PAN Services</h3>
+          <p>ಹೊಸ PAN, ತಿದ್ದುಪಡಿ ಮತ್ತು ಮರುಮುದ್ರಣ ಸೇವೆಗಳು | Apply for new PAN, corrections, and reprint services.</p>
+        </a>
+        <a href="https://www.passportindia.gov.in/" target="_blank" class="official-card">
+          <h3>ಪಾಸ್‌ಪೋರ್ಟ್ ಸೇವಾ | Passport Seva</h3>
+          <p>ಪಾಸ್‌ಪೋರ್ಟ್ ಅರ್ಜಿ, ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಮತ್ತು ಟ್ರ್ಯಾಕಿಂಗ್‌ಗಾಗಿ ಅಧಿಕೃತ ಪೋರ್ಟಲ್ | Official portal for passport application, appointment, and tracking.</p>
+        </a>
+        <a href="https://voters.eci.gov.in/" target="_blank" class="official-card">
+          <h3>ಮತದಾರರ ಸೇವೆಗಳು (NVSP) | Voter Services (NVSP)</h3>
+          <p>ಹೊಸ ಮತದಾರರಾಗಿ ನೋಂದಣಿ, ವಿವರ ನವೀಕರಣ ಮತ್ತು ಸ್ಥಿತಿ ಪರಿಶೀಲನೆ | Register as a new voter, update details, and check status.</p>
+        </a>
+        <a href="https://parivahan.gov.in/" target="_blank" class="official-card">
+          <h3>ಪರಿವಹನ್ (ಚಾಲನಾ ಪರವಾನಗಿ ಮತ್ತು ವಾಹನ) | Parivahan (Driving Licence & Vehicle)</h3>
+          <p>ಚಾಲನಾ ಪರವಾನಗಿ, ವಾಹನ ನೋಂದಣಿ ಮತ್ತು ಸಾರಿಗೆ ಸೇವೆಗಳು | Driving licence, vehicle registration, and transport services.</p>
+        </a>
+        <a href="https://nfsa.gov.in/" target="_blank" class="official-card">
+          <h3>ರೇಷನ್ ಕಾರ್ಡ್ (NFSA) | Ration Card (NFSA)</h3>
+          <p>ರೇಷನ್ ಕಾರ್ಡ್ ಮತ್ತು NFSA ಯೋಜನೆಗಳಿಗೆ ಸಂಬಂಧಿಸಿದ ಮಾಹಿತಿ ಮತ್ತು ಲಿಂಕ್‌ಗಳು | Information and links related to ration card and NFSA schemes.</p>
+        </a>
+        <a href="https://nadakacheri.karnataka.gov.in/" target="_blank" class="official-card">
+          <h3>ಜಾತಿ ಮತ್ತು ಆದಾಯ ಪ್ರಮಾಣಪತ್ರ (ಕರ್ನಾಟಕ) | Caste & Income Certificate (Karnataka)</h3>
+          <p>ಕರ್ನಾಟಕ ನಾಡಕಚೇರಿ ಪೋರ್ಟಲ್ - ಜಾತಿ, ಆದಾಯ, ನಿವಾಸ ಮತ್ತು ಇತರೆ ಪ್ರಮಾಣಪತ್ರಗಳಿಗೆ ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ | Karnataka Nadakacheri portal - apply for caste, income, domicile and other certificates online.</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="help" class="help-section">
+    <div class="section-container">
+      <h2 class="section-title">ಸಹಾಯ ಮತ್ತು ಬೆಂಬಲ | Help & Support</h2>
+      <div class="help-grid">
+        <div class="help-card">
+          <h3>&#128222; ಸಂಪರ್ಕ ಬೆಂಬಲ | Contact Support</h3>
+          <p>ಇಮೇಲ್ | Email: JanaSevaKarnataka@gov.in</p>
+          <p>ದೂರವಾಣಿ | Phone: 1800-000-0001</p>
+          <p>ಸಮಯ | Hours: ಸೋಮ-ಶನಿ, 9 AM - 6 PM</p>
+        </div>
+        <div class="help-card">
+          <h3>&#10067; ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳು | Frequently Asked Questions</h3>
+          <p>ಮುಖಪುಟ, ಲಾಗಿನ್, ಹುಡುಕಾಟ, ಇತಿಹಾಸ ಮತ್ತು ಎಲ್ಲಾ ಸೇವೆಗಳ ಉತ್ತರಗಳು | Answers for all pages: Home, Login, Search, History, and every service.</p>
+          <a href="help.html#faq" class="help-link">FAQ ನೋಡಿ | View FAQ &#8594;</a>
+        </div>
+        <div class="help-card">
+          <h3>&#128214; ಬಳಕೆದಾರ ಮಾರ್ಗದರ್ಶಿ | User Guide</h3>
+          <p>ಹುಡುಕಾಟ ಬಳಕೆ ಮತ್ತು ಎಲ್ಲಾ ಸೇವೆಗಳ ಹಂತ ಹಂತದ ಮಾರ್ಗದರ್ಶನ | How to use Search and step-by-step guides for all services.</p>
+          <a href="help.html#user-guide" class="help-link">ಮಾರ್ಗದರ್ಶಿ ನೋಡಿ | View User Guide &#8594;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="ogd-footer">
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>ಓಪನ್ ಗವರ್ನ್ಮೆಂಟ್ ಡೇಟಾ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಇಂಡಿಯಾ | Open Government Data Platform India</h3>
+        <p>
+          ಇದು ಭಾರತದ ಸರ್ಕಾರಿ ಸೇವೆಗಳ ಪೋರ್ಟಲ್ ಆಗಿದ್ದು, ವಿವಿಧ ಸರ್ಕಾರಿ ಸಂಸ್ಥೆಗಳ ಸೇವೆಗಳಿಗೆ ಒಂದೇ ಕಿಟಕಿ ಮೂಲಕ ಪ್ರವೇಶ ನೀಡುವ ಉದ್ದೇಶದಿಂದ ಅಭಿವೃದ್ಧಿಪಡಿಸಲಾಗಿದೆ | This is the Government Services Portal of India, developed with an objective to enable a single window access to services being provided by the various Indian Government entities.
+        </p>
+      </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+  </div>
+</footer>
+
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!localStorage.getItem('username')) {
+        window.location.href = 'login.html';
+        return;
+      }
+      const navbar = document.querySelector('.navbar');
+      const serviceSection = document.getElementById('service');
+      function handleNavbarTransparency() {
+        const serviceTop = serviceSection.getBoundingClientRect().top + window.scrollY;
+        if (window.scrollY + navbar.offsetHeight >= serviceTop) {
+          navbar.classList.add('transparent');
+        } else {
+          navbar.classList.remove('transparent');
+        }
+      }
+      window.addEventListener('scroll', handleNavbarTransparency);
+      handleNavbarTransparency();
+
+      const username = localStorage.getItem('username');
+      const logoutLink = document.getElementById('logout-link');
+      
+      logoutLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        const confirmLogout = confirm('ನೀವು ಲಾಗ್‌ಔಟ್ ಮಾಡಲು ಖಚಿತವೇ? | Are you sure you want to logout?');
+        if (confirmLogout) {
+          localStorage.removeItem('username');
+          alert('ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಲಾಗ್‌ಔಟ್ ಆಗಿದ್ದೀರಿ | You have successfully logged out!');
+          window.location.href = 'login.html';
+        }
+      });
+
+      const mainSearch = document.getElementById('main-search');
+      if (mainSearch) {
+        mainSearch.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            performSearch();
+          }
+        });
+      }
+    });
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+
+    function increaseTextSize() {
+      const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+      document.body.style.fontSize = (currentSize + 2) + 'px';
+    }
+
+    function decreaseTextSize() {
+      const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+      if (currentSize > 12) {
+        document.body.style.fontSize = (currentSize - 2) + 'px';
+      }
+    }
+
+    function resetTextSize() {
+      document.body.style.fontSize = '';
+    }
+
+    var searchMap = [
+      { keywords: ['aadhaar', 'aadhar', 'uidai', 'ಆಧಾರ್'], url: 'aadhar/aadharAbout.html' },
+      { keywords: ['pan', 'pan card', 'permanent account', 'ಪಾನ್'], url: 'pan/panAbout.html' },
+      { keywords: ['passport', 'passport seva', 'ಪಾಸ್‌ಪೋರ್ಟ್'], url: 'passport/passportAbout.html' },
+      { keywords: ['voter', 'voter id', 'voterid', 'epic', 'election', 'ಮತದಾರ'], url: 'voterid/voteridAbout.html' },
+      { keywords: ['birth', 'birth certificate', 'ಜನನ ಪ್ರಮಾಣಪತ್ರ'], url: 'birthcertificate/birthAbout.html' },
+      { keywords: ['driving', 'driving licence', 'driving license', 'dl', 'rto', 'ಚಾಲನಾ ಪರವಾನಗಿ'], url: 'drivinglicense/drivinglicenseAbout.html' },
+      { keywords: ['ration', 'ration card', 'nfsa', 'pds', 'ರೇಷನ್'], url: 'ration/rationcardAbout.html' },
+      { keywords: ['caste', 'income certificate', 'caste certificate', 'caste and income', 'ಜಾತಿ', 'ಆದಾಯ'], url: 'casteincome/casteincomeAbout.html' },
+      { keywords: ['history', 'application history', 'my applications', 'ಇತಿಹಾಸ'], url: 'history.html' },
+      { keywords: ['news', 'karnataka news', 'government news', 'rules', 'schemes', 'ಸುದ್ದಿ', 'ಯೋಜನೆಗಳು'], url: 'karnatakaNews.html' },
+      { keywords: ['help', 'faq', 'guide', 'user guide', 'support', 'ಸಹಾಯ'], url: 'help.html' }
+    ];
+
+    function performSearch() {
+      var input = document.getElementById('main-search');
+      var query = (input && input.value) ? input.value.trim().toLowerCase() : '';
+      if (!query) return;
+      for (var i = 0; i < searchMap.length; i++) {
+        var item = searchMap[i];
+        for (var j = 0; j < item.keywords.length; j++) {
+          if (query.indexOf(item.keywords[j]) !== -1) {
+            window.location.href = item.url;
+            return;
+          }
+        }
+      }
+      var serviceEl = document.getElementById('service');
+      if (serviceEl) serviceEl.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function searchTrending(term) {
+      var input = document.getElementById('main-search');
+      if (input) input.value = term;
+      performSearch();
+    }
+
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+  
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      let slides = document.getElementsByClassName("slide");
+
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}
+
+      slides[slideIndex-1].style.display = "block";
+
+      setTimeout(showSlides, 4000);
+    }
+  </script>
+  <script src="../pwa-init.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

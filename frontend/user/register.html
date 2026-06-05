@@ -1,0 +1,420 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0e3a5f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>ನೋಂದಣಿ | Register - JanaSeva</title>
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" type="image/png" href="../icons/icon-192.png">
+  <link rel="apple-touch-icon" href="../icons/icon-192.png">
+  <link rel="stylesheet" href="../portal.css">
+</head>
+<body class="portal-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="./help.html">ಸಹಾಯ | Help</a>
+      <a href="./login.html">ಲಾಗಿನ್ | Login</a>
+    </nav>
+  </header>
+
+  <main class="portal-main">
+    <div class="portal-card">
+      <h1 class="portal-title">ನೋಂದಣಿ | Register</h1>
+      <p class="portal-subtitle">ಸರ್ಕಾರಿ ಸೇವೆಗಳಿಗೆ ಪ್ರವೇಶಿಸಲು ಖಾತೆ ರಚಿಸಿ | Create an account to access government services</p>
+
+      <form id="registerForm" class="portal-form" onsubmit="return handleRegister(event)">
+        <div class="portal-section">
+          <label for="name">ಪೂರ್ಣ ಹೆಸರು * | Full Name *</label>
+          <input type="text" id="name" name="name" required placeholder="Enter full name">
+
+          <label for="username">ಬಳಕೆದಾರ ಹೆಸರು * | Username *</label>
+          <input type="text" id="username" name="username" required placeholder="Choose a username">
+
+          <label for="email">ಇಮೇಲ್ * | Email *</label>
+          <input type="email" id="email" name="email" required placeholder="Enter email address">
+
+          <label for="phone">ದೂರವಾಣಿ * | Phone *</label>
+          <input type="tel" id="phone" name="phone" required placeholder="10-digit mobile number">
+
+          <label for="address">ವಿಳಾಸ | Address</label>
+          <input type="text" id="address" name="address" placeholder="Address (optional)">
+
+          <label for="password">ಪಾಸ್‌ವರ್ಡ್ * | Password *</label>
+          <input type="password" id="password" name="password" required placeholder="Choose a password">
+
+          <div class="face-capture-section" style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9;">
+            <h4 style="margin: 0 0 10px 0; color: #1e3a5f;">ಮುಖ ದೃಢೀಕರಣ ದಾಖಲಾತಿ (ಐಚ್ಛಿಕ) | Face Verification Enrollment (Optional)</h4>
+            <p style="margin: 0 0 15px 0; font-size: 0.9rem; color: #666;">ಕ್ಯಾಮರಾ ತೆರೆಯಿರಿ, ನಂತರ ಹಿಡಿದುಕೊಳ್ಳುವ ಬಟನ್ ಒತ್ತಿ ಹಿಡಿಯಿರಿ. ನೀವು ಬಟನ್ ಬಿಡುವವರೆಗೆ ವಿಭಿನ್ನ ಕೋಣಗಳಿಂದ ಹಲವು ಫೋಟೋಗಳು ತೆಗೆದುಕೊಳ್ಳಲಾಗುತ್ತವೆ. | Open the camera, then press and hold the capture button. Multiple photos are collected from different angles until you release it.</p>
+
+            <div id="face-angle-guide" style="margin-bottom: 12px; font-size: 0.92rem; color: #1e3a5f; font-weight: 600;"></div>
+
+            <div id="face-camera-container" style="display: none; margin-bottom: 10px;">
+              <video id="face-video" width="240" height="180" autoplay style="border: 2px solid #007bff; border-radius: 4px; display: block; margin: 0 auto;"></video>
+              <canvas id="face-canvas" style="display: none;"></canvas>
+            </div>
+
+            <div id="face-preview-container" style="display: none; margin-bottom: 10px; text-align: center;">
+              <div id="face-preview-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px;"></div>
+              <div class="portal-btn-row" style="display: flex; gap: 10px;">
+                <button type="button" id="retake-face-photo" class="portal-btn portal-btn-secondary" style="flex: 1;">ಮತ್ತೆ ತೆಗೆದುಕೊಳ್ಳಿ | Retake</button>
+                <button type="button" id="confirm-face-photo" class="portal-btn portal-btn-primary" style="flex: 1;">ದೃಢೀಕರಿಸಿ | Confirm</button>
+              </div>
+            </div>
+
+            <div id="face-angle-progress" style="margin-bottom: 10px; font-size: 0.9rem; color: #555;"></div>
+
+            <button type="button" id="start-face-capture" class="portal-btn portal-btn-secondary" style="width: 100%; margin-bottom: 10px;">ಕ್ಯಾಮರಾ ತೆರೆಯಿರಿ | Open Camera</button>
+            <button type="button" id="hold-face-capture" class="portal-btn portal-btn-primary" style="display: none; width: 100%; margin-bottom: 10px;">ಒತ್ತಿ ಹಿಡಿಯಿರಿ ಮತ್ತು ಮುಖ ತಿರುಗಿಸಿ | Press And Hold To Capture</button>
+            <div id="face-capture-status" style="font-weight: bold; text-align: center;"></div>
+          </div>
+
+          <div id="otp-row" style="display:none;">
+            <label for="otp">ಒಟಿಪಿ * | OTP *</label>
+            <input type="text" id="otp" name="otp" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP">
+          </div>
+        </div>
+
+        <div class="portal-btn-row">
+          <button id="register-action-btn" type="submit" class="portal-btn portal-btn-primary">ಒಟಿಪಿ ಕಳುಹಿಸಿ | Send OTP</button>
+        </div>
+      </form>
+
+      <p style="text-align:center; margin-top:20px;">
+        <a href="./login.html" style="color:#1e3a5f;font-weight:600;text-decoration:none;">ಈಗಾಗಲೇ ಖಾತೆ ಇದೆಯೇ? ಲಾಗಿನ್ ಮಾಡಿ | Already have an account? Login</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+  </footer>
+
+  <script>
+    var otpRequested = false;
+    var faceVerifier = null;
+    var pendingFaceBurst = [];
+    var capturedFaceSamples = [];
+    var faceCaptureStarted = false;
+    var pendingPreviewUrls = [];
+    var captureSequence = 0;
+    var holdCaptureActive = false;
+    var holdCaptureLoopRunning = false;
+    var holdCaptureDelayMs = 140;
+    var minTrainingSamples = 12;
+    var previewLimit = 15;
+
+    function setFaceStatus(message, color) {
+      const status = document.getElementById('face-capture-status');
+      status.innerHTML = message;
+      status.style.color = color || 'black';
+    }
+
+    function updateFaceGuide() {
+      const guide = document.getElementById('face-angle-guide');
+      const progress = document.getElementById('face-angle-progress');
+
+      if (!faceCaptureStarted) {
+        guide.textContent = `Minimum recommended photos: ${minTrainingSamples}`;
+        progress.textContent = capturedFaceSamples.length ? `Captured ${capturedFaceSamples.length} photos` : '';
+        return;
+      }
+
+      if (holdCaptureActive) {
+        guide.textContent = 'Capture is in progress. Slowly turn your face to cover different angles.';
+        progress.textContent = `Current set: ${pendingFaceBurst.length} photos captured. Total confirmed: ${capturedFaceSamples.length}`;
+        return;
+      }
+
+      if (pendingFaceBurst.length) {
+        guide.textContent = 'Review the captured photos and confirm if they are clear.';
+        progress.textContent = `Current set: ${pendingFaceBurst.length} photos. Total confirmed: ${capturedFaceSamples.length}`;
+        return;
+      }
+
+      guide.textContent = 'Camera ready. Press and hold the capture button, then slowly rotate your face.';
+      progress.textContent = `Confirmed photos: ${capturedFaceSamples.length}`;
+    }
+
+    function resetPendingPreview() {
+      pendingFaceBurst = [];
+      pendingPreviewUrls.forEach(function(url) {
+        URL.revokeObjectURL(url);
+      });
+      pendingPreviewUrls = [];
+      document.getElementById('face-preview-grid').innerHTML = '';
+      document.getElementById('face-preview-container').style.display = 'none';
+    }
+
+    async function ensureCameraForAngleCapture() {
+      const started = await faceVerifier.startCamera();
+      if (!started) {
+        setFaceStatus('ಕ್ಯಾಮರಾ ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಗಿದೆ | Camera access denied', 'red');
+        return false;
+      }
+
+      document.getElementById('face-camera-container').style.display = 'block';
+      document.getElementById('hold-face-capture').style.display = 'block';
+      document.getElementById('start-face-capture').textContent = capturedFaceSamples.length ? 'ಇನ್ನಷ್ಟು ಫೋಟೋಗಳನ್ನು ಸೇರಿಸಿ | Add More Photos' : 'ಕ್ಯಾಮರಾ ಸಿದ್ಧವಾಗಿದೆ | Camera Ready';
+      updateFaceGuide();
+      setFaceStatus('ಮುಖವನ್ನು ನಿಧಾನವಾಗಿ ವಿವಿಧ ಕೋಣಗಳಿಗೆ ತಿರುಗಿಸುತ್ತಾ ಹಿಡಿದುಕೊಳ್ಳುವ ಬಟನ್ ಒತ್ತಿ ಹಿಡಿಯಿರಿ. | Press and hold the capture button while slowly turning your face through different angles.', 'black');
+      return true;
+    }
+
+    function stopHoldCapture() {
+      holdCaptureActive = false;
+      const holdBtn = document.getElementById('hold-face-capture');
+      holdBtn.textContent = 'ಒತ್ತಿ ಹಿಡಿಯಿರಿ ಮತ್ತು ಮುಖ ತಿರುಗಿಸಿ | Press And Hold To Capture';
+    }
+
+    async function finishHeldCapture() {
+      holdCaptureLoopRunning = false;
+      faceVerifier.stopCamera();
+      document.getElementById('face-camera-container').style.display = 'none';
+      document.getElementById('hold-face-capture').style.display = 'none';
+
+      if (!pendingFaceBurst.length) {
+        setFaceStatus('ಯಾವುದೇ ಉಪಯುಕ್ತ ಫ್ರೇಮ್ ಸಿಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. | No usable frames were captured. Try again.', 'red');
+        updateFaceGuide();
+        return;
+      }
+
+      const grid = document.getElementById('face-preview-grid');
+      grid.innerHTML = '';
+      pendingPreviewUrls.forEach(function(url) {
+        URL.revokeObjectURL(url);
+      });
+      pendingPreviewUrls = [];
+
+      pendingFaceBurst.slice(0, previewLimit).forEach(function(sample, index) {
+        const url = URL.createObjectURL(sample.blob);
+        pendingPreviewUrls.push(url);
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = 'Batch preview ' + (index + 1);
+        img.style.width = '100%';
+        img.style.border = '2px solid #2d6a4f';
+        img.style.borderRadius = '6px';
+        grid.appendChild(img);
+      });
+
+      document.getElementById('face-preview-container').style.display = 'block';
+      document.getElementById('start-face-capture').textContent = 'ಮತ್ತೆ ಕ್ಯಾಮರಾ ತೆರೆಯಿರಿ | Open Camera Again';
+      setFaceStatus(`Captured ${pendingFaceBurst.length} photos. Review and confirm or retake. | Captured ${pendingFaceBurst.length} photos. Review and confirm or retake.`, '#1e3a5f');
+      updateFaceGuide();
+    }
+
+    async function startHoldCaptureLoop() {
+      if (holdCaptureLoopRunning) {
+        return;
+      }
+
+      holdCaptureLoopRunning = true;
+      pendingFaceBurst = [];
+      updateFaceGuide();
+
+      while (holdCaptureActive) {
+        try {
+          const sample = await faceVerifier.captureFaceSample();
+          captureSequence += 1;
+          sample.pose = 'freeform';
+          sample.sequence = captureSequence;
+          pendingFaceBurst.push(sample);
+          setFaceStatus(`Capturing... ${pendingFaceBurst.length} photos collected. Release when enough angles are covered. | Capturing... ${pendingFaceBurst.length} photos collected. Release when enough angles are covered.`, '#1e3a5f');
+          updateFaceGuide();
+        } catch (error) {}
+
+        if (holdCaptureActive) {
+          await new Promise(resolve => setTimeout(resolve, holdCaptureDelayMs));
+        }
+      }
+
+      await finishHeldCapture();
+    }
+
+    // Initialize face verification
+    document.addEventListener('DOMContentLoaded', () => {
+      faceVerifier = new FaceVerification('face-video', 'face-canvas');
+      updateFaceGuide();
+
+      document.getElementById('start-face-capture').addEventListener('click', async () => {
+        const previewVisible = document.getElementById('face-preview-container').style.display !== 'none';
+
+        if (previewVisible) {
+          resetPendingPreview();
+        }
+
+        faceCaptureStarted = true;
+        setFaceStatus('ಕ್ಯಾಮರಾ ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತಿದೆ... | Starting camera...', 'black');
+        await ensureCameraForAngleCapture();
+      });
+
+      document.getElementById('retake-face-photo').addEventListener('click', async () => {
+        resetPendingPreview();
+        await ensureCameraForAngleCapture();
+      });
+
+      document.getElementById('confirm-face-photo').addEventListener('click', async () => {
+        if (!pendingFaceBurst.length) {
+          return;
+        }
+
+        pendingFaceBurst.forEach(function(sample) {
+          capturedFaceSamples.push(sample);
+        });
+
+        resetPendingPreview();
+        updateFaceGuide();
+        document.getElementById('start-face-capture').textContent = 'ಇನ್ನಷ್ಟು ಫೋಟೋಗಳನ್ನು ಸೇರಿಸಿ | Add More Photos';
+        setFaceStatus(`✅ Photos confirmed. Total saved photos: ${capturedFaceSamples.length}. Add more if you want broader coverage. | Photos confirmed. Total saved photos: ${capturedFaceSamples.length}. Add more if you want broader coverage.`, 'green');
+      });
+
+      const holdBtn = document.getElementById('hold-face-capture');
+      const startHolding = function(event) {
+        if (event) event.preventDefault();
+        if (holdCaptureActive || holdCaptureLoopRunning) {
+          return;
+        }
+        holdCaptureActive = true;
+        holdBtn.textContent = 'ಬಿಡುಗಡೆ ಮಾಡಿದಾಗ capture ನಿಲ್ಲುತ್ತದೆ | Release To Stop Capture';
+        setFaceStatus('ಹಿಡಿಯಲಾಗುತ್ತಿದೆ... ಮುಖವನ್ನು ನಿಧಾನವಾಗಿ ಎಡ, ಬಲ, ಮೇಲ್ಭಾಗ, ಕೆಳಭಾಗಕ್ಕೆ ತಿರುಗಿಸಿ. | Capturing... slowly move your face left, right, up, and down.', '#1e3a5f');
+        startHoldCaptureLoop();
+      };
+
+      const stopHoldingByEvent = function(event) {
+        if (event) event.preventDefault();
+        stopHoldCapture();
+      };
+
+      holdBtn.addEventListener('pointerdown', startHolding);
+      holdBtn.addEventListener('pointerup', stopHoldingByEvent);
+      holdBtn.addEventListener('pointerleave', stopHoldingByEvent);
+      holdBtn.addEventListener('pointercancel', stopHoldingByEvent);
+    });
+
+    function handleRegister(event) {
+      event.preventDefault();
+      var name = document.getElementById('name').value.trim();
+      var username = document.getElementById('username').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+      var address = document.getElementById('address').value.trim();
+      var password = document.getElementById('password').value;
+      var otp = document.getElementById('otp').value.trim();
+      var otpRow = document.getElementById('otp-row');
+      var actionBtn = document.getElementById('register-action-btn');
+
+      if (!name || !username || !email || !password) {
+        alert('Please fill in all required fields (Name, Username, Email, Password).');
+        return false;
+      }
+
+      if (faceCaptureStarted && (holdCaptureActive || holdCaptureLoopRunning || pendingFaceBurst.length)) {
+        alert('Please release the capture button and confirm or retake the current photo set before continuing.');
+        return false;
+      }
+
+      if (capturedFaceSamples.length > 0 && capturedFaceSamples.length < minTrainingSamples) {
+        alert('Capture a few more photos before continuing. At least 12 confirmed photos are recommended for reliable verification.');
+        return false;
+      }
+
+      if (!otpRequested) {
+        // Send form data with face photo if captured
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('address', address);
+        formData.append('password', password);
+        
+        if (capturedFaceSamples.length) {
+          const profile = faceVerifier.buildFaceProfile(capturedFaceSamples);
+          formData.append('faceProfile', JSON.stringify(profile));
+          capturedFaceSamples.forEach(function(sample) {
+            formData.append('facePhotos', sample.blob, sample.pose + '-' + sample.sequence + '.jpg');
+            formData.append('faceAngles', sample.pose);
+            formData.append('faceSignatures', JSON.stringify(sample.embedding));
+          });
+        }
+
+        fetch('/api/register/request-otp', {
+          method: 'POST',
+          body: formData
+        })
+        .then(res => {
+          return res.json().then(data => {
+            if (!res.ok) throw new Error(data.message || 'Unable to send OTP');
+            return data;
+          });
+        })
+        .then(data => {
+          otpRequested = true;
+          otpRow.style.display = 'block';
+          actionBtn.textContent = 'ಒಟಿಪಿ ದೃಢೀಕರಿಸಿ ಮತ್ತು ನೋಂದಣಿ | Verify OTP & Register';
+          ['name','username','email','phone','address','password'].forEach(function(id){
+            document.getElementById(id).readOnly = true;
+          });
+          if (data.delivery_mode === 'demo' && data.otp) {
+            alert('ಒಟಿಪಿ (ಡೆಮೋ): ' + data.otp + ' | OTP (Demo): ' + data.otp);
+          } else {
+            alert('ಒಟಿಪಿ ಕಳುಹಿಸಲಾಗಿದೆ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಫೋನ್ ಪರಿಶೀಲಿಸಿ. | OTP sent. Please check your phone.');
+          }
+        })
+        .catch(err => {
+          alert(err.message || 'OTP request failed');
+        });
+        return false;
+      }
+
+      if (!otp || otp.length !== 6) {
+        alert('6-digit OTP required');
+        return false;
+      }
+
+      fetch('/api/register/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, otp })
+      })
+      .then(res => {
+        return res.json().then(data => {
+          if (!res.ok) throw new Error(data.message || 'OTP verification failed');
+          return data;
+        });
+      })
+      .then(data => {
+        if (data.success) {
+          alert('Registration successful! You can now login.');
+          window.location.href = './login.html';
+        } else {
+          alert('Error: ' + (data.message || 'Unknown error'));
+        }
+      })
+      .catch(err => {
+        alert(err.message || 'Registration failed');
+      });
+
+      return false;
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619/face_mesh.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@1.0.6/dist/face-landmarks-detection.min.js"></script>
+  <script src="../pwa-init.js"></script>
+  <script src="../face-verification.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ & User Guide - JanaSeva | Help & Support</title>
+  <link rel="stylesheet" href="../sw.css">
+  <style>
+    .help-page-container { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+    .help-page-title { font-size: 2rem; color: #1e3a5f; margin-bottom: 8px; font-weight: 600; }
+    .help-page-subtitle { color: #666; margin-bottom: 32px; }
+    .help-toc { background: #f0f4f8; padding: 20px; border-radius: 8px; margin-bottom: 40px; }
+    .help-toc h3 { color: #1e3a5f; margin: 0 0 12px; font-size: 1.1rem; }
+    .help-toc a { color: #1e3a5f; text-decoration: none; display: block; padding: 6px 0; }
+    .help-toc a:hover { text-decoration: underline; }
+    .faq-block { margin-bottom: 32px; }
+    .faq-block h2 { color: #1e3a5f; font-size: 1.4rem; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #1e3a5f; }
+    .faq-item { margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; background: #fff; }
+    .faq-q { padding: 14px 18px; font-weight: 600; color: #333; cursor: pointer; background: #fafafa; }
+    .faq-q:hover { background: #f0f4f8; }
+    .faq-a { padding: 14px 18px; color: #555; line-height: 1.6; border-top: 1px solid #e0e0e0; }
+    .guide-block { margin-bottom: 36px; }
+    .guide-block h2 { color: #1e3a5f; font-size: 1.4rem; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #1e3a5f; }
+    .guide-steps { list-style: none; padding: 0; margin: 0; }
+    .guide-steps li { padding: 10px 0 10px 28px; position: relative; color: #444; line-height: 1.6; border-bottom: 1px solid #eee; }
+    .guide-steps li::before { content: attr(data-step); position: absolute; left: 0; font-weight: 700; color: #1e3a5f; }
+    .guide-link { color: #1e3a5f; font-weight: 600; text-decoration: none; }
+    .guide-link:hover { text-decoration: underline; }
+    .back-to-home { display: inline-block; margin-bottom: 24px; color: #1e3a5f; text-decoration: none; font-weight: 600; }
+    .back-to-home:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="../image/emblem.png" alt="Logo">
+      <div class="logo-text">
+        <b>JanaSeva</b>
+        <span class="tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <div class="navcont">
+      <a href="./home.html">ಮುಖಪುಟ | Home</a>
+      <a href="./history.html">ಇತಿಹಾಸ | History</a>
+      <a href="./help.html#faq">ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳು | FAQ</a>
+      <a href="./help.html#user-guide">ಬಳಕೆದಾರ ಮಾರ್ಗದರ್ಶಿ | User Guide</a>
+      <a href="#" id="logout-link">ಲಾಗ್‌ಔಟ್ | Logout</a>
+    </div>
+  </div>
+
+  <div class="help-section">
+    <div class="section-container">
+      <div class="help-page-container">
+        <a href="./home.html" class="back-to-home">ಮುಖಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ | Back to Home</a>
+        <h1 class="help-page-title">ಸಹಾಯ ಮತ್ತು ಬೆಂಬಲ | Help & Support</h1>
+        <p class="help-page-subtitle">ಎಲ್ಲಾ ಸೇವೆಗಳಿಗಾಗಿ ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳು ಮತ್ತು ಬಳಕೆದಾರ ಮಾರ್ಗದರ್ಶಿ | Frequently Asked Questions and User Guide for all services.</p>
+
+        <nav class="help-toc">
+          <h3>ಈ ಪುಟದಲ್ಲಿ | On this page</h3>
+          <a href="#faq">ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳು | Frequently Asked Questions</a>
+          <a href="#faq-general">ಸಾಮಾನ್ಯ ಮತ್ತು ಮುಖಪುಟ | General & Home</a>
+          <a href="#faq-login">ಲಾಗಿನ್ ಮತ್ತು ಖಾತೆ | Login & Account</a>
+          <a href="#faq-search">ಹುಡುಕಾಟ | Search</a>
+          <a href="#faq-history">ಅರ್ಜಿಗಳ ಇತಿಹಾಸ | Application History</a>
+          <a href="#faq-services">ಸೇವೆಗಳು (Aadhaar, PAN, Passport ಇತ್ಯಾದಿ) | Services (Aadhaar, PAN, Passport, etc.)</a>
+          <a href="#user-guide">ಬಳಕೆದಾರ ಮಾರ್ಗದರ್ಶಿ | User Guide</a>
+          <a href="#guide-search">ಹುಡುಕಾಟವನ್ನು ಹೇಗೆ ಬಳಸುವುದು | How to use Search</a>
+          <a href="#guide-services">ಪ್ರತಿ ಸೇವೆಗೆ ಹೇಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸುವುದು | How to apply for each service</a>
+        </nav>
+
+        <!-- FAQ -->
+        <section id="faq" class="faq-block">
+          <h2>ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳು | Frequently Asked Questions</h2>
+
+          <div id="faq-general" class="faq-block">
+            <h2>ಸಾಮಾನ್ಯ ಮತ್ತು ಮುಖಪುಟ | General & Home</h2>
+            <div class="faq-item">
+              <div class="faq-q">ಏನು ಇದು? | What is JanaSeva portal?</div>
+              <div class="faq-a">JanaSeva ಪ್ರಮುಖ ಸರ್ಕಾರಿ ದಾಖಲೆ/ಸೇವೆಗಳ ಮಾಹಿತಿಗೆ ಮತ್ತು ಅರ್ಜಿಗೆ ಒಂದೇ ವೇದಿಕೆ; ಇಲ್ಲಿ ಇತಿಹಾಸ ಮತ್ತು ಅಧಿಕೃತ ಲಿಂಕ್‌ಗಳನ್ನೂ ನೋಡಬಹುದು | JanaSeva is a single window to access information and apply for key government documents and services, with application history and official links.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">ಮುಖಪುಟವನ್ನು ಹೇಗೆ ಬಳಸುವುದು? | How do I navigate the home page?</div>
+              <div class="faq-a">ಮೇಲಿನ ನಾವಿಗೇಷನ್‌ನಲ್ಲಿ Home, History, Help ಬಳಸಿ. ಹುಡುಕಾಟದ ಮೂಲಕ ಸೇವೆ ಹುಡುಕಿ, Quick Access ಮೂಲಕ History/Services/Help/Official Websites ತೆರೆಯಬಹುದು | Use top navigation and search to find services, and Quick Access cards for History, Services, Help, and Official Websites.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">ಅಧಿಕೃತ ಸರ್ಕಾರಿ ವೆಬ್‌ಸೈಟ್‌ಗಳು ಎಲ್ಲಿವೆ? | Where can I find official government websites?</div>
+              <div class="faq-a">ಮುಖಪುಟದ "Official Government Websites" ವಿಭಾಗದಲ್ಲಿ ಅಥವಾ Quick Access ನ "Official Websites" ಕಾರ್ಡ್‌ನಲ್ಲಿ UIDAI, PAN, Passport Seva, NVSP, Parivahan, NFSA ಮತ್ತು Nadakacheri ಲಿಂಕ್‌ಗಳು ಲಭ್ಯ | You can find UIDAI, PAN, Passport Seva, NVSP, Parivahan, NFSA and Nadakacheri links in the Official Websites section.</div>
+            </div>
+          </div>
+
+          <div id="faq-login" class="faq-block">
+            <h2>ಲಾಗಿನ್ ಮತ್ತು ಖಾತೆ | Login & Account</h2>
+            <div class="faq-item">
+              <div class="faq-q">ಪೋರ್ಟಲ್ ಬಳಸಲು ಲಾಗಿನ್ ಅಗತ್ಯವೇ? | Do I need to log in to use the portal?</div>
+              <div class="faq-a">ಹೌದು. ಸೇವೆಗಳು ಬಳಸಲು login ಅಗತ್ಯ; ಸೆಶನ್ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಉಳಿಯುತ್ತದೆ. ಕೆಲಸ ಮುಗಿದ ಮೇಲೆ Logout ಬಳಸಿ | Yes, login is required; session is stored in browser, and you should logout after use.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">ಲಾಗ್‌ಔಟ್ ಹೇಗೆ ಮಾಡುವುದು? | How do I log out?</div>
+              <div class="faq-a">ಮೇಲಿನ ನಾವಿಗೇಷನ್‌ನ "Logout" ಒತ್ತಿ ಮತ್ತು ದೃಢೀಕರಿಸಿ; ನಂತರ login ಪುಟಕ್ಕೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ | Click Logout in top navigation, confirm, and you will be redirected to login page.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">ಲಾಗಿನ್ ವಿವರ ಮರೆತಿದ್ದರೆ ಏನು ಮಾಡಬೇಕು? | I forgot my credentials. What do I do?</div>
+              <div class="faq-a">ಖಾತೆ ಮರುಪಡೆಯಲು support ಅನ್ನು ಸಂಪರ್ಕಿಸಿ: JanaSevaIndia@gov.in / 1800-XXX-XXXX | For account recovery, contact support at JanaSevaIndia@gov.in or 1800-XXX-XXXX.</div>
+            </div>
+          </div>
+
+          <div id="faq-search" class="faq-block">
+            <h2>ಹುಡುಕಾಟ | Search</h2>
+            <div class="faq-item">
+              <div class="faq-q">ಹುಡುಕಾಟ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ? | How does the search work?</div>
+              <div class="faq-a">ಸೇವೆಯ ಹೆಸರನ್ನು ಹುಡುಕಾಟ ಬಾಕ್ಸ್‌ನಲ್ಲಿ ಹಾಕಿ Enter/Search ಒತ್ತಿದರೆ ಸಂಬಂಧಿತ About ಪುಟಕ್ಕೆ ತೆರಳುತ್ತದೆ | Type a service name and press Enter/Search to go directly to that service's About page.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">ಏನು ಏನು ಹುಡುಕಬಹುದು? | What can I search for?</div>
+              <div class="faq-a">Aadhaar, PAN, Passport, Voter ID, Birth Certificate, Driving Licence, Ration, Caste/Income ಜೊತೆಗೆ History ಮತ್ತು Help ಕೂಡ ಹುಡುಕಬಹುದು | You can search all services, plus History and Help.</div>
+            </div>
+          </div>
+
+          <div id="faq-history" class="faq-block">
+            <h2>ಅರ್ಜಿಗಳ ಇತಿಹಾಸ | Application History</h2>
+            <div class="faq-item">
+              <div class="faq-q">Where can I see my submitted applications?</div>
+              <div class="faq-a">Click "History" in the navigation or the "Application History" Quick Access card. You will see a table of all applications with Application Number, Applicant Name, Application Type, Date, and Status.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">How do I search within my applications?</div>
+              <div class="faq-a">On the History page, use the search box to filter by application number, applicant name, application type, date, or status. The table updates as you type.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Why don't I see any applications?</div>
+              <div class="faq-a">Applications appear in History only after you submit a form (Aadhaar, PAN, Passport, Voter ID, Birth Certificate, Driving Licence, Ration Card, or Caste/Income). Data is stored in your browser (localStorage). If you clear site data, history will be lost.</div>
+            </div>
+          </div>
+
+          <div id="faq-services" class="faq-block">
+            <h2>ಸೇವೆಗಳು (Aadhaar, PAN, Passport ಇತ್ಯಾದಿ) | Services (Aadhaar, PAN, Passport, etc.)</h2>
+            <div class="faq-item">
+              <div class="faq-q">How do I apply for Aadhaar?</div>
+              <div class="faq-a">Go to Home -> Government Services -> Aadhaar Card -> Open. Read the About page, then click "Apply for Aadhaar." Fill the form with personal details, address, and upload Proof of Identity, Proof of Address, Proof of DOB, and photograph. Submit to get an application number. Biometrics are taken at an enrolment center in person.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">What documents do I need for PAN card?</div>
+              <div class="faq-a">You need Proof of Identity (Aadhaar/Voter ID/Passport etc.), Proof of Address, Proof of Date of Birth, passport-size photo, and signature. Father's name and Aadhaar (for OTP) are mandatory. Upload scanned copies as per the form.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">How do I apply for a Passport?</div>
+              <div class="faq-a">Open the Passport service from the home page. On the About page click "Apply for Passport." Fill in personal details, address, and upload identity proof, DOB proof, address proof, photograph, and signature. Submit to get an application number. Further steps may require appointment on the official Passport Seva portal.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">How do I register for Voter ID?</div>
+              <div class="faq-a">Open Voter ID from Government Services -> Open. Click Apply and fill Form 6 with your name, father's name, DOB, gender, address, and upload identity proof, age proof, address proof, and photograph. Submit to receive an application number.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">ಏನು ಇದು? | What is needed for a Birth Certificate?</div>
+              <div class="faq-a">You need the child's name, DOB, gender, place of birth, parents' names, and your contact (mobile & email). Upload proof of birth (hospital record/certificate), parents' identity proof, and address proof. Marriage certificate is optional.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">What are the requirements for Driving Licence?</div>
+              <div class="faq-a">You need personal details (name, father's name, DOB, gender, address, email), licence type, Learner's Licence details, and uploads: identity proof, address proof, age proof, photograph, and medical certificate (Form 1A) if applicable.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">How do I apply for a Ration Card?</div>
+              <div class="faq-a">Open Ration Card from the services. Fill in head of family name, phone, email, address, number of members, and Aadhaar numbers. Upload identity proof, address proof, income certificate, photographs, and bank passbook. Optional: surrender certificate, caste certificate, disability certificate.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">How do I get Caste or Income Certificate?</div>
+              <div class="faq-a">Open "Caste & Income Certificate" from the services. Choose certificate type: Caste only, Income only, or Combined. Fill applicant details, address, and for caste upload caste proof; for income fill income details and upload affidavit. Upload identity, address, DOB proof and photograph, then submit.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Where do I get my application number after submitting?</div>
+              <div class="faq-a">Right after you submit any application form, you are taken to a success page that shows your Application Number. Save it for reference. The same application also appears under History so you can find it later by searching.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- User Guide -->
+        <section id="user-guide" class="guide-block">
+          <h2>ಬಳಕೆದಾರ ಮಾರ್ಗದರ್ಶಿ | User Guide</h2>
+
+          <div id="guide-search" class="guide-block">
+            <h2>ಹುಡುಕಾಟವನ್ನು ಹೇಗೆ ಬಳಸುವುದು | How to use Search</h2>
+            <ol class="guide-steps">
+              <li data-step="1.">ಮುಖಪುಟದ ಮೇಲ್ಭಾಗದಲ್ಲಿರುವ "Search Services & Information" ಬಾಕ್ಸ್ ಅನ್ನು ಹುಡುಕಿ | On the home page, find the "Search Services & Information" box.</li>
+              <li data-step="2.">ಬೇಕಾದ ಸೇವೆಯ ಹೆಸರನ್ನು ಟೈಪ್ ಮಾಡಿ | Type the name of the service you want.</li>
+              <li data-step="3.">Enter ಒತ್ತಿ ಅಥವಾ "Search" ಕ್ಲಿಕ್ ಮಾಡಿ | Press Enter or click the "Search" button.</li>
+              <li data-step="4.">ಸಂಬಂಧಿತ About ಪುಟ ತೆರೆಯುತ್ತದೆ; ಅಲ್ಲಿಂದ "Apply" ಒತ್ತಿ | You will be taken to the service About page; click "Apply".</li>
+              <li data-step="5.">ಶೀಘ್ರ ಪ್ರವೇಶಕ್ಕಾಗಿ Trending Searches ಲಿಂಕ್‌ಗಳನ್ನು ಬಳಸಿ | Use Trending Searches links for quick access.</li>
+            </ol>
+          </div>
+
+          <div id="guide-services" class="guide-block">
+            <h2>ಪ್ರತಿ ಸೇವೆಗೆ ಹೇಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸುವುದು | How to apply for each service</h2>
+            <p style="color:#555; margin-bottom:16px;">ಎಲ್ಲಾ ಸೇವೆಗಳಲ್ಲೂ ಹಂತಗಳು ಒಂದೇ: Service Open -> About ಓದಿ -> Apply -> Form ಭರ್ತಿ & ದಾಖಲೆ ಅಪ್‌ಲೋಡ್ -> Submit | For every service, steps are similar: Open service, read About, click Apply, fill form, upload documents, and submit.</p>
+
+            <ul class="guide-steps" style="list-style:none;">
+              <li data-step="•"> <strong>ಆಧಾರ್ | Aadhaar:</strong> <a href="./aadhar/aadharAbout.html" class="guide-link">ಆಧಾರ್ ತೆರೆಯಿರಿ | Open Aadhaar</a>  -  ವೈಯಕ್ತಿಕ ವಿವರಗಳು, ವಿಳಾಸ, ದಾಖಲೆಗಳು ನೀಡಿ ಸಲ್ಲಿಸಿ | Fill details, upload proofs, and submit.</li>
+              <li data-step="•"> <strong>ಪಾನ್ ಕಾರ್ಡ್ | PAN Card:</strong> <a href="./pan/panAbout.html" class="guide-link">ಪಾನ್ ತೆರೆಯಿರಿ | Open PAN</a>  -  Form 49A ಭರ್ತಿ ಮಾಡಿ ದಾಖಲೆ/ಫೋಟೋ/ಸಹಿ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ | Fill Form 49A and upload required documents.</li>
+              <li data-step="•"> <strong>ಪಾಸ್‌ಪೋರ್ಟ್ | Passport:</strong> <a href="./passport/passportAbout.html" class="guide-link">ಪಾಸ್‌ಪೋರ್ಟ್ ತೆರೆಯಿರಿ | Open Passport</a>  -  ವೈಯಕ್ತಿಕ ವಿವರಗಳು ಮತ್ತು ಅಗತ್ಯ ದಾಖಲೆಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ | Fill details and upload required documents.</li>
+              <li data-step="•"> <strong>ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ | Voter ID:</strong> <a href="./voterid/voteridAbout.html" class="guide-link">Voter ID ತೆರೆಯಿರಿ | Open Voter ID</a>  -  Form 6 ಭರ್ತಿ ಮಾಡಿ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ | Fill Form 6 and upload proofs.</li>
+              <li data-step="•"> <strong>ಜನನ ಪ್ರಮಾಣಪತ್ರ | Birth Certificate:</strong> <a href="./birthcertificate/birthAbout.html" class="guide-link">ಜನನ ಪ್ರಮಾಣಪತ್ರ ತೆರೆಯಿರಿ | Open Birth Certificate</a>  -  ಮಗು/ಪೋಷಕರ ವಿವರಗಳು ಮತ್ತು ಪುರಾವೆ ನೀಡಿ | Submit child/parent details with required proofs.</li>
+              <li data-step="•"> <strong>ಚಾಲನಾ ಪರವಾನಗಿ | Driving Licence:</strong> <a href="./drivinglicense/drivinglicenseAbout.html" class="guide-link">ಚಾಲನಾ ಪರವಾನಗಿ ತೆರೆಯಿರಿ | Open Driving Licence</a>  -  ವಿವರಗಳು, LL ಮಾಹಿತಿ ಮತ್ತು ದಾಖಲೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ | Fill details, LL info, and upload documents.</li>
+              <li data-step="•"> <strong>ರೇಷನ್ ಕಾರ್ಡ್ | Ration Card:</strong> <a href="./ration/rationcardAbout.html" class="guide-link">ರೇಷನ್ ಕಾರ್ಡ್ ತೆರೆಯಿರಿ | Open Ration Card</a>  -  ಕುಟುಂಬ ವಿವರಗಳು ಮತ್ತು ಅಗತ್ಯ ಪುರಾವೆಗಳನ್ನು ಸಲ್ಲಿಸಿ | Submit household details and required proofs.</li>
+              <li data-step="•"> <strong>ಜಾತಿ / ಆದಾಯ ಪ್ರಮಾಣಪತ್ರ | Caste / Income Certificate:</strong> <a href="./casteincome/casteincomeAbout.html" class="guide-link">ಜಾತಿ & ಆದಾಯ ತೆರೆಯಿರಿ | Open Caste & Income</a>  -  Caste/Income/Combined ಆಯ್ಕೆ ಮಾಡಿ ಅಗತ್ಯ ದಾಖಲೆಗಳೊಂದಿಗೆ ಸಲ್ಲಿಸಿ | Choose type and submit with required proofs.</li>
+            </ul>
+          </div>
+
+          <div class="guide-block">
+            <h2>ಅರ್ಜಿಗಳ ಇತಿಹಾಸ ವೀಕ್ಷಣೆ | Viewing Application History</h2>
+            <ol class="guide-steps">
+              <li data-step="1.">Click <a href="./history.html" class="guide-link">ಇತಿಹಾಸ | History</a> in the navigation or the Application History Quick Access card.</li>
+              <li data-step="2.">ಪಟ್ಟಿಯಲ್ಲಿ ನಿಮ್ಮ ಎಲ್ಲಾ ಅರ್ಜಿಗಳ ಸಂಖ್ಯೆ, ಹೆಸರು, ಪ್ರಕಾರ, ದಿನಾಂಕ, ಸ್ಥಿತಿ ಕಾಣಿಸುತ್ತದೆ | The table lists all submitted applications with number, name, type, date, and status.</li>
+              <li data-step="3.">History ಪುಟದ ಹುಡುಕಾಟದ ಮೂಲಕ ಸಂಖ್ಯೆ/ಹೆಸರು/ಪ್ರಕಾರ/ಸ್ಥಿತಿ ಆಧಾರವಾಗಿ ಫಿಲ್ಟರ್ ಮಾಡಬಹುದು | Use the History search box to filter by number, name, type, or status.</li>
+            </ol>
+          </div>
+        </section>
+
+        <p style="margin-top:40px; color:#666; font-size:0.95rem;">ಹೆಚ್ಚಿನ ಸಹಾಯಕ್ಕಾಗಿ ಸಂಪರ್ಕಿಸಿ | For further support, contact: JanaSevaIndia@gov.in | 1800-XXX-XXXX (ಸೋಮ - ಶನಿ, 9 AM - 6 PM | Mon - Sat, 9 AM - 6 PM).</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="ogd-footer">
+    <div class="footer-bottom">
+      © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('logout-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      if (confirm('ನೀವು ಲಾಗ್‌ಔಟ್ ಮಾಡಲು ಖಚಿತವೇ? | Are you sure you want to logout?')) {
+        localStorage.removeItem('username');
+        alert('ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಲಾಗ್‌ಔಟ್ ಆಗಿದ್ದೀರಿ | You have successfully logged out!');
+        window.location.href = './login.html';
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

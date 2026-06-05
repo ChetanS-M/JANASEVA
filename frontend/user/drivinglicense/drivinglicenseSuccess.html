@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driving Licence Application Submitted | JanaSeva</title>
+  <link rel="stylesheet" href="../../portal.css">
+</head>
+<body class="portal-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="../home.html">ಮುಖಪುಟ | Home</a>
+      <a href="../history.html">ಇತಿಹಾಸ | History</a>
+    </nav>
+  </header>
+
+  <main class="portal-main">
+    <div class="portal-card">
+      <div class="portal-success-box">
+        <h2>ಅರ್ಜಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ | Application Submitted Successfully</h2>
+        <p><strong>ನಿಮ್ಮ ಅರ್ಜಿ ಸಂಖ್ಯೆ | Your Application Number:</strong></p>
+        <p id="appNumber" class="app-number"> - </p>
+        <p class="portal-note">ದಯವಿಟ್ಟು ಈ ಸಂಖ್ಯೆಯನ್ನು ಭವಿಷ್ಯದ ಉಲ್ಲೇಖಕ್ಕಾಗಿ ಉಳಿಸಿ | Please save this number for future reference.</p>
+        <div class="portal-btn-row" style="justify-content:center;">
+          <button type="button" onclick="window.location.href='../home.html'" class="portal-btn portal-btn-primary">ಮುಖಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ | Back to Home</button>
+          <button type="button" onclick="window.location.href='../history.html'" class="portal-btn portal-btn-secondary">ಇತಿಹಾಸ ನೋಡಿ | View History</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+  </footer>
+  <script>
+    document.getElementById('appNumber').textContent = localStorage.getItem('drivinglicenseApplicationNumber') || 'Not found';
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

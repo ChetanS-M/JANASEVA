@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ಅರ್ಜಿಗಳ ಇತಿಹಾಸ | Application History - JanaSeva</title>
+  <link rel="stylesheet" href="../sw.css" />
+  <style>
+    body {
+      background-color: #f5f5f5;
+    }
+    .history-container {
+      max-width: 1200px;
+      margin: 100px auto 40px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      padding: 40px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .history-header h2 {
+      margin: 0;
+      font-size: 2rem;
+      color: #1e3a5f;
+      font-weight: 600;
+    }
+    .search-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .search-group label {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .search-group input {
+      padding: 10px 15px;
+      border-radius: 6px;
+      border: 2px solid #e0e0e0;
+      min-width: 250px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    .search-group input:focus {
+      outline: none;
+      border-color: #1e3a5f;
+    }
+    .history-table-wrapper {
+      margin-top: 12px;
+      overflow-x: auto;
+    }
+    table.history-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    table.history-table thead {
+      background: #1e3a5f;
+      color: white;
+    }
+    table.history-table th {
+      font-weight: 600;
+      padding: 15px 12px;
+    }
+    table.history-table th,
+    table.history-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: left;
+      white-space: nowrap;
+    }
+    table.history-table tbody tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    table.history-table tbody tr:hover {
+      background: #f0f0f0;
+      transition: background 0.2s;
+    }
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .status-pending {
+      background: #fff4e5;
+      color: #a15800;
+    }
+    .status-approved {
+      background: #e6f7ec;
+      color: #157347;
+    }
+    .status-rejected {
+      background: #fdeaea;
+      color: #b02a37;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 18px 0 4px;
+      color: #777;
+      font-size: 0.95rem;
+    }
+    .view-btn {
+      border: none;
+      border-radius: 6px;
+      background: #1e3a5f;
+      color: #fff;
+      padding: 7px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .view-btn:hover {
+      background: #163050;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">
+      <img src="../image/emblem.png" alt="Logo" />
+      <b>JanaSeva</b>
+    </div>
+    <div class="navcont">
+      <a href="./home.html">ಮುಖಪುಟ | Home</a>
+      <a href="./history.html">ಇತಿಹಾಸ | History</a>
+      <a href="#" id="logout-link">ಲಾಗ್‌ಔಟ್ | Logout</a>
+    </div>
+  </div>
+
+  <div class="history-container">
+    <div class="history-header">
+      <h2>ಅರ್ಜಿಗಳ ಇತಿಹಾಸ | Application History</h2>
+      <div class="search-group">
+        <label for="search-input">ಹುಡುಕಿ (ಸಂಖ್ಯೆ, ಹೆಸರು, ಪ್ರಕಾರ) | Search (by number, name, type):</label>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="ಅರ್ಜಿಗಳನ್ನು ಹುಡುಕಿ... | Search applications..."
+        />
+      </div>
+    </div>
+
+    <div id="empty-state" class="empty-state" style="display: none;">
+      ಇನ್ನೂ ಯಾವುದೇ ಅರ್ಜಿಗಳು ಕಂಡುಬಂದಿಲ್ಲ. ಇಲ್ಲಿ ನೋಡಲು ಮೊದಲು ಅರ್ಜಿ ಸಲ್ಲಿಸಿ. | No applications found yet. Submit an application to see it here.
+    </div>
+
+    <div class="history-table-wrapper">
+      <table class="history-table" id="history-table">
+        <thead>
+          <tr>
+            <th>ಅರ್ಜಿ ಸಂಖ್ಯೆ | Application No.</th>
+            <th>ಅರ್ಜಿದಾರರ ಹೆಸರು | Applicant Name</th>
+            <th>ಅರ್ಜಿ ಪ್ರಕಾರ | Application Type</th>
+            <th>ಅರ್ಜಿ ದಿನಾಂಕ | Application Date</th>
+            <th>ಸ್ಥಿತಿ | Status</th>
+            <th>ವೀಕ್ಷಿಸಿ | View</th>
+          </tr>
+        </thead>
+        <tbody id="history-tbody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="ogd-footer" style="margin-top:40px;">
+    <div class="footer-bottom">
+      © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    function loadApplications() {
+      return fetch('/api/applications')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.applications) {
+            return data.applications.map(app => ({
+              applicationNumber: app.application_number,
+              applicantName: app.applicant_name,
+              applicationType: app.application_type,
+              applicationDate: app.application_date,
+              status: app.status
+            }));
+          }
+          return [];
+        })
+        .catch(err => {
+          console.error('Error loading applications:', err);
+          const raw = localStorage.getItem('applicationsHistory');
+          if (!raw) return [];
+          try {
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
+          } catch (e) {
+            return [];
+          }
+        });
+    }
+
+    function getStatusClass(status) {
+      if (!status) return 'status-pill';
+      const s = status.toLowerCase();
+      if (s === 'approved') return 'status-pill status-approved';
+      if (s === 'rejected') return 'status-pill status-rejected';
+      return 'status-pill status-pending';
+    }
+
+    function renderTable(applications) {
+      const tbody = document.getElementById('history-tbody');
+      const emptyState = document.getElementById('empty-state');
+
+      tbody.innerHTML = '';
+
+      if (!applications.length) {
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+
+      applications.forEach(app => {
+        const tr = document.createElement('tr');
+        const appNo = app.applicationNumber || '';
+        const appType = app.applicationType || '';
+        tr.innerHTML = `
+          <td>${appNo || '-'}</td>
+          <td>${app.applicantName || '-'}</td>
+          <td>${appType || '-'}</td>
+          <td>${app.applicationDate || '-'}</td>
+          <td><span class="${getStatusClass(app.status)}">${app.status || 'ಬಾಕಿ | Pending'}</span></td>
+          <td>
+            ${appNo ? `<button class="view-btn" data-app-no="${appNo}" data-app-type="${appType}">View PDF</button>` : '-'}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      tbody.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const number = encodeURIComponent(btn.getAttribute('data-app-no') || '');
+          const type = encodeURIComponent(btn.getAttribute('data-app-type') || '');
+          if (!number) return;
+          window.location.href = `./applicationView.html?applicationNumber=${number}&type=${type}`;
+        });
+      });
+    }
+
+    function setupSearch(allApplications) {
+      const searchInput = document.getElementById('search-input');
+      searchInput.addEventListener('input', () => {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) {
+          renderTable(allApplications);
+          return;
+        }
+
+        const filtered = allApplications.filter(app => {
+          const fields = [
+            app.applicationNumber,
+            app.applicantName,
+            app.applicationType,
+            app.applicationDate,
+            app.status
+          ];
+          return fields.some(field =>
+            (field || '').toString().toLowerCase().includes(query)
+          );
+        });
+
+        renderTable(filtered);
+      });
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+
+    function increaseTextSize() {
+      const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+      document.body.style.fontSize = (currentSize + 2) + 'px';
+    }
+
+    function decreaseTextSize() {
+      const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+      if (currentSize > 12) {
+        document.body.style.fontSize = (currentSize - 2) + 'px';
+      }
+    }
+
+    function resetTextSize() {
+      document.body.style.fontSize = '';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!localStorage.getItem('username')) {
+        window.location.href = './login.html';
+        return;
+      }
+      const logoutLink = document.getElementById('logout-link');
+      const logoutLinkTop = document.getElementById('logout-link-top');
+      
+      function handleLogout(e) {
+        e.preventDefault();
+        const confirmLogout = confirm('ನೀವು ಲಾಗ್‌ಔಟ್ ಮಾಡಲು ಖಚಿತವೇ? | Are you sure you want to logout?');
+        if (confirmLogout) {
+          localStorage.removeItem('username');
+          alert('ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಲಾಗ್‌ಔಟ್ ಆಗಿದ್ದೀರಿ | You have successfully logged out!');
+          window.location.href = './login.html';
+        }
+      }
+
+      if (logoutLink) logoutLink.addEventListener('click', handleLogout);
+      if (logoutLinkTop) logoutLinkTop.addEventListener('click', handleLogout);
+
+      loadApplications().then(applications => {
+        renderTable(applications);
+        setupSearch(applications);
+      });
+
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,274 @@
+/* Official Portal Styling - India Govt Portal inspired */
+* { box-sizing: border-box; }
+
+.portal-body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f4f8;
+  min-height: 100vh;
+  color: #333;
+}
+
+.portal-header {
+  background: #1e3a5f;
+  color: white;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.portal-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.portal-logo img {
+  height: 42px;
+  width: auto;
+}
+
+.portal-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.portal-logo-text b {
+  font-size: 1.35rem;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.portal-tagline {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.9);
+  font-weight: normal;
+  margin-top: 2px;
+}
+
+.portal-nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.portal-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.portal-nav a:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.portal-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.portal-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  padding: 32px;
+  margin-bottom: 24px;
+  border: 1px solid #e5e9ed;
+}
+
+.portal-title {
+  color: #1e3a5f;
+  font-size: 1.6rem;
+  margin: 0 0 8px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.portal-subtitle {
+  text-align: center;
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+}
+
+.portal-section {
+  margin-bottom: 24px;
+}
+
+.portal-section h3 {
+  color: #1e3a5f;
+  font-size: 1.1rem;
+  margin: 0 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #1e3a5f;
+  font-weight: 600;
+}
+
+.portal-form label {
+  display: block;
+  font-weight: 600;
+  color: #444;
+  margin: 12px 0 6px;
+  font-size: 0.95rem;
+}
+
+.portal-form input[type="text"],
+.portal-form input[type="email"],
+.portal-form input[type="tel"],
+.portal-form input[type="date"],
+.portal-form input[type="number"],
+.portal-form input[type="file"],
+.portal-form select,
+.portal-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #d0d7de;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.portal-form input:focus,
+.portal-form select:focus,
+.portal-form textarea:focus {
+  outline: none;
+  border-color: #1e3a5f;
+}
+
+.portal-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.portal-btn-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.portal-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.portal-btn-primary {
+  background: #1e3a5f;
+  color: white;
+  flex: 1;
+  min-width: 140px;
+}
+
+.portal-btn-primary:hover {
+  background: #152536;
+  transform: translateY(-1px);
+}
+
+.portal-btn-secondary {
+  background: #5c6b7a;
+  color: white;
+}
+
+.portal-btn-secondary:hover {
+  background: #4a5763;
+}
+
+.portal-footer {
+  background: #1e3a5f;
+  color: rgba(255,255,255,0.9);
+  text-align: center;
+  padding: 16px 20px;
+  font-size: 0.85rem;
+  margin-top: 32px;
+}
+
+.portal-footer a {
+  color: white;
+  text-decoration: none;
+}
+
+.portal-success-box {
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.portal-success-box h2 {
+  color: #157347;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+}
+
+.portal-success-box .app-number {
+  color: #1e3a5f;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 12px 0;
+  letter-spacing: 1px;
+}
+
+.portal-note {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+  .portal-header { padding: 10px 16px; }
+  .portal-main { padding: 20px 16px; }
+  .portal-card { padding: 20px; }
+}
+
+/* Face Verification Styles */
+.face-verification-section, .face-capture-section, .face-login-section {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+  background: #f9f9f9;
+}
+
+.face-verification-section h3, .face-capture-section h4 {
+  margin: 0 0 8px 0;
+  color: #1e3a5f;
+  font-size: 1rem;
+}
+
+.face-verification-section p, .face-capture-section p {
+  margin: 0 0 12px 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+#face-video {
+  display: block;
+  margin: 0 auto 8px auto;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+}
+
+.face-verification-section button, .face-capture-section button, .face-login-section button {
+  width: 100%;
+  margin: 8px 0;
+}
+
+#face-capture-status, #face-verification-status, #verification-result {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}

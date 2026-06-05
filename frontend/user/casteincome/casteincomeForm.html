@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caste & Income Certificate Application - JanaSeva | ಭಾರತದ ರಾಷ್ಟ್ರೀಯ ಪೋರ್ಟಲ್ | National Portal of India</title>
+  <link rel="stylesheet" href="../../portal.css">
+</head>
+<body class="portal-body">
+  <header class="portal-header">
+    <div class="portal-logo">
+      <img src="../../image/emblem.png" alt="Government of India">
+      <div class="portal-logo-text">
+        <b>JanaSeva</b>
+        <span class="portal-tagline">ಸರ್ಕಾರಿ ಸೇವೆಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ | Where Government Services Converge</span>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <a href="../home.html">ಮುಖಪುಟ | Home</a>
+      <a href="../history.html">ಇತಿಹಾಸ | History</a>
+      <a href="casteincomeAbout.html">ಬಗ್ಗೆ | About</a>
+    </nav>
+  </header>
+
+  <main class="portal-main">
+    <div class="portal-card">
+      <h1 class="portal-title">ಜಾತಿ / ಆದಾಯ ಪ್ರಮಾಣಪತ್ರಕ್ಕೆ ಅರ್ಜಿ | Apply for Caste / Income Certificate</h1>
+      <p class="portal-subtitle">* ಗುರುತು ಇರುವ ಎಲ್ಲಾ ಕ್ಷೇತ್ರಗಳು ಕಡ್ಡಾಯ | All fields marked * are mandatory.</p>
+
+      <form id="certForm" class="portal-form" onsubmit="submitForm(event)">
+
+  <!-- Certificate Type -->
+  <h3 style="color:#003366;">ಪ್ರಮಾಣಪತ್ರದ ಪ್ರಕಾರ | Certificate Type</h3>
+  <select id="certType" name="cert_type" required onchange="toggleIncomeFields()" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+    <option value="">ಪ್ರಮಾಣಪತ್ರದ ಪ್ರಕಾರ ಆಯ್ಕೆಮಾಡಿ | Select type of certificate</option>
+    <option value="Caste">ಜಾತಿ ಪ್ರಮಾಣಪತ್ರ ಮಾತ್ರ | Caste Certificate only</option>
+    <option value="Income">ಆದಾಯ ಪ್ರಮಾಣಪತ್ರ ಮಾತ್ರ | Income Certificate only</option>
+    <option value="Combined">ಸಂಯುಕ್ತ (ಜಾತಿ ಮತ್ತು ಆದಾಯ) ಪ್ರಮಾಣಪತ್ರ | Combined (Caste & Income) Certificate</option>
+  </select>
+
+  <!-- Applicant Details -->
+  <h3 style="color:#003366;">ಅರ್ಜಿದಾರರ ವಿವರಗಳು | Applicant Details</h3>
+  <label>ಪೂರ್ಣ ಹೆಸರು (ಶಾಲೆ/ದಾಖಲೆಗಳಂತೆ) | Full Name (as in school/records)</label>
+  <input type="text" id="fullName" name="full_name" required style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <label>ತಂದೆಯ ಹೆಸರು | Father's Name</label>
+  <input type="text" id="fatherName" name="father_name" required style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <label>ತಾಯಿಯ ಹೆಸರು | Mother's Name</label>
+  <input type="text" id="motherName" name="mother_name" required style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <label>ಜನ್ಮ ದಿನಾಂಕ | Date of Birth</label>
+  <input type="date" id="dob" name="dob" required style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <label>ಲಿಂಗ | Gender</label>
+  <select id="gender" name="gender" required style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+    <option value="">ಆಯ್ಕೆಮಾಡಿ | Select</option>
+    <option value="Male">ಪುರುಷ | Male</option>
+    <option value="Female">ಮಹಿಳೆ | Female</option>
+    <option value="Other">ಇತರೆ | Other</option>
+  </select>
+
+  <label>ಧರ್ಮ | Religion</label>
+  <input type="text" id="religion" name="religion" required placeholder="ಉದಾ: ಹಿಂದೂ, ಮುಸ್ಲಿಂ, ಕ್ರಿಶ್ಚಿಯನ್ | e.g. Hindu, Muslim, Christian" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <!-- Caste fields (for Caste or Combined) -->
+  <div id="casteFields" style="display:none;">
+    <label>ಜಾತಿ / ಸಮುದಾಯದ ಹೆಸರು | Caste / Community Name</label>
+    <input type="text" id="casteName" name="caste_name" placeholder="ಉದಾ: SC, ST, OBC ವರ್ಗದ ಹೆಸರು | e.g. SC, ST, OBC category name" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+    <label>ಉಪಜಾತಿ (ಇದ್ದರೆ) | Sub-caste (if any)</label>
+    <input type="text" id="subCaste" name="sub_caste" placeholder="ಐಚ್ಛಿಕ | Optional" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+  </div>
+
+  <!-- Permanent Address -->
+  <h3 style="color:#003366;">ಶಾಶ್ವತ ವಿಳಾಸ | Permanent Address</h3>
+  <label>ಮನೆ ಸಂಖ್ಯೆ / ಕಟ್ಟಡ / ರಸ್ತೆ | House No. / Building / Street</label>
+  <input type="text" id="addrLine1" name="perm_address" required style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <label>ಗ್ರಾಮ / ಪಟ್ಟಣ / ಪ್ರದೇಶ | Village / Town / Locality</label>
+  <input type="text" id="village" required style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <label>ಜಿಲ್ಲೆ | District</label>
+  <input type="text" id="district" required style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <label>ರಾಜ್ಯ | State</label>
+  <input type="text" id="state" required style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <label>ಪಿನ್ ಕೋಡ್ | PIN Code</label>
+  <input type="text" id="pincode" required pattern="[0-9]{6}" placeholder="6 ಅಂಕಿಯ ಪಿನ್ | 6-digit PIN" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <label style="display:flex; align-items:center; gap:8px; margin:10px 0;">
+    <input type="checkbox" id="sameAddress" onchange="copyAddress()"> ಪ್ರಸ್ತುತ ವಿಳಾಸ ಶಾಶ್ವತ ವಿಳಾಸದಂತೆಯೇ | Present address same as permanent
+  </label>
+
+  <div id="presentAddressBlock" style="display:none;">
+    <h3 style="color:#003366;">ಪ್ರಸ್ತುತ ವಿಳಾಸ | Present Address</h3>
+    <label>ಮನೆ ಸಂಖ್ಯೆ / ರಸ್ತೆ | House No. / Street</label>
+    <input type="text" id="presentAddr" name="present_address" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+    <label>ಗ್ರಾಮ / ಪಟ್ಟಣ | Village / Town</label>
+    <input type="text" id="presentVillage" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+    <label>ಜಿಲ್ಲೆ, ರಾಜ್ಯ, ಪಿನ್ | District, State, PIN</label>
+    <input type="text" id="presentDistStatePin" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+  </div>
+
+  <!-- Contact -->
+  <label>ಮೊಬೈಲ್ ಸಂಖ್ಯೆ | Mobile Number</label>
+  <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" placeholder="10 ಅಂಕಿಯ ಮೊಬೈಲ್ | 10-digit mobile" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <div class="portal-otp-section" style="margin:10px 0; padding:12px; border:1px solid #cfcfcf; border-radius:8px; background:#f7f8fa;">
+    <label style="display:block; font-weight:700; margin-bottom:6px;">OTP Verification</label>
+    <button type="button" id="sendOtpButton" class="portal-btn portal-btn-secondary" style="width:100%; margin-bottom:8px;">Send Demo OTP</button>
+    <div id="otpStatus" style="font-size:0.95rem; color:#333; margin-bottom:8px;"></div>
+    <div id="otpRow" style="display:none;">
+      <label for="otpInput">Enter 4-digit OTP *</label>
+      <input type="text" id="otpInput" name="otp" inputmode="numeric" maxlength="4" placeholder="Enter 4-digit OTP" style="width:100%; padding:10px; margin-top:8px; border-radius:5px; border:1px solid #ccc;">
+    </div>
+  </div>
+
+  <label>ಇಮೇಲ್ ಐಡಿ | Email ID</label>
+  <input type="email" id="email" name="email" required style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+  <!-- Income fields (for Income or Combined) -->
+  <div id="incomeFields" style="display:none;">
+    <h3 style="color:#003366;">ಆದಾಯ ವಿವರಗಳು | Income Details</h3>
+    <label>ಉದ್ಯೋಗ | Occupation</label>
+    <input type="text" id="occupation" name="occupation" placeholder="ಉದಾ: ರೈತ, ಖಾಸಗಿ ಕೆಲಸ, ವ್ಯವಹಾರ | e.g. Farmer, Private Job, Business" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+    <label>ವಾರ್ಷಿಕ ಕುಟುಂಬ ಆದಾಯ (₹) | Annual Family Income (INR)</label>
+    <input type="number" id="annualIncome" name="annual_income" min="0" placeholder="ಎಲ್ಲಾ ಮೂಲಗಳಿಂದ ಒಟ್ಟು ವಾರ್ಷಿಕ ಆದಾಯ | Total annual income from all sources" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+    <label>ಆದಾಯದ ಮೂಲ (ಸಂಕ್ಷಿಪ್ತವಾಗಿ) | Source of Income (brief)</label>
+    <input type="text" id="incomeSource" name="income_source" placeholder="ಉದಾ: ಕೃಷಿ, ವೇತನ, ವ್ಯವಹಾರ | e.g. Agriculture, Salary, Business" style="width:100%; padding:10px; margin:8px 0 15px; border-radius:5px; border:1px solid #ccc;">
+
+    <label>ಆದಾಯ ಅಫಿಡವಿಟ್ / ವೇತನ ಪ್ರಮಾಣಪತ್ರ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ | Upload Income Affidavit / Salary Certificate</label>
+    <input type="file" id="incomeProof" name="income_proof_path" style="width:100%; margin:8px 0 15px;">
+  </div>
+
+  <!-- Proof of Identity -->
+  <h3 style="color:#003366;">ಗುರುತಿನ ಪುರಾವೆ | Proof of Identity</h3>
+  <select id="identityProof" name="identity_proof" required style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;">
+    <option value="">ಗುರುತಿನ ಪುರಾವೆ ಆಯ್ಕೆಮಾಡಿ | Select Identity Proof</option>
+    <option>ಆಧಾರ್ ಕಾರ್ಡ್ | Aadhaar Card</option>
+    <option>ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ | Voter ID</option>
+    <option>ಪಾಸ್‌ಪೋರ್ಟ್ | Passport</option>
+    <option>ಚಾಲನಾ ಪರವಾನಗಿ | Driving Licence</option>
+    <option>ಫೋಟೋ ಹೊಂದಿರುವ ರೇಷನ್ ಕಾರ್ಡ್ | Ration Card with Photo</option>
+  </select>
+  <label>ಗುರುತಿನ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ | Upload Identity Proof</label>
+  <input type="file" id="identityUpload" name="identity_proof" required style="width:100%; margin:8px 0 15px;">
+
+  <!-- Proof of Address -->
+  <h3 style="color:#003366;">ವಿಳಾಸದ ಪುರಾವೆ | Proof of Address</h3>
+  <select id="addressProof" name="address_proof" required style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;">
+    <option value="">ವಿಳಾಸದ ಪುರಾವೆ ಆಯ್ಕೆಮಾಡಿ | Select Address Proof</option>
+    <option>ಆಧಾರ್ ಕಾರ್ಡ್ | Aadhaar Card</option>
+    <option>ವಿದ್ಯುತ್ / ನೀರು / ಅನಿಲ ಬಿಲ್ | Electricity / Water / Gas Bill</option>
+    <option>ಬ್ಯಾಂಕ್ ಸ್ಟೇಟ್ಮೆಂಟ್ / ಪಾಸ್‌ಬುಕ್ | Bank Statement / Passbook</option>
+    <option>ಪಾಸ್‌ಪೋರ್ಟ್ | Passport</option>
+    <option>ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ | Voter ID</option>
+    <option>ರೇಷನ್ ಕಾರ್ಡ್ | Ration Card</option>
+  </select>
+  <label>ವಿಳಾಸದ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ | Upload Address Proof</label>
+  <input type="file" id="addressUpload" name="address_proof" required style="width:100%; margin:8px 0 15px;">
+
+  <!-- Proof of DOB -->
+  <h3 style="color:#003366;">ಜನ್ಮ ದಿನಾಂಕದ ಪುರಾವೆ | Proof of Date of Birth</h3>
+  <select id="dobProof" name="dob_proof" required style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;">
+    <option value="">DOB ಪುರಾವೆ ಆಯ್ಕೆಮಾಡಿ | Select DOB Proof</option>
+    <option>ಜನನ ಪ್ರಮಾಣಪತ್ರ | Birth Certificate</option>
+    <option>ಶಾಲೆ ಬಿಟ್ಟ ಪ್ರಮಾಣಪತ್ರ / 10ನೇ ತರಗತಿ ಪ್ರಮಾಣಪತ್ರ | School Leaving / 10th Certificate</option>
+    <option>ಆಧಾರ್ ಕಾರ್ಡ್ | Aadhaar Card</option>
+    <option>ಪಾಸ್‌ಪೋರ್ಟ್ | Passport</option>
+  </select>
+  <label>DOB ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ | Upload DOB Proof</label>
+  <input type="file" id="dobUpload" name="dob_proof" required style="width:100%; margin:8px 0 15px;">
+
+  <!-- Proof of Caste (for Caste or Combined) -->
+  <div id="casteProofBlock" style="display:none;">
+    <h3 style="color:#003366;">ಜಾತಿಯ ಪುರಾವೆ | Proof of Caste</h3>
+    <select id="casteProof" name="caste_proof" style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;">
+      <option value="">ಜಾತಿಯ ಪುರಾವೆ ಆಯ್ಕೆಮಾಡಿ | Select Caste Proof</option>
+      <option>ಪೋಷಕರ ಜಾತಿ ಪ್ರಮಾಣಪತ್ರ | Parent's Caste Certificate</option>
+      <option>ಶಾಲೆಯ ದಾಖಲೆ (ಜಾತಿ ಉಲ್ಲೇಖಿತ) | School Record (Caste mentioned)</option>
+      <option>ರಾಜಸ್ವ ದಾಖಲೆ | Revenue Record</option>
+      <option>ಜಾತಿ ತೋರಿಸುವ ಇತರೆ ಸರ್ಕಾರಿ ದಾಖಲೆ | Other Government document showing caste</option>
+    </select>
+    <label>ಜಾತಿಯ ಪುರಾವೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ | Upload Caste Proof</label>
+    <input type="file" id="casteProofUpload" name="caste_proof" style="width:100%; margin:8px 0 15px;">
+  </div>
+
+  <!-- Passport Photo -->
+  <h3 style="color:#003366;">ಪಾಸ್‌ಪೋರ್ಟ್ ಗಾತ್ರದ ಫೋಟೋ | Passport Size Photograph</h3>
+  <input type="file" id="photo" name="photo_path" required accept="image/*" style="width:100%; margin:8px 0 15px;">
+
+  <!-- Declaration -->
+  <label style="display:flex; align-items:flex-start; gap:8px; margin:15px 0;">
+    <input type="checkbox" id="declaration" name="declaration" value="1" required style="margin-top:4px;">
+    <span>ಮೇಲೆ ನೀಡಿದ ಮಾಹಿತಿಯು ಸತ್ಯ ಮತ್ತು ಸರಿಯಾಗಿದೆ ಎಂದು ನಾನು ಘೋಷಿಸುತ್ತೇನೆ. ತಪ್ಪು ಮಾಹಿತಿ ನೀಡಿದರೆ ಅರ್ಜಿ ರದ್ದುಪಡಿಸುವುದಕ್ಕೂ ಕಾನೂನು ಕ್ರಮಕ್ಕೂ ಒಳಪಡಬಹುದು. | I hereby declare that the information furnished above is true and correct. I understand that false information may lead to cancellation and legal action.</span>
+  </label>
+
+  <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
+    <button type="submit" style="flex:1; min-width:140px; padding:14px; background-color:#003366; color:white; border:none; border-radius:6px; font-size:16px; cursor:pointer;">ಅರ್ಜಿಯನ್ನು ಸಲ್ಲಿಸಿ | Submit Application</button>
+    <button type="button" onclick="document.getElementById('certForm').reset();" style="padding:14px 20px; background:#6c757d; color:white; border:none; border-radius:6px; cursor:pointer;">ತೆರವುಗೊಳಿಸಿ | Clear</button>
+    <button type="button" onclick="history.back();" style="padding:14px 20px; background:#6c757d; color:white; border:none; border-radius:6px; cursor:pointer;">ಹಿಂದಕ್ಕೆ | Back</button>
+  </div>
+
+</form>
+
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    © 2026 JanaSeva ಸೇವಾ ವೇದಿಕೆ | JanaSeva Service Platform. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ | All rights reserved.
+  </footer>
+
+<script src="../../application-form-helper.js"></script>
+<script>
+function toggleIncomeFields() {
+  var type = document.getElementById('certType').value;
+  var incomeDiv = document.getElementById('incomeFields');
+  var casteDiv = document.getElementById('casteFields');
+  var casteProofBlock = document.getElementById('casteProofBlock');
+  var incomeProof = document.getElementById('incomeProof');
+  var casteName = document.getElementById('casteName');
+  var casteProof = document.getElementById('casteProof');
+  var casteProofUpload = document.getElementById('casteProofUpload');
+
+  incomeDiv.style.display = (type === 'Income' || type === 'Combined') ? 'block' : 'none';
+  casteDiv.style.display = (type === 'Caste' || type === 'Combined') ? 'block' : 'none';
+  casteProofBlock.style.display = (type === 'Caste' || type === 'Combined') ? 'block' : 'none';
+
+  incomeProof.required = (type === 'Income' || type === 'Combined');
+  casteName.required = (type === 'Caste' || type === 'Combined');
+  casteProof.required = (type === 'Caste' || type === 'Combined');
+  casteProofUpload.required = (type === 'Caste' || type === 'Combined');
+}
+
+function copyAddress() {
+  var same = document.getElementById('sameAddress').checked;
+  document.getElementById('presentAddressBlock').style.display = same ? 'none' : 'block';
+  if (same) {
+    document.getElementById('presentAddr').value = '';
+    document.getElementById('presentVillage').value = '';
+    document.getElementById('presentDistStatePin').value = '';
+  }
+}
+
+function generateApplicationNumber() {
+  var year = new Date().getFullYear();
+  var randomNum = Math.floor(10000 + Math.random() * 90000);
+  return "CIC" + year + randomNum;
+}
+
+async function serializeForm(form) {
+  return window.serializeApplicationForm(form);
+}
+
+async function submitForm(event) {
+  event.preventDefault();
+  const form = document.getElementById('certForm');
+  const payload = await serializeForm(form);
+
+  fetch('/api/apply/casteincome', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(res => {
+    if (!res.ok) {
+      return res.json().then(err => Promise.reject(err));
+    }
+    return res.json();
+  })
+  .then(resp => {
+    if (resp.success) {
+      alert('ಅರ್ಜಿಯನ್ನು ಸಲ್ಲಿಸಲಾಗಿದೆ. ಉಲ್ಲೇಖ ಸಂಖ್ಯೆ | Application submitted. Reference #' + resp.application_number);
+      localStorage.setItem('casteincomeApplicationNumber', resp.application_number);
+      window.location.href = 'casteincomeSuccess.html';
+    } else {
+      const errorMsg = resp.message || (typeof resp.error === 'string' ? resp.error : JSON.stringify(resp.error)) || 'ಅಪರಿಚಿತ ದೋಷ | Unknown error';
+      alert('ದೋಷ | Error: ' + errorMsg);
+    }
+  })
+  .catch(err => {
+    console.error('Submission error:', err);
+    const errorMsg = err.message || (typeof err === 'string' ? err : (err.error?.message || JSON.stringify(err))) || 'ಸರ್ವರ್ ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. MySQL ಡೇಟಾಬೇಸ್ ಸಿದ್ಧವಾಗಿದೆಯೇ ಪರಿಶೀಲಿಸಿ. | Unable to contact server. Please check if MySQL database is set up.';
+    alert('ಸಲ್ಲಿಕೆ ವಿಫಲವಾಗಿದೆ | Submission failed: ' + errorMsg);
+  });
+}
+</script>
+<script src="../../otp-demo.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    initDemoOtp('certForm', 'mobile');
+  });
+</script>
+
+
+
+
+
+
